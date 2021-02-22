@@ -1,12 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import './index.scss';
 import App from './App';
+import { Provider as AppProvider } from "./context/AppContext";
+import { ToastProvider } from "react-toast-notifications";
 import reportWebVitals from './reportWebVitals';
+import ServiceWorkerWrapper from "./serviceworker.main";
+
+import NotFound from "./containers/NotFound/NotFound";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ServiceWorkerWrapper />
+    <ToastProvider placement="top-center">
+      <AppProvider>
+      <HashRouter>
+            <Switch>
+            <Route path="/app" component={App} />
+            {/* <Redirect from="/" to="/app" /> */}
+            <Route component={NotFound} />
+            </Switch>
+          </HashRouter>  
+      </AppProvider>
+    </ToastProvider>
+   
   </React.StrictMode>,
   document.getElementById('root')
 );
