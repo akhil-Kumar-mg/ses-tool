@@ -28,13 +28,9 @@
     "react-scripts": "4.0.2",
     "react-switch": "^6.0.0",
     "react-toast-notifications": "^2.4.3",
-    "tailwindcss": "^2.0.3",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
-    "prestart": "npm run build:tailwind",
-    "prebuild": "npm run build:tailwind",
     "start": "react-scripts start",
     "start:local": "env-cmd -f .env.local react-scripts start",
     "start:dev": "env-cmd -f .env.development react-scripts start",
