@@ -1,7 +1,8 @@
 {
-  "name": "ses-app",
+  "name": "master-tool",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@material-ui/core": "^4.11.2",
@@ -12,6 +13,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "popper": "^1.0.1",
