@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import './index.scss';
-import App from './App';
+// import './tailwind.output.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import App from './containers/App/App';
 import { Provider as AppProvider } from "./context/AppContext";
 import { ToastProvider } from "react-toast-notifications";
 import reportWebVitals from './reportWebVitals';
@@ -18,7 +21,7 @@ ReactDOM.render(
       <HashRouter>
             <Switch>
             <Route path="/app" component={App} />
-            {/* <Redirect from="/" to="/app" /> */}
+            <Redirect from="/" to="/app" />
             <Route component={NotFound} />
             </Switch>
           </HashRouter>  

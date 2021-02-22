@@ -1,3 +1,9 @@
+$theme-colors: (
+    "primary": #238ED8,
+);
+
+@import "~bootstrap/scss/bootstrap";
+@import './variables.scss';
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +16,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+html, body {
+  background: $darkgrey;
+  // font-family: 'Ubuntu';
+}
+* {
+  box-sizing: border-box;
 }
