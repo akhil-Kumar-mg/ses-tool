@@ -14,7 +14,7 @@ import FaIcons from '../../components/fa-icons';
 
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   const intl = useIntl();
-  const [active, SetActive] = useState('Configuration');
+  const [active, SetActive] = useState('');
   return (
     <ProSidebar
       image={false}

@@ -1,0 +1,30 @@
+@import "../../../variables.scss";
+
+.vendors-container {
+  padding: 0 50px;
+  
+  .card {
+    background: $l-darkgray;
+    color: $text-color;
+    .sub-title {
+      color: $lightgray;
+    }
+    .vendor-header {
+      display: flex;
+      flex-direction: row;
+      > .titles {
+        flex: 1 0 90%;
+      }
+      > .tools {
+        flex: 1 0 10%;
+        i {
+          margin-left: 10px;
+        }
+      }
+
+    }
+  }
+  .vendor-item{
+    margin-bottom: 20px;
+}
+}

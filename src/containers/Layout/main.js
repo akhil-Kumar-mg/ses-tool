@@ -5,6 +5,7 @@ import FaIcons from "../../components/fa-icons";
 
 import Configuration from "../Configuration";
 import Projects from "../Projects";
+import Home from "../Home";
 import NotFound from "../NotFound";
 
 const Main = ({
@@ -25,9 +26,9 @@ const Main = ({
 
       <div className="main-container">
         <Switch>
-          <Route exact path="/App/Configuration" component={Configuration} />
-          <Route exact path="/App/Projects" component={Projects} />
-          
+          <Route path="/App/Configuration" component={Configuration} />
+          <Route path="/App/Projects" component={Projects} />
+          <Route path="/App" component={Home} />
           <Route component={NotFound} />
         </Switch>
       </div>
