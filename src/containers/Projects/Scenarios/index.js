@@ -15,7 +15,6 @@ function Scenarios() {
         </button>
       </div>
 
-      <hr />
     </>
   );
 }

@@ -15,7 +15,6 @@ function SolutionSheet() {
         </button>
       </div>
 
-      <hr />
     </>
   );
 }

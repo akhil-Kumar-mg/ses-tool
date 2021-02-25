@@ -15,7 +15,6 @@ function MasterPricing() {
         </button>
       </div>
 
-      <hr />
     </>
   );
 }

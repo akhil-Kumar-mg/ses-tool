@@ -15,7 +15,6 @@ function PNL() {
         </button>
       </div>
 
-      <hr />
     </>
   );
 }

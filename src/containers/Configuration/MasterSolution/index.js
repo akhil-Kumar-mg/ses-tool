@@ -14,8 +14,6 @@ function MasterSolution() {
           ADD SOLUTION <FaIcons icon="plus" />
         </button>
       </div>
-
-      <hr />
     </>
   );
 }

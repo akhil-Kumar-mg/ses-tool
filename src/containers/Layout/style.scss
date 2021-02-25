@@ -30,7 +30,7 @@ div.pro-sidebar-header {
   > div:last-child {
     flex: 1 0 75%;
     max-width: 75%;
-    padding-top: 50px;
+
   }
   .left-container{
       align-items: center;
@@ -74,19 +74,56 @@ div.pro-sidebar-header {
   }
   .right-container {
     border-left: 1px solid $lightgray;
+    overflow: auto;
     .header{
-        padding: 0 50px;
+        padding: 50px 50px 20px 50px;
         display: flex;
         justify-content: space-between;
+        position: fixed;
         button{
             width: 250px;
             border-radius: 0;
         }
+
+        border-bottom: 1px solid $lightgray;
+        z-index: 100;
+        background-color: $darkgrey;
+        width: 71%;
     }
     // 
-    width: 100%;
-    hr{
-        border-top: 1px solid $lightgray;
+    .sub-container {
+      padding: 0 50px;
+      position: relative;
+      top: 140px;
+      .card {
+        background: $l-darkgray;
+        color: $text-color;
+        .sub-title {
+          color: $lightgray;
+        }
+        .sub-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          > .titles {
+            flex: 1 0 80%;
+          }
+          > .tools {
+
+            flex: 1 0 20%;
+            i {
+              float: right;
+              margin-left: 25px;
+              cursor: pointer;
+            }
+          }
+    
+        }
+      }
+      .sub-item{
+        margin-bottom: 20px;
     }
+    }
+    
   }
 }

@@ -3,20 +3,20 @@ import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
 function Vendors() {
-  const items = [1,2,3,4,5]
+  const items = [...Array(15).keys()];
   const card = (key) =>{
-    return <div key={key} className="col-sm-12 vendor-item">
+    return <div key={key} className="col-sm-12 sub-item">
     <div className="card">
       <div className="card-body">
         <div className="card-title">
-          <div className="vendor-header">
+          <div className="sub-header">
             <div className="titles">
               <h5>Vendor name</h5>
               <span className="sub-title">Vendor ID</span>
             </div>
             <div className="tools">
-              <i className="fa fa-trash-alt" />
               <i className="fa fa-pencil-alt" />
+              <i className="fa fa-trash-alt" />
             </div>
           </div>
         </div>
@@ -44,9 +44,9 @@ function Vendors() {
         </button>
       </div>
 
-      <hr />
+      
 
-      <div className="vendors-container">
+      <div className="sub-container">
         <div className="row">
             {items.map(item=> card(item))}
         </div>

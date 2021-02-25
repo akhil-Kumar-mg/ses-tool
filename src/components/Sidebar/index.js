@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 import { Link } from "react-router-dom";
-import logo from '../assets/img/ses-logo.png';
+import logo from '../../assets/img/ses-logo.png';
 
 
 function Sidebar({title, links = []}) {

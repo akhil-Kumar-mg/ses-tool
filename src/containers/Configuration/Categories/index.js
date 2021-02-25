@@ -4,7 +4,32 @@ import './style.scss';
 import FaIcons from "../../../components/fa-icons";
 
 function Catergories() {
+  const items = [...Array(15).keys()];
+  const card = (key) =>{
+    return <div key={key} className="col-sm-12 sub-item">
+    <div className="card">
+      <div className="card-body">
+        <div className="card-title">
+          <div className="sub-header">
+            <div className="titles">
+              <h5 className="col-md-6">Category name</h5>
+              
+            </div>
+            <div className="tools">
+              <i className="fa fa-pencil-alt" />
+              <i className="fa fa-trash-alt" />
+            </div>
+          </div>
+        </div>
 
+        <p className="card-text">
+          Sub Categories: SC_NAME1, SC_NAME2, SC_NAME3
+        </p>
+        
+      </div>
+    </div>
+  </div>
+  }
 
   return (
 <>
@@ -15,7 +40,12 @@ function Catergories() {
         </button>
       </div>
 
-      <hr />
+
+      <div className="sub-container categories">
+        <div className="row">
+            {items.map(item=> card(item))}
+        </div>
+      </div>
     </>
   );
 }
