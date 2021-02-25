@@ -2,7 +2,6 @@
 
 .grid-container {
   background-color: $grid-bg-color;
-  width: 1520px;
   overflow: auto;
   padding: 0 15px;
   .col {
@@ -25,7 +24,10 @@
 
   .colsm {
     background-color: $grid-bg-color;
-    width: 50px;
     flex: none;
+  }
+
+  i{
+      cursor: pointer;
   }
 }

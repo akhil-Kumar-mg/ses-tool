@@ -1,0 +1,23 @@
+{
+    "columns": [
+      {
+        "name": "CATEGORY",
+        "field": "category"
+      },
+      {
+        "name": "SUB-CATEGORY",
+        "field": "subcategory"
+      },
+      {
+        "name": "COMMERCIAL UNIT",
+        "field": "unit"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Define pricing",
+        "type": "link",
+        "width": "150px"
+      }
+    ]
+  }

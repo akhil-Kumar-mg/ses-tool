@@ -1,6 +1,7 @@
 {
     "delete": true,
     "edit": true,
+    "width": "1520px",
     "columns": [
       {
         "name": "CATEGORY",
@@ -26,5 +27,15 @@
         "name": "COST ITEM",
         "field": "cost"
       }
-    ]
+    ],
+    "actions": [
+        {
+          "name": "trash-alt",
+          "type": "icon"
+        },
+        {
+            "name": "pencil-alt",
+            "type": "icon"
+          }
+      ]
   }

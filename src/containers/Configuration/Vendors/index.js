@@ -27,7 +27,7 @@ function Vendors() {
           consectetur adipiscing elit. Integer posuere erat a ante.
         </p>
         <div style={{ float: "right" }}>
-          <a href="#">
+          <a href="javascript:;;">
             DEFINE COST ITEM <FaIcons icon="arrow-right" />
           </a>
         </div>
