@@ -11,18 +11,22 @@ import MasterSolution from './MasterSolution';
 
 import NotFound from '../NotFound';
 
-function Configuration() {
+function Configuration(){
+  return <></>
+}
+
+function ConfigurationContainer() {
   const links = ["Categories", "Vendors", "Master Solution", "Master Pricing"]
   return (
     <>
       <Sidebar title="Configuration" links={links}/>
       <div className="right-container">
         <Switch>
-          <Route path="/App/Configuration/Categories" component={Categories} />
-          <Route path="/App/Configuration/Vendors" component={Vendors} />
-          <Route path="/App/Configuration/MasterPricing" component={MasterPricing} />
-          <Route path="/App/Configuration/MasterSolution" component={MasterSolution} />
-          <Redirect from="/" to="/App/Configuration" />
+          <Route exact path="/App/Configuration/Categories" component={Categories} />
+          <Route exact path="/App/Configuration/Vendors" component={Vendors} />
+          <Route exact path="/App/Configuration/MasterPricing" component={MasterPricing} />
+          <Route exact path="/App/Configuration/MasterSolution" component={MasterSolution} />
+          <Route exact path="/App/Configuration" component={Configuration} />
           <Route component={NotFound} />
         </Switch>
       </div>
@@ -30,4 +34,4 @@ function Configuration() {
   );
 }
 
-export default Configuration;
+export default ConfigurationContainer;

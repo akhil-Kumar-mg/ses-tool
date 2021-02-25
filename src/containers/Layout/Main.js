@@ -25,9 +25,9 @@ const Main = ({
 
       <div className="main-container">
         <Switch>
-          <Route path="/App/Configuration" component={Configuration} />
-          <Route path="/App/Projects" component={Projects} />
-          <Redirect from="/" to="/App/Configuration" />
+          <Route exact path="/App/Configuration" component={Configuration} />
+          <Route exact path="/App/Projects" component={Projects} />
+          
           <Route component={NotFound} />
         </Switch>
       </div>
