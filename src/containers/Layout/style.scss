@@ -37,6 +37,11 @@ div.pro-sidebar-header {
       justify-content: center;
       text-align: center;
         position: relative;
+        .link{
+          color: inherit;
+          text-decoration: none;
+
+        }
 
       .configuration-items{
           text-align: left;
@@ -46,7 +51,8 @@ div.pro-sidebar-header {
               line-height: 4em;
               color: $lightgray;
               .item{
-                  &.active{
+             
+                  &.active,&:hover{
                       color: $white;
                   }
                   font-size: 24px;
@@ -69,7 +75,7 @@ div.pro-sidebar-header {
   .right-container {
     border-left: 1px solid $lightgray;
     .header{
-        padding-left: 50px;
+        padding: 0 50px;
         display: flex;
         justify-content: space-between;
         button{

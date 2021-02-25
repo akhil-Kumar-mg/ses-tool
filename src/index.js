@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import './index.scss';
-// import './tailwind.output.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import App from './containers/App/App';
+import App from './containers/App';
 import { Provider as AppProvider } from "./context/AppContext";
 import { ToastProvider } from "react-toast-notifications";
 import reportWebVitals from './reportWebVitals';
 import ServiceWorkerWrapper from "./serviceworker.main";
 
-import NotFound from "./containers/NotFound/NotFound";
-
+import NotFound from "./containers/NotFound";
+if(module.hot){
+  module.hot.accept()
+}
 ReactDOM.render(
   <React.StrictMode>
     <ServiceWorkerWrapper />
@@ -20,9 +21,9 @@ ReactDOM.render(
       <AppProvider>
       <HashRouter>
             <Switch>
-            <Route path="/app" component={App} />
-            <Redirect from="/" to="/app" />
-            <Route component={NotFound} />
+              <Route path="/App" component={App} />
+              <Redirect from="/" to="/App" />
+              <Route component={NotFound} />
             </Switch>
           </HashRouter>  
       </AppProvider>

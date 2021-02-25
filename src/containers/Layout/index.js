@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Aside from './Aside';
-import Main from './Main';
-import './Layout.scss';
+import Aside from './aside';
+import Main from './main';
+import './style.scss';
 
 function Layout({ setLocale }) {
   const [rtl, setRtl] = useState(false);

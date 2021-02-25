@@ -1,10 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Switch from "react-switch";
-// import { FaHeart, FaBars } from 'react-icons/fa';
+import { Route, Switch, Redirect } from "react-router-dom";
 import FaIcons from "../../components/fa-icons";
 
-import logo from '../../assets/img/ses-logo.png';
+import Configuration from "../Configuration";
+import Projects from "../Projects";
+import NotFound from "../NotFound";
 
 const Main = ({
   collapsed,
@@ -23,30 +24,12 @@ const Main = ({
       </div>
 
       <div className="main-container">
-        <div className="left-container">
-          <h1>Configuration</h1>
-          <div className="configuration-items">
-            <ul className="item-list">
-              <li className="item item-animate">Category</li>
-              <li className="item item-animate active">Vendors</li>
-              <li className="item item-animate">Master Solution</li>
-              <li className="item item-animate">Master Pricing</li>
-            </ul>
-          </div>
-          <div className="logo">
-              <img src={logo} alt="ses master tool" />
-          </div>
-        </div>
-        <div className="right-container">
-          <div className="header">
-          <h1>Vendors</h1>
-          <button type="button" className="btn btn-primary">
-              ADD VENDOR <FaIcons icon="plus" />
-          </button>
-          </div>
-          
-          <hr />
-        </div>
+        <Switch>
+          <Route path="/App/Configuration" component={Configuration} />
+          <Route path="/App/Projects" component={Projects} />
+          <Redirect from="/" to="/App/Configuration" />
+          <Route component={NotFound} />
+        </Switch>
       </div>
 
       <footer>

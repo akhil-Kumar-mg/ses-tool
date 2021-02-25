@@ -2,7 +2,7 @@ export default {
     en: {
 
         configuration: 'Configuration',
-        settings: 'Settings',
+        projects: 'Projects',
       dropdown: 'Dropdown',
       submenu: 'Submenu',
       multiLevel: 'Multi Level',

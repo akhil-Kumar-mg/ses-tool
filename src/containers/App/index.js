@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react'
-import './App.scss';
+import './style.scss';
 import { IntlProvider } from 'react-intl';
 import messages from '../../constants/messages';
-import Layout from '../Layout/Layout';
+import Layout from '../Layout';
 
 function App() {
   const [locale, setLocale] = useState('en');

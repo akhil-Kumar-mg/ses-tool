@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useIntl } from 'react-intl';
 import {
   ProSidebar,
@@ -9,11 +9,12 @@ import {
   SidebarContent,
 } from 'react-pro-sidebar';
 
-
+import { Link } from "react-router-dom";
 import FaIcons from '../../components/fa-icons';
 
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   const intl = useIntl();
+  const [active, SetActive] = useState('Configuration');
   return (
     <ProSidebar
       image={false}
@@ -42,14 +43,14 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
 
       <SidebarContent>
         <Menu iconShape="square">
-          <MenuItem
-          className="active"
-            icon={<FaIcons icon="wrench" />}
-            suffix={<span className="badge red">{intl.formatMessage({ id: 'new' })}</span>}
-          >
-            {intl.formatMessage({ id: 'configuration' })}
+          <MenuItem className={active=== 'Configuration' ? 'active': ''} onClick={()=>{SetActive('Configuration')}} icon={<FaIcons icon="wrench" />}> 
+          <Link to={`/App/Configuration`} className="link">{intl.formatMessage({ id: 'configuration' })} </Link>
+          
           </MenuItem>
-          <MenuItem icon={<FaIcons icon="suitcase"  />}> {intl.formatMessage({ id: 'settings' })}</MenuItem>
+          <MenuItem className={active=== 'Projects' ? 'active': ''} onClick={()=>{SetActive('Projects')}} icon={<FaIcons icon="suitcase"  />}> 
+          <Link to={`/App/Projects`} className="link">{intl.formatMessage({ id: 'projects' })} </Link>
+          
+          </MenuItem>
         </Menu>
         
       </SidebarContent>
