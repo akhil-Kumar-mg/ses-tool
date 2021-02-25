@@ -2,8 +2,11 @@
 import React, { useState } from 'react'
 import './style.scss';
 import FaIcons from "../../../components/fa-icons";
-
+import Grid from '../../../components/Grid';
+import schema from './metadata/schema.json'
+import data from './metadata/data.json'
 function MasterSolution() {
+
 
 
   return (
@@ -14,6 +17,10 @@ function MasterSolution() {
           ADD SOLUTION <FaIcons icon="plus" />
         </button>
       </div>
+    <div className="sub-container">
+      <Grid data={data} schema={schema}/>
+    </div>
+      
     </>
   );
 }

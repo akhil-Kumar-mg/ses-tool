@@ -30,67 +30,64 @@ div.pro-sidebar-header {
   > div:last-child {
     flex: 1 0 75%;
     max-width: 75%;
-
   }
-  .left-container{
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-        position: relative;
-        .link{
-          color: inherit;
-          text-decoration: none;
+  .left-container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    .link {
+      color: inherit;
+      text-decoration: none;
+    }
 
+    .configuration-items {
+      text-align: left;
+      padding-left: 10%;
+      .item-list {
+        list-style: none;
+        line-height: 4em;
+        color: $lightgray;
+        .item {
+          &.active,
+          &:hover {
+            color: $white;
+          }
+          font-size: 24px;
         }
-
-      .configuration-items{
-          text-align: left;
-          padding-left: 10%;
-          .item-list{
-              list-style: none;
-              line-height: 4em;
-              color: $lightgray;
-              .item{
-             
-                  &.active,&:hover{
-                      color: $white;
-                  }
-                  font-size: 24px;
-              }
-          }
       }
+    }
 
-      .logo{
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          img{
-              height: 100px;
-              width: 320px;
-          }
+    .logo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      img {
+        height: 100px;
+        width: 320px;
       }
-      
+    }
   }
   .right-container {
     border-left: 1px solid $lightgray;
     overflow: auto;
-    .header{
-        padding: 50px 50px 20px 50px;
-        display: flex;
-        justify-content: space-between;
-        position: fixed;
-        button{
-            width: 250px;
-            border-radius: 0;
-        }
+    .header {
+      padding: 50px 50px 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      position: fixed;
+      button {
+        width: 250px;
+        border-radius: 0;
+      }
 
-        border-bottom: 1px solid $lightgray;
-        z-index: 100;
-        background-color: $darkgrey;
-        width: 71%;
+      border-bottom: 1px solid $lightgray;
+      z-index: 100;
+      background-color: $darkgrey;
+      width: 72%;
     }
-    // 
+    //
     .sub-container {
       padding: 0 50px;
       position: relative;
@@ -109,7 +106,6 @@ div.pro-sidebar-header {
             flex: 1 0 80%;
           }
           > .tools {
-
             flex: 1 0 20%;
             i {
               float: right;
@@ -117,13 +113,11 @@ div.pro-sidebar-header {
               cursor: pointer;
             }
           }
-    
         }
       }
-      .sub-item{
+      .sub-item {
         margin-bottom: 20px;
+      }
     }
-    }
-    
   }
 }

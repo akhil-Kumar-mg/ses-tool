@@ -16,8 +16,8 @@ function Catergories() {
               
             </div>
             <div className="tools">
-              <i className="fa fa-pencil-alt" />
-              <i className="fa fa-trash-alt" />
+              <FaIcons icon="pencil-alt" />
+              <FaIcons icon="trash-alt" />
             </div>
           </div>
         </div>

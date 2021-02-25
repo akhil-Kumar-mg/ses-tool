@@ -1,0 +1,31 @@
+@import "../../variables.scss";
+
+.grid-container {
+  background-color: $grid-bg-color;
+  width: 1520px;
+  overflow: auto;
+  padding: 0 15px;
+  .col {
+    padding-top: 15px;
+  }
+
+  .field {
+    color: $darkgrey;
+    border-right: 2px solid $grid-bg-color;
+  }
+
+  .even {
+    background-color: $grid-row-odd;
+    
+  }
+  .odd {
+    background-color: $grid-row-even;
+
+  }
+
+  .colsm {
+    background-color: $grid-bg-color;
+    width: 50px;
+    flex: none;
+  }
+}

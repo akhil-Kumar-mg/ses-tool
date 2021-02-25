@@ -1,0 +1,30 @@
+{
+    "delete": true,
+    "edit": true,
+    "columns": [
+      {
+        "name": "CATEGORY",
+        "field": "category"
+      },
+      {
+        "name": "SUB-CATEGORY",
+        "field": "subcategory"
+      },
+      {
+        "name": "FEATURE",
+        "field": "feature"
+      },
+      {
+        "name": "SUB-FEATURE",
+        "field": "subfeature"
+      },
+      {
+        "name": "VENDOR",
+        "field": "vendor"
+      },
+      {
+        "name": "COST ITEM",
+        "field": "cost"
+      }
+    ]
+  }
