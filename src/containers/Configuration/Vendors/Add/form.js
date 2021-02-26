@@ -23,7 +23,7 @@ function Form() {
         <div className="form-group">
           <label>Description</label>
           <textarea
-            class="form-control"
+            className="form-control"
             id="exampleFormControlTextarea1"
             rows="7"
             placeholder="Placeholder text"

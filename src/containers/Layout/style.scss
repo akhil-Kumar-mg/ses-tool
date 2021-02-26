@@ -127,3 +127,17 @@ div.pro-sidebar-header {
 }
 
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $text-color;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $text-color;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: $text-color;
+}
+
+

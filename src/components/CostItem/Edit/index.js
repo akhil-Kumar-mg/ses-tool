@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Modal from "../../../../components/Modal";
-import Form from "./form";
+import Modal from "../../Modal";
+import Form from "../form";
 
 function ModalContainer({ show, setShow }) {
   const handleClose = () => setShow(false);
@@ -20,12 +20,12 @@ function ModalContainer({ show, setShow }) {
                   className="btn btn-secondary cancel"
                   onClick={handleClose}
                 >
-                  CANCEL
+                  CLOSE
                 </button>
               </div>
               <div className="col-sm-6">
                 <button type="button" className="btn btn-primary">
-                  ADD
+                  EDIT
                 </button>
               </div>
             </div>

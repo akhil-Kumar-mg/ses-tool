@@ -9,7 +9,6 @@ function ModalContainer({ show, setShow }) {
     <>
       <Modal
         show={show}
-        title=""
         body={() => <Form />}
         actions={() => {
           return (

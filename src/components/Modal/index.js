@@ -14,10 +14,14 @@ function ModalContainer({ title, body, actions, show, autoClose, onClose }) {
         keyboard={false}
         className="right in"
       >
-        <Modal.Header>
+        {/* <Modal.Header>
+        {title && <Modal.Title>{title}</Modal.Title>}
+        </Modal.Header> */}
+        {title && <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{body()}</Modal.Body>
+        </Modal.Header>}
+        
+        <Modal.Body className={`${title ? '': 'adjustTop'}`}>{body()}</Modal.Body>
         <Modal.Footer>{actions()}</Modal.Footer>
       </Modal>
     </>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Modal from "../../../../components/Modal";
-import Card from "./card";
+import Modal from "../../Modal";
+import Form from "../form";
 
 function ModalContainer({ show, setShow }) {
   const handleClose = () => setShow(false);
@@ -9,16 +9,23 @@ function ModalContainer({ show, setShow }) {
     <>
       <Modal
         show={show}
-        title="Cost items"
-        autoClose={true}
-        onClose={handleClose}
-        body={() => <Card />}
+        title="New cost items"
+        body={() => <Form />}
         actions={() => {
           return (
             <div className="row">
-              <div className="col-sm-12">
+              <div className="col-sm-6">
+                <button
+                  type="button"
+                  className="btn btn-secondary cancel"
+                  onClick={handleClose}
+                >
+                  CANCEL
+                </button>
+              </div>
+              <div className="col-sm-6">
                 <button type="button" className="btn btn-primary">
-                  ADD COST ITEM
+                  ADD
                 </button>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FaIcons from "../../../../components/fa-icons";
+import FaIcons from "../fa-icons";
 
 function Form({key}) {
   return (
@@ -17,10 +17,10 @@ function Form({key}) {
             </div>
 
             <div className="actions" style={{ float: "right" }}>
-              <a href="javascript:;;" className="delete">
+              <a href="javascript:void(0)" className="delete">
                 Delete
               </a>
-              <a href="javascript:;;">
+              <a href="javascript:void(0)">
                 Edit
               </a>
             </div>

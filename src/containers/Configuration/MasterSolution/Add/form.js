@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import CostItemModal from '../../../../components/CostItem/Edit';
 
 function Form() {
+    //Cost Item Modal
+    const [showCostItem, setShowCostItem] = useState(false);
+    const handleCostItemShow = () => setShowCostItem(true);
   return (
     <>
+    <CostItemModal show={showCostItem} setShow={setShowCostItem}/>
       <form>
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">Category</label>
+          <label>Category</label>
           <select className="form-control">
             <option>Placeholder text</option>
             <option>1</option>
@@ -16,7 +21,7 @@ function Form() {
           </select>
         </div>
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">Sub-category</label>
+          <label>Sub-category</label>
           <select className="form-control">
             <option>Placeholder text</option>
             <option>1</option>
@@ -27,7 +32,7 @@ function Form() {
           </select>
         </div>
         <div className="form-group">
-          <label for="exampleFormControlSelect1">Feature</label>
+          <label>Feature</label>
           <input
             type="text"
             className="form-control"
@@ -35,7 +40,7 @@ function Form() {
           />
         </div>
         <div className="form-group">
-          <label for="exampleFormControlSelect1">Sub-feature</label>
+          <label>Sub-feature</label>
           <input
             type="text"
             className="form-control"
@@ -43,7 +48,7 @@ function Form() {
           />
         </div>
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">Vendor</label>
+          <label>Vendor</label>
           <select className="form-control">
             <option>Placeholder text</option>
             <option>1</option>
@@ -54,7 +59,7 @@ function Form() {
           </select>
         </div>
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">Cost Item</label>
+          <label>Cost Item</label>
           <select className="form-control">
             <option>Placeholder text</option>
             <option>1</option>
@@ -63,7 +68,7 @@ function Form() {
             <option>4</option>
             <option>5</option>
           </select>
-          <a href="javascript:;" className="preview">
+          <a href="javascript:;" className="preview" onClick={handleCostItemShow}>
             Preview
           </a>
         </div>

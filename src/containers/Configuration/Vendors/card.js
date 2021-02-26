@@ -27,7 +27,7 @@ function Card({ key, onItemClick }) {
               adipiscing elit. Integer posuere erat a ante.
             </p>
             <div style={{ float: "right" }}>
-              <a href="javascript:;;" onClick={onItemClick}>
+              <a href="javascript:void(0)" onClick={onItemClick}>
                 DEFINE COST ITEM <FaIcons icon="arrow-right" />
               </a>
             </div>

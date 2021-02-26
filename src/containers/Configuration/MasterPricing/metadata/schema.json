@@ -17,7 +17,8 @@
       {
         "name": "Define pricing",
         "type": "link",
-        "width": "150px"
+        "width": "150px",
+        "event": "onAddPrice"
       }
     ]
   }

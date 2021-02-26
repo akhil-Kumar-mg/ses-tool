@@ -9,7 +9,7 @@
 .modal.right .modal-dialog {
   position: fixed;
   margin: auto;
-  width: 375px;
+  width: 475px;
   height: 100%;
   -webkit-transform: translate3d(0%, 0, 0);
   -ms-transform: translate3d(0%, 0, 0);
@@ -64,8 +64,10 @@
   background-color: $modal-bg-color;
   form {
     color: $text-color;
-    .form-control {
+    .form-control,
+    .input-group-text {
       border-radius: 0;
+      color: $text-color;
       background-color: $modal-bg-color;
       border-color: $modal-close-color;
     }
@@ -75,7 +77,24 @@
     a {
       text-decoration: none;
     }
+    .panel-group {
+      padding: 10px;
+      border: 1px dashed $link-color;
+    }
   }
+}
+.modal-header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+}
+.modal-body {
+  position: relative;
+  top: 70px;
+  &.adjustTop{
+    top: 30px!important;
+  }
+ 
 }
 .modal-header,
 .modal-footer {

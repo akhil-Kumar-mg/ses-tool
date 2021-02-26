@@ -3,7 +3,7 @@ import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
 import FormModal from "./Add";
-import CostItemModal from "./CostItem";
+import CostItemModal from "../../../components/CostItem";
 import Card from "./card";
 
 function Vendors() {

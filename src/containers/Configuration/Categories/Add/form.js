@@ -12,7 +12,7 @@ function Form() {
           />
         </div>
         <div className="form-group">
-          <label for="exampleFormControlSelect1">Sub-category name</label>
+          <label>Sub-category name</label>
           <input
             type="text"
             className="form-control"
@@ -21,7 +21,7 @@ function Form() {
         </div>
 
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">
+          <label>
             Applicable commercial units
           </label>
           <select className="form-control">
@@ -34,7 +34,7 @@ function Form() {
           </select>
         </div>
         <div className="center">
-          <a href="javascript:;;">Add another</a>
+          <a href="javascript:void(0)">Add another</a>
         </div>
       </form>
     </>
