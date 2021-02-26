@@ -60,40 +60,41 @@
   border: none;
 }
 
-.modal-content{
-    background-color: $modal-bg-color;
-    form{
-        color: $text-color;
-        .form-control{
-            border-radius: 0;
-            background-color: $modal-bg-color;
-            border-color: $modal-close-color;
-        }
-        .bg-white{
-            background-color: $white;
-        }
-        a{
-            text-decoration: none;
-        }
-    }
-}
-.modal-header,.modal-footer {
+.modal-content {
+  background-color: $modal-bg-color;
+  form {
     color: $text-color;
+    .form-control {
+      border-radius: 0;
+      background-color: $modal-bg-color;
+      border-color: $modal-close-color;
+    }
+    .bg-white {
+      background-color: $white;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
+}
+.modal-header,
+.modal-footer {
+  color: $text-color;
   background-color: inherit;
   border-color: $modal-bg-color;
 }
 
-.modal-footer{
-    justify-content:flex-start;
-    .row{
-        width: 100%;
+.modal-footer {
+  justify-content: flex-start;
+  .row {
+    width: 100%;
+  }
+  button {
+    &.cancel {
+      background-color: $modal-close-color;
+      border-color: $modal-close-color;
     }
-    button{
-        &.cancel{
-            background-color: $modal-close-color;
-            border-color: $modal-close-color;
-        }
-        border-radius: 0;
-        width: 100%;
-    }
+    border-radius: 0;
+    width: 100%;
+  }
 }

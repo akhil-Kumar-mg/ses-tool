@@ -3,9 +3,9 @@
 .cost-item{
 
 .card {
-    background: $l-darkgray;
+    background: $modal-bg-color;
     color: $text-color;
-
+    border-color: $modal-close-color;
     .sub-header {
       display: flex;
       flex-direction: row;
