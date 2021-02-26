@@ -1,49 +1,55 @@
-
-import React, { useState } from 'react'
-import './style.scss';
+import React, { useState } from "react";
+import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
-
+import Modal from "../../../components/Modal";
+import Card from "./card";
+import Form from "./form";
 function Catergories() {
   const items = [...Array(15).keys()];
-  const card = (key) =>{
-    return <div key={key} className="col-sm-12 sub-item">
-    <div className="card">
-      <div className="card-body">
-        <div className="card-title">
-          <div className="sub-header">
-            <div className="titles">
-              <h5 className="col-md-6">Category name</h5>
-              
-            </div>
-            <div className="tools">
-              <FaIcons icon="pencil-alt" />
-              <FaIcons icon="trash-alt" />
-            </div>
-          </div>
-        </div>
+  const [show, setShow] = useState(false);
 
-        <p className="card-text">
-          Sub Categories: SC_NAME1, SC_NAME2, SC_NAME3
-        </p>
-        
-      </div>
-    </div>
-  </div>
-  }
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
-<>
+    <>
+      <Modal
+        show={show}
+        title=""
+        body={() => <Form />}
+        actions={() => {
+          return (
+            <div className="row">
+              <div className="col-sm-6">
+                <button
+                  type="button"
+                  className="btn btn-secondary cancel"
+                  onClick={handleClose}
+                >
+                  CANCEL
+                </button>
+              </div>
+              <div className="col-sm-6">
+                <button type="button" className="btn btn-primary">
+                  ADD
+                </button>
+              </div>
+            </div>
+          );
+        }}
+      />
       <div className="header">
         <h1>Catergories</h1>
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD CATEGORY <FaIcons icon="plus" />
         </button>
       </div>
 
-
       <div className="sub-container categories">
         <div className="row">
-            {items.map(item=> card(item))}
+          {items.map((item) => (
+            <Card key={item} />
+          ))}
         </div>
       </div>
     </>
