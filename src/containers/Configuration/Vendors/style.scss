@@ -1,2 +1,33 @@
 @import "../../../variables.scss";
 
+.cost-item{
+
+.card {
+    background: $l-darkgray;
+    color: $text-color;
+
+    .sub-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      > .titles {
+        flex: 1 0 80%;
+      }
+      > .tools {
+        flex: 1 0 20%;
+        i {
+          float: right;
+          margin-left: 25px;
+          cursor: pointer;
+        }
+      }
+    }
+    .actions a{
+        margin-left: 15px;
+        text-decoration: none;
+        &.delete{
+            color: $lightgray;
+        }
+    }
+  }
+}

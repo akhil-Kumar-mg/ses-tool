@@ -3,12 +3,14 @@ import { Modal } from "react-bootstrap";
 
 import "./style.scss";
 
-function ModalContainer({ title, body, actions, show }) {
+function ModalContainer({ title, body, actions, show, autoClose, onClose }) {
+  const onDefaultClose = () => {};
   return (
     <>
       <Modal
         show={show}
-        backdrop="static"
+        backdrop={autoClose || 'static'}
+        onHide={onClose || onDefaultClose}
         keyboard={false}
         className="right in"
       >

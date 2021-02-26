@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
-import Modal from "./modal";
+import Modal from "./Add";
 import Card from "./card";
 
 function Catergories() {

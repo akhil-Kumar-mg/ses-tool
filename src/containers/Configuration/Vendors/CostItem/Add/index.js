@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./style.scss";
-import Modal from "../../../components/Modal";
+import Modal from "../../../../components/Modal";
 import Form from "./form";
 
 function ModalContainer({ show, setShow }) {
@@ -10,7 +9,7 @@ function ModalContainer({ show, setShow }) {
     <>
       <Modal
         show={show}
-        title=""
+        title="Cost items"
         body={() => <Form />}
         actions={() => {
           return (
