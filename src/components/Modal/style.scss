@@ -78,7 +78,7 @@
     }
 }
 .modal-header,.modal-footer {
-  
+    color: $text-color;
   background-color: inherit;
   border-color: $modal-bg-color;
 }

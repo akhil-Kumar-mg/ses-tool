@@ -2,44 +2,20 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
+import Modal from "./modal";
+import Card from "./card";
+
 function Vendors() {
   const items = [...Array(15).keys()];
-  const card = (key) =>{
-    return <div key={key} className="col-sm-12 sub-item">
-    <div className="card">
-      <div className="card-body">
-        <div className="card-title">
-          <div className="sub-header">
-            <div className="titles">
-              <h5>Vendor name</h5>
-              <span className="sub-title">Vendor ID</span>
-            </div>
-            <div className="tools">
-              <FaIcons icon="pencil-alt" />
-              <FaIcons icon="trash-alt" />
-            </div>
-          </div>
-        </div>
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
-        <p className="card-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Integer posuere erat a ante. Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Integer posuere erat a ante.
-        </p>
-        <div style={{ float: "right" }}>
-          <a href="javascript:;;">
-            DEFINE COST ITEM <FaIcons icon="arrow-right" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  }
   return (
     <>
+      <Modal show={show} setShow={setShow}/>
       <div className="header">
         <h1>Vendors</h1>
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD VENDOR <FaIcons icon="plus" />
         </button>
       </div>
@@ -48,7 +24,7 @@ function Vendors() {
 
       <div className="sub-container">
         <div className="row">
-            {items.map(item=> card(item))}
+            {items.map(item=> <Card key={item} />)}
         </div>
       </div>
     </>
