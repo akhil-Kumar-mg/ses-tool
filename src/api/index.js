@@ -17,16 +17,12 @@ const httpDelete = async (url, data, params = {}) => {
 };
 
 const createRequest = async (method, url, data = {}, params= {}) => {
-  const requestMethod = method ? method.toUpperCase() : "GET";
   let config = {
     url,
     params,
-    method: requestMethod,
+    method,
+    data
   };
-
-  if (requestMethod !== "GET") {
-    config.data = data;
-  }
 
   return new Promise((resolve, reject) => {
     axiosInstance(config)
