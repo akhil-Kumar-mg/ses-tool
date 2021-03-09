@@ -22,7 +22,7 @@ function Card({category}) {
             </div>
 
             <p className="card-text">
-              Sub Categories: {category.sub_categories.map(item=> item.name).join(',')}
+              Sub Categories: {category.sub_categories.map(item=> item.name).join(', ')}
             </p>
           </div>
         </div>
