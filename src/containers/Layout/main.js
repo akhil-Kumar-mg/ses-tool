@@ -32,11 +32,11 @@ const Main = ({
           <Route component={NotFound} />
         </Switch>
       </div>
-
+{/* 
       <footer>
         <small>© 2021 SES Master Tool</small>
         <br />
-      </footer>
+      </footer> */}
     </main>
   );
 };

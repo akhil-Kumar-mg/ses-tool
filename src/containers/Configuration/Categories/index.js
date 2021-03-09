@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 import Modal from "./Add";
 import Card from "./card";
 
 function Catergories() {
-  const items = [...Array(15).keys()];
+  const [categories, fetchCategories] = useState([]);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    // alert("sddf")
+  },[])
 
   return (
     <>
@@ -21,7 +25,7 @@ function Catergories() {
 
       <div className="sub-container categories">
         <div className="row">
-          {items.map((item) => (
+          {categories.map((item) => (
             <Card key={item} />
           ))}
         </div>
@@ -29,5 +33,7 @@ function Catergories() {
     </>
   );
 }
+
+
 
 export default Catergories;
