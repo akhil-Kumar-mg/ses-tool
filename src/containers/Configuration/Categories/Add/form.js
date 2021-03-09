@@ -12,11 +12,15 @@ function Form() {
   }
   const [formData, setFormData] = useState({
     name: "",
-    sub_categories: []
+    sub_categories: [{
+      name: "",
+      commercial_unit: ""
+    }]
   });
 
   const [items, setItems] = useState([]);
   const onAdd = () =>{
+    console.log(formData)
     const _items = [...items];
     _items.push(items.length + 1);
     setItems(_items);
@@ -27,15 +31,10 @@ function Form() {
     setItems(_items);
   }
 
-  // const onChange = (key, value) => {
-  //   if(key === "primaryContactNumber" && isSelfRegistration){
-  //     return
-  //   }
-  //   const keys = key.split(".");
-  //   if (keys.length === 1) patient[key] = value;
-  //   else patient[keys[0]][keys[1]] = value;
-  //   setFormData({ ...patient });
-  // };
+  const onNameChange = (value) => {
+    formData.name = value;
+    setFormData({ ...formData });
+  };
   return (
 
     <>
@@ -46,9 +45,9 @@ function Form() {
             className="form-control bg-white"
             placeholder="Category name"
             value={formData.name}
-            // onChange={(e) =>
-            //   onChange("name", e.target.value)
-            // }
+            onChange={(e) =>
+              onNameChange(e.target.value)
+            }
           />
         </div>
 

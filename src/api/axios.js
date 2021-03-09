@@ -1,9 +1,5 @@
 import axios from "axios";
-// import { apiPath, apiLocalHost, apiProxyHost } from "../config/ApiConfig";
-
-// const server =
-//   process.env.NODE_ENV === "production" ? apiProxyHost : apiLocalHost;
-const baseURL = 'https://mastertool-backend.herokuapp.com';
+const baseURL = process.env.REACT_APP_API_URL;
 
 const baseHeaders = {
   Accept: "application/json",

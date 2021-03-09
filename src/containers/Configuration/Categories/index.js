@@ -4,7 +4,7 @@ import FaIcons from "../../../components/fa-icons";
 import Modal from "./Add";
 import Card from "./card";
 
-import {getCategories} from '../../../services/api/CategoryApiService';
+import {getCategories} from './service';
 
 function Catergories() {
   const [categories, setCategories] = useState([]);

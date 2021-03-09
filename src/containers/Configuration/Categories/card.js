@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
-function Card({key, category}) {
+function Card({category}) {
 
   return (
     <>
-      <div key={key} className="col-sm-12 sub-item">
+      <div className="col-sm-12 sub-item">
         <div className="card">
           <div className="card-body">
             <div className="card-title">

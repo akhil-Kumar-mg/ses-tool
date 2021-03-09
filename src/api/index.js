@@ -1,5 +1,4 @@
 import axiosInstance from "./AxiosInstance";
-// import { apiHost, apiPath, apiProxyHost } from "../config";
 
 const get = async (url, params) => {
   return createRequest("GET", url, params, null);
