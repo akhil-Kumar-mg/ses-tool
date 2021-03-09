@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Modal from "../../../../components/Modal";
 import Form from "./form";
 
-function ModalContainer({ show, setShow, formData, onChange, onSubmit }) {
-  const handleClose = () => setShow(false);
+function ModalContainer({ show, formData, onChange, onSubmit, onCancel }) {
 
   return (
     <>
@@ -17,7 +16,7 @@ function ModalContainer({ show, setShow, formData, onChange, onSubmit }) {
                 <button
                   type="button"
                   className="btn btn-secondary cancel"
-                  onClick={handleClose}
+                  onClick={onCancel}
                 >
                   CANCEL
                 </button>

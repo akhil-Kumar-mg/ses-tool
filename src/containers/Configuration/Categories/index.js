@@ -36,15 +36,19 @@ function Catergories() {
   const onFormSubmit = () =>{
     save(formData).then(res=> {
       notify(`${formData.name} category has been saved successfully.`, "success");
-      setFormData(cloneDeep(initialState))
-      setShow(false);
+      onFormCancel();
       onLoad();
     }).catch(err=>notify("Oops! Failed to fetch categories list.", "error"))
+  }
+  
+  const onFormCancel = () =>{
+    setShow(false);
+    setFormData(cloneDeep(initialState))
   }
 
   return (
     <>
-      <Modal show={show} setShow={setShow} formData={formData} onChange={setFormData} onSubmit={onFormSubmit}/>
+      <Modal show={show} onCancel={onFormCancel} formData={formData} onChange={setFormData} onSubmit={onFormSubmit}/>
       <div className="header">
         <h1>Catergories</h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
