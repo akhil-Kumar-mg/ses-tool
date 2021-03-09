@@ -1,8 +1,12 @@
 import api from '../../../api';
 
-const getCategories = () => {
-    return api.get('/category')
+const get = () => {
+    return api.get('/category/')
 }
 
-export {getCategories}
+const save = (data) => {
+    return api.post('/category/', data)
+}
+
+export {get, save}
 

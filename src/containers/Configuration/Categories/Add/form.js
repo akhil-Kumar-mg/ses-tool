@@ -1,40 +1,30 @@
 import React, { useState } from "react";
+import SubForm from './subform';
+import cloneDeep from 'lodash/cloneDeep';
+const randomstring = require("randomstring");
 
-function Form() {
+function Form({formData, onChange}) {
 
-  const subcategory = {
-    name: "",
-    commercial_unit: ""
-  }
-  const category = {
-    name: "",
-    sub_categories: []
-  }
-  const [formData, setFormData] = useState({
-    name: "",
-    sub_categories: [{
-      name: "",
-      commercial_unit: ""
-    }]
-  });
 
-  const [items, setItems] = useState([]);
-  const onAdd = () =>{
-    console.log(formData)
-    const _items = [...items];
-    _items.push(items.length + 1);
-    setItems(_items);
+
+  const onAdd = (data) =>{
+    data.uuid = randomstring.generate();
+    const _formData = cloneDeep(formData)
+    _formData.sub_categories.push(data)
+    onChange({ ..._formData });
   }
-  const onDelete = () =>{
-    const _items = [...items];
-    _items.pop();
-    setItems(_items);
+  const onDelete = (data) =>{
+    const _formData = cloneDeep(formData)
+    _formData.sub_categories = _formData.sub_categories.filter(item=> item.uuid !== data.uuid);
+    onChange({ ..._formData });
   }
 
-  const onNameChange = (value) => {
-    formData.name = value;
-    setFormData({ ...formData });
+  const onFormChange = (value) => {
+    const _formData = cloneDeep(formData)
+    _formData.name = value;
+    onChange({ ..._formData });
   };
+
   return (
 
     <>
@@ -46,65 +36,16 @@ function Form() {
             placeholder="Category name"
             value={formData.name}
             onChange={(e) =>
-              onNameChange(e.target.value)
+              onFormChange(e.target.value)
             }
           />
         </div>
 
-        {items.map((item) => {
-          return (
-            <>
-              <div className="form-group">
-                <label>Sub-category name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Placeholder text"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Applicable commercial units</label>
-                <select className="form-control">
-                  <option>Placeholder text</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-              <div className="center">
-                <a href="javascript:void(0)" className="delete" onClick={onDelete}>Delete</a>
-              </div>
-              <div className="hr-dashed"></div>
-            </>
-          );
+        {formData.sub_categories.map((item) => {
+          return <SubForm key={item.uuid} subCategory={item} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
-        <div className="form-group">
-          <label>Sub-category name</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Placeholder text"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Applicable commercial units</label>
-          <select className="form-control">
-            <option>Placeholder text</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div className="center">
-          <a href="javascript:void(0)" onClick={onAdd}>Add another</a>
-        </div>
+      <SubForm onSubmit={onAdd} actionTitle="Add another"/>
       </form>
     </>
   );

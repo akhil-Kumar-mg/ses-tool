@@ -1,22 +1,22 @@
-import axiosInstance from "./AxiosInstance";
+import axiosInstance from "./axios";
 
-const get = async (url, params) => {
-  return createRequest("GET", url, params, null);
+const get = async (url, params={}) => {
+  return createRequest("GET", url, {}, params);
 };
 
-const post = async (url, params, data) => {
-  return createRequest("POST", url, params, data);
+const post = async (url, data, params = {}) => {
+  return createRequest("POST", url, data, params);
 };
 
-const put = async (url, params, data) => {
-  return createRequest("PUT", url, params, data);
+const put = async (url, data, params = {}) => {
+  return createRequest("PUT", url, data, params);
 };
 
-const remove = async (url, params, data) => {
-  return createRequest("DELETE", url, params, data);
+const remove = async (url, data, params = {}) => {
+  return createRequest("DELETE", url, data, params);
 };
 
-const createRequest = async (method, url, params, data) => {
+const createRequest = async (method, url, data = {}, params= {}) => {
   const requestMethod = method ? method.toUpperCase() : "GET";
   let config = {
     url,
