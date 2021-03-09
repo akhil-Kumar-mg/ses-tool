@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 
-function SubForm({ subCategory, onSubmit, actionTitle }) {
-  const initialState = {
-    name: "",
-    commercial_unit: "",
-  };
-  const [formData, setFormData] = useState(subCategory || initialState);
+function SubForm({ formData, onSubmit, actionTitle, onChange }) {
+
 
   const onFormChange = (key, value) => {
     const keys = key.split(".");
     if (keys.length === 1) formData[key] = value;
     else formData[keys[0]][keys[1]] = value;
-    setFormData({ ...formData });
+    onChange({ ...formData });
   };
 
   const onFormSubmit = () =>{
     onSubmit({...formData})
-    setFormData({...initialState})
   }
 
   return (

@@ -5,13 +5,18 @@ const randomstring = require("randomstring");
 
 function Form({formData, onChange}) {
 
-
+  const initialState = {
+    name: "",
+    commercial_unit: "",
+  };
+  const [subFormData, setSubFormData] = useState({...initialState});
 
   const onAdd = (data) =>{
     data.uuid = randomstring.generate();
     const _formData = cloneDeep(formData)
     _formData.sub_categories.push(data)
     onChange({ ..._formData });
+    setSubFormData({...initialState})
   }
   const onDelete = (data) =>{
     const _formData = cloneDeep(formData)
@@ -24,6 +29,20 @@ function Form({formData, onChange}) {
     _formData.name = value;
     onChange({ ..._formData });
   };
+
+  const onSubFormChange = (data) =>{
+    setSubFormData(data)
+  }
+
+  const onSubFormEdit = (data) =>{
+    const _formData = cloneDeep(formData)
+    _formData.sub_categories.forEach(item=> {
+      if(item.uuid === data.uuid){
+        item = {...data}
+      }
+    });
+    onChange({ ..._formData });
+  }
 
   return (
 
@@ -42,10 +61,10 @@ function Form({formData, onChange}) {
         </div>
 
         {formData.sub_categories.map((item) => {
-          return <SubForm key={item.uuid} subCategory={item} onSubmit={onDelete} actionTitle="Delete"/>
+          return <SubForm key={item.uuid} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
-      <SubForm onSubmit={onAdd} actionTitle="Add another"/>
+      <SubForm formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>
       </form>
     </>
   );
