@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
-function Card({category}) {
+function Card({category, onDelete}) {
 
   return (
     <>
@@ -15,8 +15,13 @@ function Card({category}) {
                   <h5 className="col-md-6">{category.name}</h5>
                 </div>
                 <div className="tools">
-                  <FaIcons icon="pencil-alt" />
-                  <FaIcons icon="trash-alt" />
+                  <div>
+                    <FaIcons icon="pencil-alt" />
+                  </div>
+                  <div onClick={()=>{onDelete(category)}} >
+                    <FaIcons icon="trash-alt" />
+                  </div>
+                 
                 </div>
               </div>
             </div>

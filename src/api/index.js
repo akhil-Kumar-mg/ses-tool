@@ -1,18 +1,18 @@
 import axiosInstance from "./axios";
 
-const get = async (url, params={}) => {
+const httpGet = async (url, params={}) => {
   return createRequest("GET", url, {}, params);
 };
 
-const post = async (url, data, params = {}) => {
+const httpPost = async (url, data, params = {}) => {
   return createRequest("POST", url, data, params);
 };
 
-const put = async (url, data, params = {}) => {
+const httpPut = async (url, data, params = {}) => {
   return createRequest("PUT", url, data, params);
 };
 
-const remove = async (url, data, params = {}) => {
+const httpDelete = async (url, data, params = {}) => {
   return createRequest("DELETE", url, data, params);
 };
 
@@ -46,4 +46,4 @@ const createRequest = async (method, url, data = {}, params= {}) => {
   });
 };
 
-export default { get, post, put, remove };
+export default { httpGet, httpPost, httpPut, httpDelete };

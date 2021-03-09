@@ -1,12 +1,16 @@
 import api from '../../../api';
 
-const get = () => {
-    return api.get('/category/')
+const getCategories = () => {
+    return api.httpGet('/category/')
 }
 
-const save = (data) => {
-    return api.post('/category/', data)
+const saveCategory = (data) => {
+    return api.httpPost('/category/', data)
 }
 
-export {get, save}
+const deleteCategory = (id) => {
+    return api.httpDelete(`/category/${id}/`)
+}
+
+export {getCategories, saveCategory, deleteCategory}
 
