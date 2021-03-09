@@ -1,11 +1,11 @@
 import axios from "axios";
-import { apiPath, apiLocalHost, apiProxyHost } from "../config/ApiConfig";
+// import { apiPath, apiLocalHost, apiProxyHost } from "../config/ApiConfig";
 
-const server =
-  process.env.NODE_ENV === "production" ? apiProxyHost : apiLocalHost;
-const baseURL = server + apiPath;
+// const server =
+//   process.env.NODE_ENV === "production" ? apiProxyHost : apiLocalHost;
+const baseURL = 'https://mastertool-backend.herokuapp.com';
 
-baseHeaders = {
+const baseHeaders = {
   Accept: "application/json",
   "Content-Type": "application/json",
 };

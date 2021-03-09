@@ -2,6 +2,19 @@ import React, { useState } from "react";
 
 function Form() {
 
+  const subcategory = {
+    name: "",
+    commercial_unit: ""
+  }
+  const category = {
+    name: "",
+    sub_categories: []
+  }
+  const [formData, setFormData] = useState({
+    name: "",
+    sub_categories: []
+  });
+
   const [items, setItems] = useState([]);
   const onAdd = () =>{
     const _items = [...items];
@@ -13,6 +26,16 @@ function Form() {
     _items.pop();
     setItems(_items);
   }
+
+  // const onChange = (key, value) => {
+  //   if(key === "primaryContactNumber" && isSelfRegistration){
+  //     return
+  //   }
+  //   const keys = key.split(".");
+  //   if (keys.length === 1) patient[key] = value;
+  //   else patient[keys[0]][keys[1]] = value;
+  //   setFormData({ ...patient });
+  // };
   return (
 
     <>
@@ -22,6 +45,10 @@ function Form() {
             type="text"
             className="form-control bg-white"
             placeholder="Category name"
+            value={formData.name}
+            // onChange={(e) =>
+            //   onChange("name", e.target.value)
+            // }
           />
         </div>
 

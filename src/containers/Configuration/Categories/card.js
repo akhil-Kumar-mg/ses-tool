@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 
-function Card({key}) {
+function Card({key, category}) {
 
   return (
     <>
@@ -12,7 +12,7 @@ function Card({key}) {
             <div className="card-title">
               <div className="sub-header">
                 <div className="titles">
-                  <h5 className="col-md-6">Category name</h5>
+                  <h5 className="col-md-6">{category.name}</h5>
                 </div>
                 <div className="tools">
                   <FaIcons icon="pencil-alt" />
@@ -22,7 +22,7 @@ function Card({key}) {
             </div>
 
             <p className="card-text">
-              Sub Categories: SC_NAME1, SC_NAME2, SC_NAME3
+              Sub Categories: {category.sub_categories.map(item=> item.name).join(',')}
             </p>
           </div>
         </div>

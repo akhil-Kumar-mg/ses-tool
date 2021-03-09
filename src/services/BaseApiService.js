@@ -1,5 +1,5 @@
 import axiosInstance from "./AxiosInstance";
-import { apiHost, apiPath, apiProxyHost } from "../config";
+// import { apiHost, apiPath, apiProxyHost } from "../config";
 
 const get = async (url, params) => {
   return createRequest("GET", url, params, null);
@@ -17,7 +17,7 @@ const remove = async (url, params, data) => {
   return createRequest("DELETE", url, params, data);
 };
 
-createRequest = async (method, url, params, data) => {
+const createRequest = async (method, url, params, data) => {
   const requestMethod = method ? method.toUpperCase() : "GET";
   let config = {
     url,

@@ -4,13 +4,18 @@ import FaIcons from "../../../components/fa-icons";
 import Modal from "./Add";
 import Card from "./card";
 
+import {getCategories} from '../../../services/api/CategoryApiService';
+
 function Catergories() {
-  const [categories, fetchCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    // alert("sddf")
+    getCategories().then(res=>{
+
+      setCategories(res)}
+      ).catch(err=>console.log(err))
   },[])
 
   return (
@@ -25,8 +30,8 @@ function Catergories() {
 
       <div className="sub-container categories">
         <div className="row">
-          {categories.map((item) => (
-            <Card key={item} />
+          {categories.map((item, idx) => (
+            <Card key={idx} category={item}/>
           ))}
         </div>
       </div>
