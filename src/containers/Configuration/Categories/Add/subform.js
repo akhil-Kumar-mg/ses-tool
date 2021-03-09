@@ -15,7 +15,7 @@ function SubForm({ subCategory, onSubmit, actionTitle }) {
   };
 
   const onFormSubmit = () =>{
-    onSubmit(formData)
+    onSubmit({...formData})
     setFormData({...initialState})
   }
 

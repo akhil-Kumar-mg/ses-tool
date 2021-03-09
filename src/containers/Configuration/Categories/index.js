@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import cloneDeep from 'lodash/cloneDeep';
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 import useNotify from "../../../actions/Toast";
@@ -14,10 +15,11 @@ function Catergories() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
 
-  const [formData, setFormData] = useState({
+  const initialState = {
     name: "",
     sub_categories: []
-  });
+  }
+  const [formData, setFormData] = useState(cloneDeep(initialState));
 
   useEffect(() => {
     onLoad();
@@ -34,6 +36,7 @@ function Catergories() {
   const onFormSubmit = () =>{
     save(formData).then(res=> {
       notify(`${formData.name} category has been saved successfully.`, "success");
+      setFormData(cloneDeep(initialState))
       setShow(false);
       onLoad();
     }).catch(err=>notify("Oops! Failed to fetch categories list.", "error"))
