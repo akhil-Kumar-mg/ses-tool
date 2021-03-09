@@ -12,5 +12,9 @@ const deleteCategory = (id) => {
     return api.httpDelete(`/category/${id}/`)
 }
 
-export {getCategories, saveCategory, deleteCategory}
+const editCategory = (data) => {
+    return api.httpPut(`/category/${data.id}/`, data)
+}
+
+export {getCategories, saveCategory, deleteCategory, editCategory}
 

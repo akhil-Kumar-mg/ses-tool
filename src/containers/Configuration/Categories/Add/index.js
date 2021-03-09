@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "../../../../components/Modal";
 import Form from "./form";
 
-function ModalContainer({ show, formData, onChange, onSubmit, onCancel }) {
+function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) {
 
   return (
     <>
@@ -23,7 +23,7 @@ function ModalContainer({ show, formData, onChange, onSubmit, onCancel }) {
               </div>
               <div className="col-sm-6">
                 <button type="button" className="btn btn-primary" onClick={onSubmit}>
-                  ADD
+                  {mode}
                 </button>
               </div>
             </div>

@@ -12,7 +12,7 @@ function Form({formData, onChange}) {
   const [subFormData, setSubFormData] = useState({...initialState});
 
   const onAdd = (data) =>{
-    data.uuid = randomstring.generate();
+    data.id = randomstring.generate();
     const _formData = cloneDeep(formData)
     _formData.sub_categories.push(data)
     onChange({ ..._formData });
@@ -20,7 +20,7 @@ function Form({formData, onChange}) {
   }
   const onDelete = (data) =>{
     const _formData = cloneDeep(formData)
-    _formData.sub_categories = _formData.sub_categories.filter(item=> item.uuid !== data.uuid);
+    _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id);
     onChange({ ..._formData });
   }
 
@@ -37,7 +37,7 @@ function Form({formData, onChange}) {
   const onSubFormEdit = (data) =>{
     const _formData = cloneDeep(formData)
     _formData.sub_categories.forEach(item=> {
-      if(item.uuid === data.uuid){
+      if(item.id === data.id){
         item = {...data}
       }
     });
@@ -61,7 +61,7 @@ function Form({formData, onChange}) {
         </div>
 
         {formData.sub_categories.map((item) => {
-          return <SubForm key={item.uuid} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
+          return <SubForm key={item.id} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
       <SubForm formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>
