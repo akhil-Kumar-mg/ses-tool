@@ -33,7 +33,6 @@ function Catergories() {
 
   const onFormSubmit = () =>{
     save(formData).then(res=> {
-      console.log(res)
       notify(`${formData.name} category has been saved successfully.`, "success");
       setShow(false);
       onLoad();
