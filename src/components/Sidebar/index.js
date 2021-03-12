@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo from '../../assets/img/ses-logo.png';
 
 
-function Sidebar({title, links = []}) {
+function Sidebar({title,sublink, links = []}) {
 const [active, SetActive] = useState(-1)
 
   return (
@@ -16,7 +16,7 @@ const [active, SetActive] = useState(-1)
             <ul className="item-list">
                 {
                     links.map(item=>{
-                        return <li key={item} className={`item item-animate ${active === item ? 'active': ''}`} onClick={()=>{SetActive(item)}}><Link to={`/App/${title}/${item.replace(" ","")}`} className="link">{item}</Link></li>
+                        return <li key={item} className={`item item-animate ${active === item ? 'active': ''}`} onClick={()=>{SetActive(item)}}><Link to={`/App/${title}${sublink||''}/${item.replace(" ","")}`} className="link">{item}</Link></li>
                     })
                 }
             </ul>

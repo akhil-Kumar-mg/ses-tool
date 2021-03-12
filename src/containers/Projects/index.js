@@ -1,37 +1,42 @@
 import React, { useState } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import "./style.scss";
+import FaIcons from "../../components/fa-icons";
 
-import Sidebar from "../../components/Sidebar";
+import Child from "./layout";
+import Card from "./card";
 
-import PNL from './PNL';
-import Scenarios from './Scenarios';
-import SolutionSheet from './SolutionSheet';
-import Pricing from './Pricing';
-
-import NotFound from '../NotFound';
-
-function Projects(){
-  return <></>
-}
-
-function ProjectsContainer() {
-  const links = ["Scenarios", "Solution Sheet", "Pricing"]
+function Projects() {
+  const history = useHistory();
+  const items = [...Array(15).keys()];
+  const onSetup = () =>{
+    history.push("/App/Projects/Setup/Scenarios");
+  }
   return (
-    <>
-      <Sidebar title="Projects" links={links}/>
-      <div className="right-container">
-        <Switch>
-          {/* <Route exact path="/App/Projects/PNL" component={PNL} /> */}
-          <Route exact path="/App/Projects/Scenarios" component={Scenarios} />
-          <Route exact path="/App/Projects/SolutionSheet" component={SolutionSheet} />
-          <Route exact path="/App/Projects/Pricing" component={Pricing} />
-          <Route exact path="/App/Projects" component={Projects} />
-          <Route component={NotFound} />
-        </Switch>
+    <div className="project-container">
+      <div className="header">
+        <h1>Projects</h1>
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search for projects"
+            // value={formData.name}
+            // onChange={(e) =>
+            //   onFormChange(e.target.value)
+            // }
+          />
+        </div>
+        <button type="button" className="btn btn-primary">
+          ADD PROJECT <FaIcons icon="plus" />
+        </button>
       </div>
-    </>
+      <div className="sub-container">
+        {items.map(item=>    <Card onSetup={onSetup}/>)}
+     
+      </div>
+    </div>
   );
 }
 
-export default ProjectsContainer;
+export default Projects;

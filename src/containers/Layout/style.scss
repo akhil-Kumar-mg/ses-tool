@@ -22,16 +22,21 @@ div.pro-sidebar-header {
   display: flex;
   flex-direction: row;
   height: 100%;
-  > div:first-child {
+  // > div:first-child {
+  //   flex: 1 0 25%;
+  //   max-width: 25%;
+  //   padding-top: 50px;
+  // }
+  // > div:last-child {
+  //   flex: 1 0 75%;
+  //   max-width: 75%;
+  // }
+  .left-container {
     flex: 1 0 25%;
     max-width: 25%;
     padding-top: 50px;
-  }
-  > div:last-child {
-    flex: 1 0 75%;
-    max-width: 75%;
-  }
-  .left-container {
+
+
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -70,6 +75,9 @@ div.pro-sidebar-header {
     }
   }
   .right-container {
+    flex: 1 0 75%;
+    max-width: 75%;
+
     border-left: 1px solid $lightgray;
     overflow: auto;
     .header {
