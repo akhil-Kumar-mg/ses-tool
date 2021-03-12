@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
 import cloneDeep from "lodash/cloneDeep";
+import { useHistory} from "react-router-dom";
 import "./style.scss";
-import FaIcons from "../../components/fa-icons";
+import FaIcons from "../../../components/fa-icons";
 
-import Sidebar from "../../components/Sidebar";
 
-import Grid from "../../components/Grid";
+
+import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 
-import NotFound from '../NotFound';
-import Periods from '../Periods';
+
 
 import Modal from "./Add";
 
 function Scenarios() {
+  const history = useHistory();
   const initialState = {
     name: "",
     sub_categories: [],
@@ -32,7 +32,8 @@ function Scenarios() {
   const onGridChange = (event, item) => {
     switch (event) {
       case "onSetup":
-        // handlePricing()
+        history.push('/App/Projects/Scenarios/Periods')
+
         break;
     }
   };
@@ -73,22 +74,5 @@ function Scenarios() {
   );
 }
 
-function ScenariosContainer() {
-  const links = ["Periods", "Subscribers", "Channel", "Tech Parameters", "VOD Content", "Subscriber Ramp Up", "Channel Ramp Up"]
-  return (
-    <>
-      <Sidebar title="Projects" sublink="/Scenarios" links={links}/>
-      <div className="right-container">
-        <Switch>
-          <Route exact path="/App/Projects/Scenarios/Periods" component={Periods} />
-          {/* <Route exact path="/App/Projects/Setup/SolutionSheet" component={SolutionSheet} />
-          <Route exact path="/App/Projects/Setup/Pricing" component={Pricing} /> */}
-          <Route exact path="/App/Projects/Scenarios" component={Scenarios} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
-    </>
-  );
-}
 
-export default ScenariosContainer;
+export default Scenarios;

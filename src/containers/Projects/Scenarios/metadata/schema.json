@@ -1,0 +1,24 @@
+{
+    "columns": [
+      {
+        "name": "FORECAST NAME",
+        "field": "name"
+      },
+      {
+        "name": "DURATION",
+        "field": "duration"
+      },
+      {
+        "name": "LAST EDITED",
+        "field": "edited"
+      }
+    ],
+    "actions": [
+      {
+        "name": "Setup",
+        "type": "link",
+        "width": "150px",
+        "event": "onSetup"
+      }
+    ]
+  }
