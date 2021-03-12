@@ -1,0 +1,45 @@
+{
+    "columns": [
+      {
+        "name": "TYPE NAME",
+        "field": "name"
+      },
+      {
+        "name": "AVG. VH",
+        "field": "vh"
+      },
+      {
+        "name": "AVG. IMPRESSIONS /VH",
+        "field": "impression"
+      },
+      {
+        "name": "SUBSCRIBER START NUMBER",
+        "field": "start"
+      },
+      {
+        "name": "AVG. VIEW BITRATE",
+        "field": "bitrate"
+      },
+      {
+        "name": "VOD% VH",
+        "field": "vod"
+      },
+      {
+        "name": "LINEAR% VH",
+        "field": "linear"
+      },
+      {
+        "name": "CATCHUP% VH",
+        "field": "catchup"
+      }
+    ],
+    "actions" : [{
+      "name": "pencil-alt",
+      "type": "icon",
+      "color": "blue"
+    }, {
+      "name": "trash-alt",
+      "type": "icon"
+    }
+    ]
+  }

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
-import FaIcons from "../../components/fa-icons";
+import FaIcons from "../../../components/fa-icons";
 import Modal from "./Add";
+
+import Grid from "../../../components/Grid";
+import schema from "./metadata/schema.json";
+import data from "./metadata/data.json";
+
 function Periods() {
   const initialState = {
     name: "",
@@ -33,6 +38,15 @@ function Periods() {
     setFormData(cloneDeep(initialState));
   };
 
+  const onGridChange = (event, item) => {
+    switch (event) {
+      case "onSetup":
+       
+
+        break;
+    }
+  };
+
   return (
     <>
       <Modal
@@ -44,10 +58,13 @@ function Periods() {
         mode={mode}
       />
       <div className="header">
-        <h1>Periods</h1>
+        <h1>Subscribers</h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
-          SET PERIODS <FaIcons icon="plus" />
+          SET SUBSCRIBER TYPE <FaIcons icon="plus" />
         </button>
+      </div>
+      <div className="sub-container">
+        <Grid data={data} schema={schema} onChange={onGridChange} />
       </div>
     </>
   );

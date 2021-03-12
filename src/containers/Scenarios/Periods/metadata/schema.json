@@ -1,0 +1,21 @@
+{
+    "columns": [
+      {
+        "name": "PERIOD",
+        "field": "period"
+      },
+      {
+        "name": "START MONTH",
+        "field": "start"
+      },
+      {
+        "name": "END MONTH",
+        "field": "end"
+      },
+      {
+        "name": "TOTAL MONTH",
+        "field": "total"
+      }
+    ],
+    "actions" : []
+  }
