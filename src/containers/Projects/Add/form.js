@@ -15,31 +15,43 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control bg-white"
-            placeholder="Forecast name"
+            placeholder="Project name"
             value={formData.name}
             onChange={(e) => onFormChange("name", e.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label>Expected start date</label>
-          <input
-            type="date"
-            className="form-control"
-            placeholder="Placeholder text"
-            value={formData.date}
-            onChange={(e) => onFormChange("date", e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Number of months</label>
+          <label>Customer</label>
           <input
             type="text"
             className="form-control"
             placeholder="Placeholder text"
-            value={formData.months}
-            onChange={(e) => onFormChange("months", e.target.value)}
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+        <label>Country</label>
+        <select
+          className="form-control"
+          value={formData.country}
+          onChange={(e) => onFormChange("country", e.target.value)}
+        >
+          <option value="-1">Select</option>
+          <option value="Channel">India</option>
+        </select>
+      </div>
+
+        <div className="form-group">
+          <label>Sales manager</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.manager}
+            onChange={(e) => onFormChange("manager", e.target.value)}
           />
         </div>
       </form>
