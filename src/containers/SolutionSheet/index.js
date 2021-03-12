@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./style.scss";
-import FaIcons from "../../../components/fa-icons";
 
-import Grid from "../../../components/Grid";
+
+import Grid from "../../components/Grid";
 import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 
-import Modal from "../../../components/Solution";
+import Modal from "../../components/Solution";
 
 function SolutionSheet() {
   const [show, setShow] = useState(false);

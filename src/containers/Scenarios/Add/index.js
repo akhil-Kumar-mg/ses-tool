@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../../../../components/Modal";
+import Modal from "../../../components/Modal";
 import Form from "./form";
 
 function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) {

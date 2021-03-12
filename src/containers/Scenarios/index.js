@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import "./style.scss";
-import FaIcons from "../../../components/fa-icons";
+import FaIcons from "../../components/fa-icons";
 
-import Grid from "../../../components/Grid";
+import Grid from "../../components/Grid";
 import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 
