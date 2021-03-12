@@ -32,8 +32,8 @@ div.pro-sidebar-header {
   //   max-width: 75%;
   // }
   .left-container {
-    flex: 1 0 25%;
-    max-width: 25%;
+    flex: 1 0 20%;
+    max-width: 20%;
     padding-top: 50px;
 
 
@@ -75,8 +75,8 @@ div.pro-sidebar-header {
     }
   }
   .right-container {
-    flex: 1 0 75%;
-    max-width: 75%;
+    flex: 1 0 80%;
+    max-width: 80%;
 
     border-left: 1px solid $lightgray;
     overflow: auto;
@@ -93,7 +93,7 @@ div.pro-sidebar-header {
       border-bottom: 1px solid $lightgray;
       z-index: 100;
       background-color: $darkgrey;
-      width: 72%;
+      width: 77%;
     }
     //
     .sub-container {
