@@ -25,7 +25,7 @@ function Grid({ data, schema, onChange }) {
             className="col colsm"
             style={{ width: `${action.width || defaultColWidth}` }}
           >
-            <FaIcons icon={action.name} />
+            {action.label && <span>{action.label}</span>} <FaIcons icon={action.name} color={action.color}/>
           </div>
         );
     }

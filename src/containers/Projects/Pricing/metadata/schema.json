@@ -1,0 +1,30 @@
+{
+    "columns": [
+      {
+        "name": "CATEGORY",
+        "field": "category"
+      },
+      {
+        "name": "SUB-CATEGORY",
+        "field": "subcategory"
+      },
+      {
+        "name": "COMMERCIAL UNIT",
+        "field": "unit"
+      }
+    ],
+    "actions": [
+      {
+        "name": "pencil-alt",
+        "type": "icon",
+        "color": "blue",
+        "label": "Pricing",
+        "width": "100px"
+      },
+      {
+        "name": "trash-alt",
+        "type": "icon"
+      }
+      
+    ]
+  }

@@ -29,6 +29,13 @@
 
   i{
       cursor: pointer;
+     
+  }
+  i.default-color{
+    color: $icon-default-color;
+  }
+  i.blue-color{
+    color: $link-color;
   }
 
 //   .grid-header{

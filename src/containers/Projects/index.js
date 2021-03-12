@@ -16,13 +16,13 @@ function Projects(){
 }
 
 function ProjectsContainer() {
-  const links = ["PNL", "Scenarios", "Solution Sheet", "Pricing"]
+  const links = ["Scenarios", "Solution Sheet", "Pricing"]
   return (
     <>
       <Sidebar title="Projects" links={links}/>
       <div className="right-container">
         <Switch>
-          <Route exact path="/App/Projects/PNL" component={PNL} />
+          {/* <Route exact path="/App/Projects/PNL" component={PNL} /> */}
           <Route exact path="/App/Projects/Scenarios" component={Scenarios} />
           <Route exact path="/App/Projects/SolutionSheet" component={SolutionSheet} />
           <Route exact path="/App/Projects/Pricing" component={Pricing} />
