@@ -19,7 +19,8 @@
         "type": "icon",
         "color": "blue",
         "label": "Pricing",
-        "width": "100px"
+        "width": "100px",
+        "event": "onSetup"
       },
       {
         "name": "trash-alt",

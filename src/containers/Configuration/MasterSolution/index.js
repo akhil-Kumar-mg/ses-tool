@@ -5,7 +5,7 @@ import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 
-import Modal from "./Add";
+import Modal from "../../../components/Solution";
 function MasterSolution() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
