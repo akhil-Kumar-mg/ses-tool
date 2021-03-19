@@ -1,59 +1,68 @@
 import React, { useState } from "react";
-import cloneDeep from "lodash/cloneDeep";
+import SubForm from './subform';
+import cloneDeep from 'lodash/cloneDeep';
+const randomstring = require("randomstring");
 
-function Form({ formData, onChange }) {
-  const onFormChange = (key, value) => {
-    const _formData = cloneDeep(formData);
-    _formData[key] = value;
+function Form({formData, onChange}) {
+
+  const initialState = {
+    start: "",
+    end: "",
+  };
+  const [subFormData, setSubFormData] = useState({...initialState});
+
+  const onAdd = (data) =>{
+    data.id = randomstring.generate();
+    const _formData = cloneDeep(formData)
+    _formData.periods.push(data)
+    onChange({ ..._formData });
+    setSubFormData({...initialState})
+  }
+  const onDelete = (data) =>{
+    const _formData = cloneDeep(formData)
+    _formData.periods = _formData.periods.filter(item=> item.id !== data.id);
+    onChange({ ..._formData });
+  }
+
+  const onFormChange = (value) => {
+    const _formData = cloneDeep(formData)
+    _formData.name = value;
     onChange({ ..._formData });
   };
 
+  const onSubFormChange = (data) =>{
+    setSubFormData(data)
+  }
+
+  const onSubFormEdit = (data) =>{
+    const _formData = cloneDeep(formData)
+    _formData.periods.forEach(item=> {
+      if(item.id === data.id){
+        item = {...data}
+      }
+    });
+    onChange({ ..._formData });
+  }
+
+  const onFormSubmit = () =>{
+    onAdd({...subFormData})
+  }
+
   return (
+
     <>
       <form>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control bg-white"
-            placeholder="Project name"
-            value={formData.name}
-            onChange={(e) => onFormChange("name", e.target.value)}
-          />
-        </div>
 
-        <div className="form-group">
-          <label>Customer</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
-          />
-        </div>
+        {formData.periods.map((item) => {
+          return <SubForm key={item.id} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
+        })}
 
-        <div className="form-group">
-        <label>Country</label>
-        <select
-          className="form-control"
-          value={formData.country}
-          onChange={(e) => onFormChange("country", e.target.value)}
-        >
-          <option value="-1">Select</option>
-          <option value="Channel">India</option>
-        </select>
+    
+      <div className="center">
+        <a onClick={onFormSubmit} href="javascript:void();">
+        Add Period
+        </a>
       </div>
-
-        <div className="form-group">
-          <label>Sales manager</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Placeholder text"
-            value={formData.manager}
-            onChange={(e) => onFormChange("manager", e.target.value)}
-          />
-        </div>
       </form>
     </>
   );

@@ -14,19 +14,19 @@ function Periods() {
     sub_categories: [],
   };
   const [show, setShow] = useState(false);
-  const [mode, setMode] = useState("SETUP");
+  const [mode, setMode] = useState("ADD");
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
   const handleShow = () => {
-    setMode("SETUP");
+    setMode("ADD");
     setShow(true);
   };
 
   const onSetup = () => {};
 
   const onFormSubmit = () => {
-    if (mode === "SETUP") onSave();
+    if (mode === "ADD") onSave();
     else onEdit();
   };
 

@@ -11,18 +11,9 @@ function Form({ formData, onChange }) {
   return (
     <>
       <form>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control bg-white"
-            placeholder="Project name"
-            value={formData.name}
-            onChange={(e) => onFormChange("name", e.target.value)}
-          />
-        </div>
 
         <div className="form-group">
-          <label>Customer</label>
+          <label>Type name</label>
           <input
             type="text"
             className="form-control"
@@ -33,7 +24,7 @@ function Form({ formData, onChange }) {
         </div>
 
         <div className="form-group">
-        <label>Country</label>
+        <label>Avg. viewing Hours per sub per month</label>
         <select
           className="form-control"
           value={formData.country}
@@ -45,7 +36,7 @@ function Form({ formData, onChange }) {
       </div>
 
         <div className="form-group">
-          <label>Sales manager</label>
+          <label>Avg. Impression per viewing hours</label>
           <input
             type="text"
             className="form-control"
@@ -54,6 +45,63 @@ function Form({ formData, onChange }) {
             onChange={(e) => onFormChange("manager", e.target.value)}
           />
         </div>
+
+        <div className="form-group">
+          <label>Subscriber start number</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Avg. viewing bitrate</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>VOD % of Viewing hours</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Linear % of Viewing hours</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Catch up % of Viewing hours</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
+
+
       </form>
     </>
   );

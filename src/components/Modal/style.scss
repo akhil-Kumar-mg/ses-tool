@@ -64,6 +64,9 @@
   background-color: $modal-bg-color;
   form {
     color: $text-color;
+    .form-control{
+      height: 50px;
+    }
     .form-control,
     .input-group-text {
       border-radius: 0;

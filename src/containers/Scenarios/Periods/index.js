@@ -10,23 +10,22 @@ import data from "./metadata/data.json";
 
 function Periods() {
   const initialState = {
-    name: "",
-    sub_categories: [],
+    periods: [{start: "", end: ""}],
   };
   const [show, setShow] = useState(false);
-  const [mode, setMode] = useState("SETUP");
+  const [mode, setMode] = useState("ADD");
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
   const handleShow = () => {
-    setMode("SETUP");
+    setMode("ADD");
     setShow(true);
   };
 
   const onSetup = () => {};
 
   const onFormSubmit = () => {
-    if (mode === "SETUP") onSave();
+    if (mode === "ADD") onSave();
     else onEdit();
   };
 

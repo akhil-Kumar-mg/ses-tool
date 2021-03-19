@@ -39,7 +39,7 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
         </select>
       </div>
       <div className="center">
-        <a onClick={onFormSubmit}>
+        <a onClick={onFormSubmit} href="javascript:void();">
           {actionTitle}
         </a>
       </div>
