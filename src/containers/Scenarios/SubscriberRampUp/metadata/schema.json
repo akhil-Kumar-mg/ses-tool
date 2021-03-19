@@ -1,0 +1,35 @@
+{
+
+    "columns": [
+      {
+        "name": "PERIOD",
+        "field": "period"
+      },
+      {
+        "name": "TYPE",
+        "field": "type"
+      },
+      {
+        "name": "INC TYPE",
+        "field": "inctype",
+        "type": "dropdown"
+      },
+      {
+        "name": "INC AMOUNT",
+        "field": "incamount",
+        "type": "text"
+      },
+      {
+        "name": "MAXSUBS",
+        "field": "maxsubs",
+        "type": "text"
+      },
+      {
+        "name": "CHRUN",
+        "field": "chrun",
+        "type": "text"
+      }
+    ],
+    "actions" : [
+    ]
+  }

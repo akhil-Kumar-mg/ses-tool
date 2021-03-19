@@ -11,6 +11,7 @@ import Channels from "./Channels";
 import VODContent from "./VODContent";
 import TechParameters from './TechParameters';
 import ChannelRampUp from './ChannelRampUp';
+import SubscriberRampUp from './SubscriberRampUp';
 
 function Scenarios() {
   return <></>;
@@ -55,6 +56,11 @@ function ScenariosContainer() {
             exact
             path="/App/Projects/Scenarios/TechParameters"
             component={TechParameters}
+          />
+          <Route
+            exact
+            path="/App/Projects/Scenarios/SubscriberRampUp"
+            component={SubscriberRampUp}
           />
           <Route
             exact
