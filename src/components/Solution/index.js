@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "../Modal";
 import Form from "./form";
 
-function ModalContainer({ show, setShow }) {
+function ModalContainer({ show, setShow, onSubmit }) {
   const handleClose = () => setShow(false);
 
   return (
@@ -24,7 +24,7 @@ function ModalContainer({ show, setShow }) {
                 </button>
               </div>
               <div className="col-sm-6">
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary" onClick={onSubmit}>
                   ADD
                 </button>
               </div>
@@ -35,5 +35,10 @@ function ModalContainer({ show, setShow }) {
     </>
   );
 }
+
+ModalContainer.defaultProps = {
+  onSubmit: () => {},
+};
+
 
 export default ModalContainer;

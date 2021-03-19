@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 
 import "./style.scss";
 
-function ModalContainer({ title, body, actions, show, autoClose, onClose }) {
+function ConfirmModalContainer({ title, body, actions, show, autoClose, onClose }) {
   const onDefaultClose = () => {};
   return (
     <>
@@ -12,7 +12,7 @@ function ModalContainer({ title, body, actions, show, autoClose, onClose }) {
         backdrop={autoClose || 'static'}
         onHide={onClose || onDefaultClose}
         keyboard={false}
-        className="right in ses-modal"
+        className="in ses-confirm-modal"
       >
         {/* <Modal.Header>
         {title && <Modal.Title>{title}</Modal.Title>}
@@ -28,4 +28,4 @@ function ModalContainer({ title, body, actions, show, autoClose, onClose }) {
   );
 }
 
-export default ModalContainer;
+export default ConfirmModalContainer;

@@ -1,0 +1,30 @@
+@import "../../variables.scss";
+
+.ses-confirm-modal {
+  /* ----- MODAL STYLE ----- */
+
+  .modal-content {
+    background-color: $modal-bg-color;
+  }
+  .modal-header {
+    z-index: 100;
+    border-color: $modal-close-color;
+  }
+  .modal-body{
+    color: $modal-body-text-color;
+  }
+  .modal-footer {
+    border-top-color: $modal-bg-color;
+    .row {
+      width: 100%;
+    }
+    button {
+      &.cancel {
+        background-color: $modal-close-color;
+        border-color: $modal-close-color;
+      }
+      border-radius: 0;
+      width: 100%;
+    }
+  }
+}

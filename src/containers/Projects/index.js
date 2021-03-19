@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 import FaIcons from "../../components/fa-icons";
 
@@ -11,14 +11,12 @@ function Projects() {
   const history = useHistory();
   const items = [...Array(15).keys()];
 
-
   const initialState = {
     name: "",
     sub_categories: [],
   };
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("SETUP");
-
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -27,13 +25,13 @@ function Projects() {
     setShow(true);
   };
 
-  const onSetup = () =>{
+  const onSetup = () => {
     history.push("/App/Projects/Setup/Scenarios");
-  }
+  };
 
-  const onView = () =>{
+  const onView = () => {
     history.push("/App/Projects/View");
-  }
+  };
 
   const onFormSubmit = () => {
     if (mode === "SETUP") onSave();
@@ -48,37 +46,45 @@ function Projects() {
     setFormData(cloneDeep(initialState));
   };
   return (
-    <> <Modal
-    show={show}
-    onCancel={onFormCancel}
-    formData={formData}
-    onChange={setFormData}
-    onSubmit={onFormSubmit}
-    mode={mode}
-  />
-    <div className="project-container">
-      <div className="header">
-        <h1>Projects</h1>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search for projects"
-            // value={formData.name}
-            // onChange={(e) =>
-            //   onFormChange(e.target.value)
-            // }
-          />
+    <>
+      {" "}
+      <Modal
+        show={show}
+        onCancel={onFormCancel}
+        formData={formData}
+        onChange={setFormData}
+        onSubmit={onFormSubmit}
+        mode={mode}
+      />
+      <div className="project-container">
+        <div className="header">
+          <h1>Projects</h1>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search for projects"
+              // value={formData.name}
+              // onChange={(e) =>
+              //   onFormChange(e.target.value)
+              // }
+            />
+          </div>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleShow}
+          >
+            ADD PROJECT <FaIcons icon="plus" />
+          </button>
         </div>
-        <button type="button" className="btn btn-primary"  onClick={handleShow}>
-          ADD PROJECT <FaIcons icon="plus" />
-        </button>
+        <div className="sub-container">
+          {items.map((item) => (
+            <Card onSetup={onSetup} onView={onView} />
+          ))}
+        </div>
       </div>
-      <div className="sub-container">
-        {items.map(item=>    <Card onSetup={onSetup} onView={onView}/>)}
-     
-      </div>
-    </div></>
+    </>
   );
 }
 
