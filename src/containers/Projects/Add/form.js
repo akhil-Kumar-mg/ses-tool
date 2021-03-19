@@ -33,16 +33,16 @@ function Form({ formData, onChange }) {
         </div>
 
         <div className="form-group">
-        <label>Country</label>
-        <select
-          className="form-control"
-          value={formData.country}
-          onChange={(e) => onFormChange("country", e.target.value)}
-        >
-          <option value="-1">Select</option>
-          <option value="Channel">India</option>
-        </select>
-      </div>
+          <label>Country</label>
+          <select
+            className="form-control"
+            value={formData.country}
+            onChange={(e) => onFormChange("country", e.target.value)}
+          >
+            <option value="-1">Select</option>
+            <option value="Channel">India</option>
+          </select>
+        </div>
 
         <div className="form-group">
           <label>Sales manager</label>

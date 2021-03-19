@@ -7,6 +7,7 @@ import Configuration from "../Configuration";
 import Projects from "../Projects";
 import Scenarios from "../Scenarios";
 import ProjectSetup from "../Projects/layout";
+import ViewProject from '../Projects/View';
 import Home from "../Home";
 import NotFound from "../NotFound";
 
@@ -31,6 +32,7 @@ const Main = ({
           <Route path="/App/Configuration" component={Configuration} />
           <Route path="/App/Projects/Scenarios" component={Scenarios} />
           <Route path="/App/Projects/Setup" component={ProjectSetup} />
+          <Route path="/App/Projects/View" component={ViewProject} />
           <Route path="/App/Projects" exact component={Projects} />
           
           <Route path="/App" exact component={Home} />

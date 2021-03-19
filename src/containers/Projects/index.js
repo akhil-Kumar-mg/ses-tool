@@ -31,6 +31,10 @@ function Projects() {
     history.push("/App/Projects/Setup/Scenarios");
   }
 
+  const onView = () =>{
+    history.push("/App/Projects/View");
+  }
+
   const onFormSubmit = () => {
     if (mode === "SETUP") onSave();
     else onEdit();
@@ -71,7 +75,7 @@ function Projects() {
         </button>
       </div>
       <div className="sub-container">
-        {items.map(item=>    <Card onSetup={onSetup}/>)}
+        {items.map(item=>    <Card onSetup={onSetup} onView={onView}/>)}
      
       </div>
     </div></>

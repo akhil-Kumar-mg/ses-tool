@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../components/fa-icons";
 
-function Card({ onSetup }) {
+function Card({ onSetup, onView }) {
   return (
     <>
       <div className="col-sm-12 sub-item">
@@ -24,7 +24,7 @@ function Card({ onSetup }) {
               SETUP
             </div>
           
-            <div className="btn-view">
+            <div className="btn-view" onClick={onView}>
               VIEW P/L
             </div>
           </div>

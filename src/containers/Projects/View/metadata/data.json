@@ -1,0 +1,37 @@
+[{
+    "parameters": "Operating Expenses",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "SG&A Allocation",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "EBIDTA Margin",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "Depreciation",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "EBIT",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "EBIT Margin",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "Tax",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "Profit after tax",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+},{
+    "parameters": "Revenue",
+    "year1": "Acquisition",
+    "year2": "Minerva"
+}]
