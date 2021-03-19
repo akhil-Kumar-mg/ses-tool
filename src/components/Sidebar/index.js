@@ -16,7 +16,7 @@ const [active, SetActive] = useState(-1)
             <ul className="item-list">
                 {
                     links.map(item=>{
-                        return <li key={item} className={`item item-animate ${active === item ? 'active': ''}`} onClick={()=>{SetActive(item)}}><Link to={`/App/${title}${sublink||''}/${item.replace(" ","")}`} className="link">{item}</Link></li>
+                        return <li key={item} className={`item item-animate ${active === item ? 'active': ''}`} onClick={()=>{SetActive(item)}}><Link to={`/App/${title}${sublink||''}/${item.replace(/ /g,"")}`} className="link">{item}</Link></li>
                     })
                 }
             </ul>

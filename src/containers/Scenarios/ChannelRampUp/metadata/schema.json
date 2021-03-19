@@ -1,0 +1,20 @@
+{
+
+    "columns": [
+      {
+        "name": "PERIOD",
+        "field": "period"
+      },
+      {
+        "name": "TYPE",
+        "field": "type"
+      },
+      {
+        "name": "NO OF CHANNEL AT START",
+        "field": "channel",
+        "type": "text"
+      }
+    ],
+    "actions" : [
+    ]
+  }

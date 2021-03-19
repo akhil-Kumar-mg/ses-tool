@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./style.scss";
 
 import FaIcons from "../fa-icons";
@@ -15,7 +15,14 @@ function Grid({ data, schema, onChange }) {
             className="col colsm"
             style={{ width: `${action.width || defaultColWidth}` }}
           >
-            <a href="javascript:void(0)" onClick={()=>{onChange(action.event, item)}}>{action.name}</a>
+            <a
+              href="javascript:void(0)"
+              onClick={() => {
+                onChange(action.event, item);
+              }}
+            >
+              {action.name}
+            </a>
           </div>
         );
       case "icon":
@@ -24,9 +31,29 @@ function Grid({ data, schema, onChange }) {
             key={action.name}
             className="col colsm"
             style={{ width: `${action.width || defaultColWidth}` }}
-            onClick={()=>{onChange(action.event, item)}}
+            onClick={() => {
+              onChange(action.event, item);
+            }}
           >
-            {action.label && <span>{action.label}</span>} <FaIcons icon={action.name} color={action.color}/>
+            {action.label && <span>{action.label}</span>}{" "}
+            <FaIcons icon={action.name} color={action.color} />
+          </div>
+        );
+    }
+  };
+
+  const renderItem = (column, item) => {
+    switch (column.type) {
+      case "text":
+        return (
+          <div key={column.field} className="col field">
+            <input style={{width: '100px'}} type="text" value={item[column.field]}/>
+          </div>
+        );
+      default:
+        return (
+          <div key={column.field} className="col field">
+            {item[column.field]}
           </div>
         );
     }
@@ -39,7 +66,11 @@ function Grid({ data, schema, onChange }) {
       <div className="row grid-header">
         <div className="col colsm" style={{ width: defaultColWidth }}></div>
         {schema.columns.map((column) => {
-          return <div key={column.name} className="col">{column.name}</div>;
+          return (
+            <div key={column.name} className="col">
+              {column.name}
+            </div>
+          );
         })}
         {schema.actions.map((action, idx) => {
           return (
@@ -58,9 +89,7 @@ function Grid({ data, schema, onChange }) {
             <div className="col colsm" style={{ width: defaultColWidth }}>
               {idx + 1}
             </div>
-            {schema.columns.map((column) => {
-              return <div key={column.field} className="col field">{item[column.field]}</div>;
-            })}
+            {schema.columns.map((column) => renderItem(column, item))}
             {schema.actions.map((action) => renderActions(action, item))}
           </div>
         );
@@ -70,11 +99,11 @@ function Grid({ data, schema, onChange }) {
 }
 
 Grid.propTypes = {
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 Grid.defaultProps = {
-  onChange: ()=>{}
+  onChange: () => {},
 };
 
 export default Grid;
