@@ -23,3 +23,36 @@ html, body {
 * {
   box-sizing: border-box;
 }
+
+.ses-form {
+  color: $text-color;
+  .form-control{
+    height: 50px;
+  }
+  .form-control,
+  .input-group-text {
+    border-radius: 0;
+    color: $text-color;
+    background-color: $modal-bg-color;
+    border-color: $modal-close-color;
+  }
+  .bg-white {
+    background-color: $white;
+    color: $input-text-color;
+  }
+  a {
+    text-decoration: none;
+    &.delete{
+      color: $lightgray;
+    }
+  }
+  .panel-group {
+    padding: 10px;
+    border: 1px dashed $link-color;
+  }
+
+  .hr-dashed{
+    border-bottom: 1px dashed $modal-close-color;
+    margin: 20px 0;
+  }
+}
