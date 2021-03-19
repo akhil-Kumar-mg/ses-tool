@@ -1,0 +1,60 @@
+{
+  "delete": true,
+  "edit": true,
+  "width": "2500px",
+    "columns": [
+      {
+        "name": "TYPE NAME",
+        "field": "name"
+      },
+      {
+        "name": "CODEC",
+        "field": "codec"
+      },
+      {
+        "name": "CATCHUP HOURS",
+        "field": "catchuphours"
+      },
+      {
+        "name": "CHANNEL QUALITY",
+        "field": "channelquality"
+      },
+      {
+        "name": "SOURCE MBPS",
+        "field": "sourcembps"
+      },
+      {
+        "name": "AUDIO TYPE",
+        "field": "audiotype"
+      },
+      {
+        "name": "SOURCE TYPE",
+        "field": "sourcetype"
+      },
+      {
+        "name": "EPG SOURCE",
+        "field": "epgsource"
+      },
+      {
+        "name": "ADD CUE TONES",
+        "field": "cuetones"
+      },
+      {
+        "name": "# AUDIO TRACKS",
+        "field": "audiotracks"
+      },
+      {
+        "name": "# SUBTITLES",
+        "field": "subtitles"
+      }
+    ],
+    "actions" : [{
+      "name": "pencil-alt",
+      "type": "icon",
+      "color": "blue"
+    }, {
+      "name": "trash-alt",
+      "type": "icon"
+    }
+    ]
+  }

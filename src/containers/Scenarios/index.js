@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar";
 import NotFound from '../NotFound';
 import Periods from './Periods';
 import Subscribers from './Subscribers';
-
+import Channels from './Channels';
 
 function Scenarios() {
   
@@ -24,7 +24,7 @@ function Scenarios() {
 }
 
 function ScenariosContainer() {
-  const links = ["Periods", "Subscribers", "Channel", "Tech Parameters", "VOD Content", "Subscriber Ramp Up", "Channel Ramp Up"]
+  const links = ["Periods", "Subscribers", "Channels", "Tech Parameters", "VOD Content", "Subscriber Ramp Up", "Channel Ramp Up"]
   return (
     <>
       <Sidebar title="Projects" sublink="/Scenarios" links={links}/>
@@ -32,7 +32,7 @@ function ScenariosContainer() {
         <Switch>
           <Route exact path="/App/Projects/Scenarios/Periods" component={Periods} />
           <Route exact path="/App/Projects/Scenarios/Subscribers" component={Subscribers} />
-          {/* <Route exact path="/App/Projects/Scenarios/Pricing" component={Pricing} /> */}
+          <Route exact path="/App/Projects/Scenarios/Channels" component={Channels} />
           <Route exact path="/App/Projects/Scenarios" component={Scenarios} />
           <Route component={NotFound} />
         </Switch>

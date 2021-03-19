@@ -11,7 +11,6 @@ function Form({ formData, onChange }) {
   return (
     <>
       <form>
-
         <div className="form-group">
           <label>Type name</label>
           <input
@@ -24,16 +23,15 @@ function Form({ formData, onChange }) {
         </div>
 
         <div className="form-group">
-        <label>Avg. viewing Hours per sub per month</label>
-        <select
-          className="form-control"
-          value={formData.country}
-          onChange={(e) => onFormChange("country", e.target.value)}
-        >
-          <option value="-1">Select</option>
-          <option value="Channel">India</option>
-        </select>
-      </div>
+          <label>Avg. viewing Hours per sub per month</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Placeholder text"
+            value={formData.customer}
+            onChange={(e) => onFormChange("customer", e.target.value)}
+          />
+        </div>
 
         <div className="form-group">
           <label>Avg. Impression per viewing hours</label>
@@ -100,8 +98,6 @@ function Form({ formData, onChange }) {
             onChange={(e) => onFormChange("customer", e.target.value)}
           />
         </div>
-
-
       </form>
     </>
   );
