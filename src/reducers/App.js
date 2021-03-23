@@ -1,29 +1,30 @@
 import { actions } from '../actions/App';
 
-const defaultValue = JSON.parse(window.localStorage.getItem('sidebar'));
 export const initialState = {
-    sideOpen: defaultValue == null ? true : defaultValue,
-    navOpen: false,
-    darkTheme: false,
-    breadcrumb: [{_uid: -1, title: '.'}]
+  frequency: [],
+  units: [],
+  volumes: [],
+    error: null
 }
 export const appReducer = (state, action) => {
+
   switch (action.type) {
-    case actions.TOGGLE_SIDE_MENU:
+    case actions.CONFIG_INIT:
       window.localStorage.setItem('sidebar', JSON.stringify(!state.sideOpen))
       return {
-        ...state,
-        sideOpen: !state.sideOpen
+        ...state,...initialState
       }
-    case actions.TOGGLE_NAV_MENU:
+    case actions.CONFIG_COMPLETED:
       return {
         ...state,
-        navOpen: !state.navOpen
+        ...action.payload,
+        error: null
       }
-     case actions.UPDATE_BREADCRUMB:
+     case actions.CONFIG_ERROR:
       return {
         ...state,
-        breadcrumb: action.payload
+        ...initialState,
+        error: action.payload
       }
     default:
       return state

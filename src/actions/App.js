@@ -1,22 +1,19 @@
+import api from '../api';
+
 export const actions ={
-    TOGGLE_SIDE_MENU: 'toggle_side_menu',
-    TOGGLE_NAV_MENU: 'toggle_nav_menu',
-    UPDATE_BREADCRUMB: 'udpate_breadbrumb'
+    CONFIG_INIT: 'config_init',
+    CONFIG_COMPLETED: 'config_completed',
+    CONFIG_ERROR: 'config_error'
 }
-export const toggleSideMenu = dispatch => {
+export const fetchConfigs = dispatch => {
   return async () => {
-    dispatch({ type: actions.TOGGLE_SIDE_MENU })
-  }
-}
+    dispatch({ type: actions.CONFIG_INIT })
+    api.httpGet('/config_list/').then(res=>{
 
-export const toggleNavMenu = dispatch => {
-  return async () => {
-    dispatch({ type: actions.TOGGLE_NAV_MENU })
-  }
-}
-
-export const updateBreadcrumb = dispatch => {
-  return async (breadcrumb) => {
-    dispatch({ type: actions.UPDATE_BREADCRUMB, payload: breadcrumb })
+      dispatch({ type: actions.CONFIG_COMPLETED, payload: res })
+    }).catch(err=> {
+      dispatch({ type: actions.CONFIG_ERROR, payload: err })
+    })
+   
   }
 }

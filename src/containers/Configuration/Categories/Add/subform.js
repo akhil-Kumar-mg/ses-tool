@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { Context as AppContext } from "../../../../context/AppContext";
 
 function SubForm({ formData, onSubmit, actionTitle, onChange }) {
-
+  const appContext = useContext(AppContext);
+  const { units } = appContext.state;
 
   const onFormChange = (key, value) => {
     const keys = key.split(".");
@@ -35,7 +37,12 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
           onChange={(e) => onFormChange("commercial_unit", e.target.value)}
         >
           <option value="-1">Select</option>
-          <option value="Channel">Channel</option>
+          {units && units.length && 
+            units.map(item=>{
+                return  <option key={item[0]} value={item[0]}>{item[1]}</option>
+            })
+          }
+         
         </select>
       </div>
       <div className="center">
