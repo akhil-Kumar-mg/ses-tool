@@ -4,5 +4,9 @@ const getSolutionOptionList = () => {
     return api.httpGet('/solution_list/')
 }
 
-export {getSolutionOptionList}
+const getSolutions = () => {
+    return api.httpGet('/solution/')
+}
+
+export {getSolutionOptionList, getSolutions}
 

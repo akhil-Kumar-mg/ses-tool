@@ -16,8 +16,8 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control bg-white"
             placeholder="Project name"
-            value={formData.name}
-            onChange={(e) => onFormChange("name", e.target.value)}
+            value={formData.project_name}
+            onChange={(e) => onFormChange("project_name", e.target.value)}
           />
         </div>
 
@@ -27,8 +27,8 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control"
             placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            value={formData.customer_name}
+            onChange={(e) => onFormChange("customer_name", e.target.value)}
           />
         </div>
 
@@ -36,8 +36,8 @@ function Form({ formData, onChange }) {
           <label>Country</label>
           <select
             className="form-control"
-            value={formData.country}
-            onChange={(e) => onFormChange("country", e.target.value)}
+            value={formData.country_name}
+            onChange={(e) => onFormChange("country_name", e.target.value)}
           >
             <option value="-1">Select</option>
             <option value="Channel">India</option>
@@ -50,8 +50,8 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control"
             placeholder="Placeholder text"
-            value={formData.manager}
-            onChange={(e) => onFormChange("manager", e.target.value)}
+            value={formData.sales_manager}
+            onChange={(e) => onFormChange("sales_manager", e.target.value)}
           />
         </div>
       </form>

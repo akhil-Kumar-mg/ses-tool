@@ -6,11 +6,11 @@
       },
       {
         "name": "DURATION",
-        "field": "duration"
+        "field": "number_of_months"
       },
       {
         "name": "LAST EDITED",
-        "field": "edited"
+        "field": "expected_start_date"
       }
     ],
     "actions": [

@@ -27,8 +27,8 @@ function Form({ formData, onChange }) {
             type="date"
             className="form-control"
             placeholder="Placeholder text"
-            value={formData.date}
-            onChange={(e) => onFormChange("date", e.target.value)}
+            value={formData.expected_start_date}
+            onChange={(e) => onFormChange("expected_start_date", e.target.value)}
           />
         </div>
 
@@ -38,8 +38,8 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control"
             placeholder="Placeholder text"
-            value={formData.months}
-            onChange={(e) => onFormChange("months", e.target.value)}
+            value={formData.number_of_months}
+            onChange={(e) => onFormChange("number_of_months", e.target.value)}
           />
         </div>
       </form>

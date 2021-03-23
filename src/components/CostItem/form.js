@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { Context as AppContext } from "../../context/AppContext";
 
 function Form({ formData, onChange }) {
+  const appContext = useContext(AppContext);
+  const { units, frequency, volumes } = appContext.state;
+
   const onFormChange = (value, key) => {
     const _formData = cloneDeep(formData);
     _formData.vendor_cost[0][key] = value;
@@ -22,7 +26,7 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Vendor name"
+            placeholder="Cost Item name"
             value={formData.vendor_cost[0].item}
             onChange={(e) => onFormChange(e.target.value, "item")}
           />
@@ -34,12 +38,16 @@ function Form({ formData, onChange }) {
             value={formData.vendor_cost[0].commercial_unit}
             onChange={(e) => onFormChange(e.target.value, "commercial_unit")}
           >
-            <option>Placeholder text</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option>Select</option>
+            {units &&
+              units.length &&
+              units.map((item) => {
+                return (
+                  <option key={item[0]} value={item[0]}>
+                    {item[1]}
+                  </option>
+                );
+              })}
           </select>
         </div>
         <div className="form-group">
@@ -115,14 +123,19 @@ function Form({ formData, onChange }) {
           <label>Pay frequency</label>
           <select
             className="form-control"
+            value={formData.vendor_cost[0].frequency}
             onChange={(e) => onFormChange(e.target.value, "frequency")}
           >
-            <option>Placeholder text</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option>Select</option>
+            {frequency &&
+              frequency.length &&
+              frequency.map((item) => {
+                return (
+                  <option key={item[0]} value={item[0]}>
+                    {item[1]}
+                  </option>
+                );
+              })}
           </select>
         </div>
 
@@ -133,14 +146,19 @@ function Form({ formData, onChange }) {
               <label>Cost Model</label>
               <select
                 className="form-control"
+                value={formData.vendor_cost[0].cost_addon[0].cost_model}
                 onChange={(e) => onSubFormChange(e.target.value, "cost_model")}
               >
-                <option>Placeholder text</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option>Select</option>
+                {volumes &&
+                  volumes.length &&
+                  volumes.map((item) => {
+                    return (
+                      <option key={item[0]} value={item[0]}>
+                        {item[1]}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
 
@@ -224,14 +242,19 @@ function Form({ formData, onChange }) {
               <label>Pay frequency</label>
               <select
                 className="form-control"
+                value={formData.vendor_cost[0].cost_addon[0].frequency}
                 onChange={(e) => onSubFormChange(e.target.value, "frequency")}
               >
-                <option>Placeholder text</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option>Select</option>
+                {frequency &&
+                  frequency.length &&
+                  frequency.map((item) => {
+                    return (
+                      <option key={item[0]} value={item[0]}>
+                        {item[1]}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>

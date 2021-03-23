@@ -1,38 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import cloneDeep from "lodash/cloneDeep";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
-
-
+import useNotify from "../../../actions/Toast";
 
 import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
-import data from "./metadata/data.json";
-
-
+import { useLocation } from "react-router-dom";
+import { getForecasts, saveForecast } from "../service";
 
 import Modal from "./Add";
 
 function Scenarios() {
   const history = useHistory();
-  const initialState = {
-    name: "",
-    sub_categories: [],
-  };
+  const location = useLocation();
+  const { notify } = useNotify();
+
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("SETUP");
+  const [forecast, setForecast] = useState([]);
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = () => {
+    getForecasts()
+      .then((res) => {
+        setForecast(res);
+      })
+      .catch((err) => notify("Oops! Failed to fetch forecasts.", "error"));
+  };
+
+  const initialState = {
+    project: location.state != undefined ? location.state.projectId: "",
+    name: "",
+    expected_start_date: "",
+    number_of_months: "",
+  };
+  const [formData, setFormData] = useState(cloneDeep(initialState));
+
   const handleShow = () => {
     setMode("SETUP");
     setShow(true);
   };
 
-  const [formData, setFormData] = useState(cloneDeep(initialState));
-
   const onGridChange = (event, item) => {
     switch (event) {
       case "onSetup":
-        history.push('/App/Projects/Scenarios/Periods')
+        history.push("/App/Projects/Scenarios/Periods");
 
         break;
     }
@@ -45,7 +62,20 @@ function Scenarios() {
 
   const onEdit = () => {};
 
-  const onSave = () => {};
+  const onSave = () => {
+    saveForecast(formData)
+      .then((res) => {
+        notify(
+          `${formData.name} forecast has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add new forecast ${formData.name}.`, "error")
+      );
+  };
   const onFormCancel = () => {
     setShow(false);
     setFormData(cloneDeep(initialState));
@@ -68,11 +98,10 @@ function Scenarios() {
         </button>
       </div>
       <div className="sub-container">
-        <Grid data={data} schema={schema} onChange={onGridChange} />
+        <Grid data={forecast} schema={schema} onChange={onGridChange} />
       </div>
     </>
   );
 }
-
 
 export default Scenarios;
