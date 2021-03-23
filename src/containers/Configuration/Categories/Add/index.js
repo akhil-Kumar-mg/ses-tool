@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import Modal from "../../../../components/Modal";
 import Form from "./form";
 
-function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) {
-
+function ModalContainer({
+  mode,
+  show,
+  formData,
+  onChange,
+  onSubmit,
+  onCancel,
+}) {
   return (
     <>
       <Modal
         show={show}
-        body={() => <Form formData={formData} onChange={onChange}/>}
+        body={() => <Form formData={formData} onChange={onChange} />}
         actions={() => {
           return (
             <div className="row">
@@ -22,7 +28,11 @@ function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) 
                 </button>
               </div>
               <div className="col-sm-6">
-                <button type="button" className="btn btn-primary" onClick={onSubmit}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onSubmit}
+                >
                   {mode}
                 </button>
               </div>

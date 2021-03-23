@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
 
-function Form({ formData, onChange }) {
+function Form({ formData, onChange, mode }) {
   const onFormChange = (value, id) => {
     const _formData = cloneDeep(formData);
     _formData[id] = value;
@@ -20,16 +20,21 @@ function Form({ formData, onChange }) {
             onChange={(e) => onFormChange(e.target.value, "name")}
           />
         </div>
-        <div className="form-group">
-          <label>Vendor ID (auto generated)</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Placeholder text"
-            value={formData.id}
-            onChange={(e) => onFormChange(e.target.value, "id")}
-          />
-        </div>
+        {mode === "ADD" ? (
+          <></>
+        ) : (
+          <div className="form-group">
+            <label>Vendor ID (auto generated)</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Placeholder text"
+              disabled={true}
+              value={formData.id}
+              onChange={(e) => onFormChange(e.target.value, "id")}
+            />
+          </div>
+        )}
 
         <div className="form-group">
           <label>Description</label>

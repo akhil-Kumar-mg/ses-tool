@@ -9,7 +9,7 @@ function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) 
     <>
       <Modal
         show={show}
-        body={() => <Form formData={formData} onChange={onChange}/>}
+        body={() => <Form formData={formData} onChange={onChange} mode={mode}/>}
         actions={() => {
           return (
             <div className="row">

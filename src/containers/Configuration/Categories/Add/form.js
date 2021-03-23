@@ -12,7 +12,6 @@ function Form({formData, onChange}) {
   const [subFormData, setSubFormData] = useState({...initialState});
 
   const onAdd = (data) =>{
-    data.id = randomstring.generate();
     const _formData = cloneDeep(formData)
     _formData.sub_categories.push(data)
     onChange({ ..._formData });
@@ -24,9 +23,9 @@ function Form({formData, onChange}) {
     onChange({ ..._formData });
   }
 
-  const onFormChange = (value) => {
+  const onFormChange = (value, key) => {
     const _formData = cloneDeep(formData)
-    _formData.name = value;
+    _formData[key] = value;
     onChange({ ..._formData });
   };
 
@@ -55,7 +54,7 @@ function Form({formData, onChange}) {
             placeholder="Category name"
             value={formData.name}
             onChange={(e) =>
-              onFormChange(e.target.value)
+              onFormChange(e.target.value, "name")
             }
           />
         </div>

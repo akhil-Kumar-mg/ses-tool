@@ -16,10 +16,10 @@ function Vendors() {
   const [show, setShow] = useState(false);
   const [showCostItem, setShowCostItem] = useState(false);
   const [mode, setMode] = useState("ADD");
+  const [vendor, setSelectedVendor] = useState(null);
 
   const initialState = {
     name: "",
-    id: "",
     description: "",
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
@@ -33,9 +33,7 @@ function Vendors() {
       .then((res) => {
         setVendors(res);
       })
-      .catch((err) =>
-        notify("Oops! Failed to fetch categories list.", "error")
-      );
+      .catch((err) => notify("Oops! Failed to fetch vendor list.", "error"));
   };
 
   const onFormSubmit = () => {
@@ -120,7 +118,16 @@ function Vendors() {
         onSubmit={onFormSubmit}
         mode={mode}
       />
-      <CostItemModal show={showCostItem} setShow={setShowCostItem} />
+      {showCostItem ? (
+        <CostItemModal
+          showCostItems={showCostItem}
+          setShowCostItems={setShowCostItem}
+          vendor={vendor}
+        />
+      ) : (
+        <></>
+      )}
+
       <div className="header">
         <h1>Vendors</h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
@@ -136,7 +143,10 @@ function Vendors() {
               vendor={item}
               onDelete={onDelete}
               onView={onView}
-              onItemClick={handleCostItemShow}
+              onItemClick={() => {
+                setSelectedVendor(item);
+                handleCostItemShow();
+              }}
             />
           ))}
         </div>
