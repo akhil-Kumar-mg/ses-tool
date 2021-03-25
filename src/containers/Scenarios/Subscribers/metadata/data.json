@@ -1,12 +1,11 @@
 [{
-    "name": "Sub type",
-    "vh": "45",
-    "impression": "2",
-    "start": "12",
-    "bitrate": "3",
-    "vod": "40",
-    "linear": "40",
-    "catchup": "40"
+    "type": "SubscriberType1",
+    "viewing_hours": "10",
+    "impression_hours": "4",
+    "viewing_bitrate": "128",
+    "vod_hours": "6",
+    "linear_hours": "4",
+    "catchup_hours": "2"
 },{
     "name": "Sub type",
     "vh": "45",

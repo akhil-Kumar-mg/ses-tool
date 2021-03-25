@@ -19,8 +19,8 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.customer}
-                onChange={(e) => onFormChange("customer", e.target.value)}
+                value={formData.abr_video}
+                onChange={(e) => onFormChange("abr_video", e.target.value)}
               />
             </div>
           </div>
@@ -34,26 +34,36 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.customer}
-                onChange={(e) => onFormChange("customer", e.target.value)}
+                value={formData.abr_audio}
+                onChange={(e) => onFormChange("abr_audio", e.target.value)}
               />
             </div>
           </div>
           <div className="col-sm-6">
             <div className="form-group">
               <label>ABR Total Bitrate</label>
-              <input type="text" placeholder="Content" className="form-control" />
+              <input
+                type="text"
+                placeholder="Content"
+                className="form-control"
+                value={formData.abr_bit_rate}
+                onChange={(e) => onFormChange("abr_bit_rate", e.target.value)}
+              />
             </div>
           </div>
         </div>
 
         <div className="row">
-         
-
           <div className="col-sm-6">
             <div className="form-group">
               <label>VOD Storage GB/h</label>
-              <input type="text" placeholder="Content" className="form-control" />
+              <input
+                type="text"
+                placeholder="Content"
+                className="form-control"
+                value={formData.vod_storage}
+                onChange={(e) => onFormChange("vod_storage", e.target.value)}
+              />
             </div>
           </div>
         </div>
@@ -66,8 +76,8 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.manager}
-                onChange={(e) => onFormChange("manager", e.target.value)}
+                value={formData.vod_hit_rate}
+                onChange={(e) => onFormChange("vod_hit_rate", e.target.value)}
               />
             </div>
           </div>
@@ -79,8 +89,10 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.manager}
-                onChange={(e) => onFormChange("manager", e.target.value)}
+                value={formData.linear_hit_rate}
+                onChange={(e) =>
+                  onFormChange("linear_hit_rate", e.target.value)
+                }
               />
             </div>
           </div>
@@ -92,14 +104,14 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.manager}
-                onChange={(e) => onFormChange("manager", e.target.value)}
+                value={formData.catchup_hit_rate}
+                onChange={(e) =>
+                  onFormChange("catchup_hit_rate", e.target.value)
+                }
               />
             </div>
           </div>
         </div>
-
-       
       </form>
     </>
   );

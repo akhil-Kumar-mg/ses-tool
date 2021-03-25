@@ -3,15 +3,15 @@
     "columns": [
       {
         "name": "TYPE NAME",
-        "field": "name"
+        "field": "type"
       },
       {
         "name": "AVG. VH",
-        "field": "vh"
+        "field": "viewing_hours"
       },
       {
         "name": "AVG. IMPRESSIONS /VH",
-        "field": "impression"
+        "field": "impression_hours"
       },
       {
         "name": "SUBSCRIBER START NUMBER",
@@ -19,28 +19,30 @@
       },
       {
         "name": "AVG. VIEW BITRATE",
-        "field": "bitrate"
+        "field": "viewing_bitrate"
       },
       {
         "name": "VOD% VH",
-        "field": "vod"
+        "field": "vod_hours"
       },
       {
         "name": "LINEAR% VH",
-        "field": "linear"
+        "field": "linear_hours"
       },
       {
         "name": "CATCHUP% VH",
-        "field": "catchup"
+        "field": "catchup_hours"
       }
     ],
     "actions" : [{
       "name": "pencil-alt",
       "type": "icon",
-      "color": "blue"
+      "color": "blue",
+      "event": "edit"
     }, {
       "name": "trash-alt",
-      "type": "icon"
+      "type": "icon",
+      "event": "delete"
     }
     ]
   }

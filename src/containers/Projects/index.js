@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import "./style.scss";
 import FaIcons from "../../components/fa-icons";
@@ -10,11 +10,13 @@ import _includes from "lodash/includes";
 import Card from "./card";
 import Modal from "./Add";
 import { editProject, getProjects, saveProject } from "./service";
+import { Context as AppContext } from "../../context/AppContext";
 
 function Projects() {
   const history = useHistory();
   const { notify } = useNotify();
   const [projects, setProjects] = useState([]);
+  const appContext = useContext(AppContext);
 
   const initialState = {
     project_name: "",
@@ -46,6 +48,7 @@ function Projects() {
   };
 
   const onSetup = (project) => {
+    appContext.selectedProject({selectedProject: project.id})
     history.push({
       pathname: "/App/Projects/Setup/Scenarios",
       state: { projectId: project.id },

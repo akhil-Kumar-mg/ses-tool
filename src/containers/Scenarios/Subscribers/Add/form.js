@@ -16,9 +16,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.type}
+            onChange={(e) => onFormChange("type", e.target.value)}
           />
         </div>
 
@@ -27,9 +27,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.viewing_hours}
+            onChange={(e) => onFormChange("viewing_hours", e.target.value)}
           />
         </div>
 
@@ -38,9 +38,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.manager}
-            onChange={(e) => onFormChange("manager", e.target.value)}
+            placeholder=""
+            value={formData.impression_hours}
+            onChange={(e) => onFormChange("impression_hours", e.target.value)}
           />
         </div>
 
@@ -60,9 +60,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.viewing_bitrate}
+            onChange={(e) => onFormChange("viewing_bitrate", e.target.value)}
           />
         </div>
 
@@ -71,9 +71,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.vod_hours}
+            onChange={(e) => onFormChange("vod_hours", e.target.value)}
           />
         </div>
 
@@ -82,9 +82,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.linear_hours}
+            onChange={(e) => onFormChange("linear_hours", e.target.value)}
           />
         </div>
 
@@ -93,9 +93,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.catchup_hours}
+            onChange={(e) => onFormChange("catchup_hours", e.target.value)}
           />
         </div>
       </form>

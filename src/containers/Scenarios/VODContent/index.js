@@ -1,54 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
-import FaIcons from "../../../components/fa-icons";
 import Form from "./form";
+import { saveVod } from "./service";
+import useNotify from "../../../actions/Toast";
+import { Context as AppContext } from "../../../context/AppContext";
 
+function VODContent() {
+  const { notify } = useNotify();
+  const appContext = useContext(AppContext);
 
-
-function Periods() {
   const initialState = {
-    name: "",
-    sub_categories: [],
+    min_library_size: "",
+    max_library_size: "",
+    month_ingest_hours: "",
+    month_purge_hours: "",
+    avg_asset_duration: "",
+    archive: "",
+    project: appContext.state.selectedProject,
   };
-  
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
-
-
-  const onSetup = () => {};
-
-  const onFormSubmit = () => {
-   
+  const onSave = () => {
+    saveVod(formData)
+      .then((res) => {
+        notify(`vod has been added successfully.`, "success");
+      })
+      .catch((err) => notify(`Oops! Failed to add new vod.`, "error"));
   };
 
-  const onEdit = () => {};
-
-  const onSave = () => {};
-
-  const onFormCancel = () => {
-
-    setFormData(cloneDeep(initialState));
-  };
-
-  const onChange = (event, item) => {
-    
-  };
   return (
     <>
-      
       <div className="header">
         <h1>VOD Content</h1>
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary" onClick={onSave}>
           SAVE
         </button>
       </div>
       <div className="sub-container">
-          <Form formData={formData} onChange={onChange}/>
+        <Form formData={formData} onChange={setFormData} />
       </div>
     </>
   );
 }
 
-export default Periods;
+export default VODContent;

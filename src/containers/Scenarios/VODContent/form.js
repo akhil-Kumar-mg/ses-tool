@@ -19,8 +19,10 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.customer}
-                onChange={(e) => onFormChange("customer", e.target.value)}
+                value={formData.min_library_size}
+                onChange={(e) =>
+                  onFormChange("min_library_size", e.target.value)
+                }
               />
             </div>
           </div>
@@ -34,8 +36,10 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.customer}
-                onChange={(e) => onFormChange("customer", e.target.value)}
+                value={formData.max_library_size}
+                onChange={(e) =>
+                  onFormChange("max_library_size", e.target.value)
+                }
               />
             </div>
           </div>
@@ -45,14 +49,30 @@ function Form({ formData, onChange }) {
           <div className="col-sm-6">
             <div className="form-group">
               <label>Montly Ingest Hours</label>
-              <input type="text" placeholder="Content" className="form-control" />
+              <input
+                type="text"
+                placeholder="Content"
+                className="form-control"
+                value={formData.month_ingest_hours}
+                onChange={(e) =>
+                  onFormChange("month_ingest_hours", e.target.value)
+                }
+              />
             </div>
           </div>
 
           <div className="col-sm-6">
             <div className="form-group">
               <label>Montly Purge Hours</label>
-              <input type="text" placeholder="Content" className="form-control" />
+              <input
+                type="text"
+                placeholder="Content"
+                className="form-control"
+                value={formData.month_purge_hours}
+                onChange={(e) =>
+                  onFormChange("month_purge_hours", e.target.value)
+                }
+              />
             </div>
           </div>
         </div>
@@ -65,8 +85,10 @@ function Form({ formData, onChange }) {
                 type="text"
                 className="form-control"
                 placeholder="Content"
-                value={formData.manager}
-                onChange={(e) => onFormChange("manager", e.target.value)}
+                value={formData.avg_asset_duration}
+                onChange={(e) =>
+                  onFormChange("avg_asset_duration", e.target.value)
+                }
               />
             </div>
           </div>
@@ -76,8 +98,12 @@ function Form({ formData, onChange }) {
           <div className="col-sm-6">
             <div className="form-group">
               <label>Archive</label>
-              <select className="form-control">
-              <option>Content</option>
+              <select
+                className="form-control"
+                value={formData.archive}
+                onChange={(e) => onFormChange("archive", e.target.value)}
+              >
+                <option>Content</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>

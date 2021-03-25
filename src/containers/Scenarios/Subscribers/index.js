@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
 import FaIcons from "../../../components/fa-icons";
@@ -6,17 +6,41 @@ import Modal from "./Add";
 
 import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
-import data from "./metadata/data.json";
+import useNotify from "../../../actions/Toast";
+import { deleteSubscribers, editSubscribers, getSubscribers, saveSubscribers } from "./service";
+import { Context as AppContext } from "../../../context/AppContext";
 
-function Periods() {
+function Subscribers() {
+  const { notify } = useNotify();
+  const appContext = useContext(AppContext);
+
   const initialState = {
-    name: "",
-    sub_categories: [],
+    type: "",
+    viewing_hours: "",
+    impression_hours: "",
+    viewing_bitrate: "",
+    vod_hours: "",
+    linear_hours: "",
+    catchup_hours: "",
+    project: appContext.state.selectedProject,
   };
+
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("ADD");
-
+  const [subscribers, setSubscribers] = useState([]);
   const [formData, setFormData] = useState(cloneDeep(initialState));
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = () => {
+    getSubscribers()
+      .then((res) => {
+        setSubscribers(res);
+      })
+      .catch((err) => notify("Oops! Failed to fetch subscribers", "error"));
+  };
 
   const handleShow = () => {
     setMode("ADD");
@@ -30,9 +54,56 @@ function Periods() {
     else onEdit();
   };
 
-  const onEdit = () => {};
+  const onEdit = () => {
+    editSubscribers(formData)
+      .then((res) => {
+        notify(
+          `${formData.type} subscriber has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add save subscriber ${formData.type}.`, "error")
+      );
+  };
 
-  const onSave = () => {};
+  const onSave = () => {
+    saveSubscribers(formData)
+      .then((res) => {
+        notify(
+          `${formData.type} subscriber has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add new subscriber ${formData.type}.`, "error")
+      );
+  };
+
+  const onDelete = (data) => {
+    const r = window.confirm(
+      `Do you wish to remove '${data.type}' subscriber?`
+    );
+    if (r === true) {
+      deleteSubscribers(data.id)
+        .then((res) => {
+          notify(
+            `'${data.type}' subscriber has been removed successfully.`,
+            "success"
+          );
+          onLoad();
+        })
+        .catch((err) =>
+          notify(`Oops! Failed to remove ${data.type} subscriber.`, "error")
+        );
+    } else {
+    }
+  };
+
   const onFormCancel = () => {
     setShow(false);
     setFormData(cloneDeep(initialState));
@@ -40,9 +111,14 @@ function Periods() {
 
   const onGridChange = (event, item) => {
     switch (event) {
-      case "onSetup":
-       
+      case "edit":
+        setShow(true);
+        setMode("EDIT");
+        setFormData(cloneDeep(item));
+        break;
 
+      case "delete":
+        onDelete(item);
         break;
     }
   };
@@ -64,10 +140,10 @@ function Periods() {
         </button>
       </div>
       <div className="sub-container">
-        <Grid data={data} schema={schema} onChange={onGridChange} />
+        <Grid data={subscribers} schema={schema} onChange={onGridChange} />
       </div>
     </>
   );
 }
 
-export default Periods;
+export default Subscribers;
