@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import './index.scss';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -19,13 +19,13 @@ ReactDOM.render(
     <ServiceWorkerWrapper />
     <ToastProvider placement="top-center">
       <AppProvider>
-      <HashRouter>
+      <BrowserRouter>
             <Switch>
               <Route path="/App" component={App} />
               <Redirect from="/" to="/App" />
               <Route component={NotFound} />
             </Switch>
-          </HashRouter>  
+          </BrowserRouter>  
       </AppProvider>
     </ToastProvider>
    
