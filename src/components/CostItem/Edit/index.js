@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import Modal from "../../Modal";
 import Form from "../form";
 
-function ModalContainer({ show, setShow }) {
-  const handleClose = () => setShow(false);
-
+function ModalContainer({ mode, show, formData, onChange, onCancel, onSubmit }) {
   return (
     <>
       <Modal
         show={show}
-        title="Cost items"
-        body={() => <Form />}
+        title="Edit cost item"
+        body={() => <Form formData={formData} onChange={onChange} />}
         actions={() => {
           return (
             <div className="row">
@@ -18,14 +16,14 @@ function ModalContainer({ show, setShow }) {
                 <button
                   type="button"
                   className="btn btn-secondary cancel"
-                  onClick={handleClose}
+                  onClick={onCancel}
                 >
-                  CLOSE
+                  CANCEL
                 </button>
               </div>
               <div className="col-sm-6">
-                <button type="button" className="btn btn-primary">
-                  EDIT
+                <button type="button" className="btn btn-primary"  onClick={onSubmit}>
+                  {mode}
                 </button>
               </div>
             </div>

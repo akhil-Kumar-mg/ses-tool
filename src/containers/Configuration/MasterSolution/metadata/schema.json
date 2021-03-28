@@ -5,11 +5,11 @@
     "columns": [
       {
         "name": "CATEGORY",
-        "field": "category"
+        "field": "category_name"
       },
       {
         "name": "SUB-CATEGORY",
-        "field": "subcategory"
+        "field": "subcategory_name"
       },
       {
         "name": "FEATURE",
@@ -17,26 +17,29 @@
       },
       {
         "name": "SUB-FEATURE",
-        "field": "subfeature"
+        "field": "sub_feature"
       },
       {
         "name": "VENDOR",
-        "field": "vendor"
+        "field": "vendor_name"
       },
       {
         "name": "COST ITEM",
-        "field": "cost"
+        "field": "cost_item"
       }
     ],
     "actions": [
         {
           "name": "trash-alt",
-          "type": "icon"
+          "type": "icon",
+          "event": "delete"
+
         },
         {
             "name": "pencil-alt",
             "type": "icon",
-            "color": "blue"
+            "color": "blue",
+            "event": "edit"
           }
       ]
   }

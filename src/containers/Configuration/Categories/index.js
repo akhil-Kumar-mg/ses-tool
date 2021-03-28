@@ -127,7 +127,7 @@ function Catergories() {
         mode={mode}
       />
       <div className="header">
-        <h1>Catergories</h1>
+        <h1>Categories</h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD CATEGORY <FaIcons icon="plus" />
         </button>

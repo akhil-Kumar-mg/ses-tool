@@ -21,7 +21,7 @@ function Grid({ data, schema, onChange }) {
                 onChange(action.event, item);
               }}
             >
-              {action.name}
+              {item.addon_id? "Edit Pricing": action.name}
             </a>
           </div>
         );

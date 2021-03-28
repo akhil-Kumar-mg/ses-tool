@@ -16,5 +16,9 @@ const editCategory = (data) => {
     return api.httpPut(`/category/${data.id}/`, data)
 }
 
-export {getCategories, saveCategory, deleteCategory, editCategory}
+const getSubCategories = (id) => {
+    return api.httpGet(`/category/${id}`)
+}
+
+export {getCategories, saveCategory, deleteCategory, editCategory, getSubCategories}
 

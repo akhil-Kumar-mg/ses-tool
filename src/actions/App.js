@@ -10,7 +10,7 @@ export const fetchConfigs = (dispatch) => {
   return async () => {
     dispatch({ type: actions.CONFIG_INIT });
     api
-      .httpGet("/config_list/")
+      .httpGet("/constants/")
       .then((res) => {
         dispatch({ type: actions.CONFIG_COMPLETED, payload: res });
       })

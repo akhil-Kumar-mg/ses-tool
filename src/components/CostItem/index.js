@@ -24,7 +24,7 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
   const fetchCostItems = () => {
     getVendorDetails(vendor.id)
       .then((res) => {
-        setCostItems(res.vendor_cost);
+        setCostItems(res.costitems);
       })
       .catch((err) => {
         notify("Oops! Failed to fetch cost item list.", "error");

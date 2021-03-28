@@ -10,7 +10,7 @@
       },
       {
         "name": "COMMERCIAL UNIT",
-        "field": "unit"
+        "field": "commercial_unit"
       }
     ],
     "actions": [
