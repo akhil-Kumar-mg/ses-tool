@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./style.scss";
 
 import Sidebar from "../../components/Sidebar";
@@ -13,17 +13,17 @@ function Projects(){
   return <></>
 }
 
-function ProjectsContainer() {
+function ProjectsContainer(props) {
   const links = ["Scenarios", "Solution Sheet", "Pricing"]
   return (
     <>
-      <Sidebar title="Projects" sublink="/Setup" links={links}/>
+      <Sidebar title="Projects" sublink={`/${props.match.params.projectId}/Setup`} links={links}/>
       <div className="right-container">
         <Switch>
-          <Route exact path="/App/Projects/Setup/Scenarios" component={Scenarios} />
-          <Route exact path="/App/Projects/Setup/SolutionSheet" component={SolutionSheet} />
-          <Route exact path="/App/Projects/Setup/Pricing" component={Pricing} />
-          <Route exact path="/App/Projects/Setup" component={Projects} />
+          <Route exact path="/App/Projects/:projectId/Setup/Scenarios" component={Scenarios} />
+          <Route exact path="/App/Projects/:projectId/Setup/SolutionSheet" component={SolutionSheet} />
+          <Route exact path="/App/Projects/:projectId/Setup/Pricing" component={Pricing} />
+          <Route exact path="/App/Projects/:projectId/Setup" component={Projects} />
           <Route component={NotFound} />
         </Switch>
       </div>
@@ -33,4 +33,4 @@ function ProjectsContainer() {
 
 
 
-export default ProjectsContainer;
+export default withRouter(ProjectsContainer);

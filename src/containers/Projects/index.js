@@ -50,7 +50,7 @@ function Projects() {
   const onSetup = (project) => {
     appContext.selectedProject({selectedProject: project.id})
     history.push({
-      pathname: "/App/Projects/Setup/Scenarios",
+      pathname: `/App/Projects/${project.id}/Setup/Scenarios`,
       state: { projectId: project.id },
     });
   };

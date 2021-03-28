@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import cloneDeep from "lodash/cloneDeep";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 import useNotify from "../../../actions/Toast";
@@ -12,7 +12,7 @@ import { getForecasts, saveForecast } from "../service";
 
 import Modal from "./Add";
 
-function Scenarios() {
+function Scenarios(props) {
   const history = useHistory();
   const location = useLocation();
   const { notify } = useNotify();
@@ -46,10 +46,10 @@ function Scenarios() {
     setShow(true);
   };
 
-  const onGridChange = (event, item) => {
+  const onGridChange = (event, forecast) => {
     switch (event) {
       case "onSetup":
-        history.push("/App/Projects/Scenarios/Periods");
+        history.push(`/App/Projects/${props.match.params.projectId}/Setup/Scenarios/${forecast.id}/Periods`);
 
         break;
     }
@@ -104,4 +104,4 @@ function Scenarios() {
   );
 }
 
-export default Scenarios;
+export default withRouter(Scenarios);

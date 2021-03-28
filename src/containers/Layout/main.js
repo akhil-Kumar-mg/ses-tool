@@ -30,8 +30,8 @@ const Main = ({
       <div className="main-container">
         <Switch>
           <Route path="/App/Configuration" component={Configuration} />
-          <Route path="/App/Projects/Scenarios" component={Scenarios} />
-          <Route path="/App/Projects/Setup" component={ProjectSetup} />
+          <Route path="/App/Projects/:projectId/Setup/Scenarios/:forecastId" component={Scenarios} />
+          <Route path="/App/Projects/:projectId/Setup" component={ProjectSetup} />
           <Route path="/App/Projects/View" component={ViewProject} />
           <Route path="/App/Projects" exact component={Projects} />
           
