@@ -5,8 +5,8 @@ import { Context as AppContext } from "../../../../context/AppContext";
 
 function Form({formData, onChange}) {
   const appContext = useContext(AppContext);
-  // const { commercial_unit } = appContext.state;
-const commercial_unit = ["Channel1", "Channel2","Channel3"]
+  const { commercial_unit } = appContext.state;
+// const commercial_unit = ["Channel1", "Channel2","Channel3"]
 
   const initialState = {
     name: "",
