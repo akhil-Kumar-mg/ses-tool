@@ -8,6 +8,7 @@ function Form({formData, onChange}) {
   const initialState = {
     name: "",
     commercial_unit: "",
+    units: []
   };
   const [subFormData, setSubFormData] = useState({...initialState});
 
@@ -59,8 +60,8 @@ function Form({formData, onChange}) {
           />
         </div>
 
-        {formData.sub_categories.map((item) => {
-          return <SubForm key={item.id} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
+        {formData.sub_categories.map((item, idx) => {
+          return <SubForm key={idx} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
       <SubForm formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>

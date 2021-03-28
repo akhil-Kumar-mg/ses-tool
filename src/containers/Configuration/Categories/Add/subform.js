@@ -2,13 +2,23 @@ import React, { useContext } from "react";
 import { Context as AppContext } from "../../../../context/AppContext";
 
 function SubForm({ formData, onSubmit, actionTitle, onChange }) {
+
   const appContext = useContext(AppContext);
   const { units } = appContext.state;
-
+  // const units = [
+  //   ["channel1", "Channel 1"],
+  //   ["channel2", "Channel 2"],
+  //   ["channel3", "Channel 3"],
+  // ]
   const onFormChange = (key, value) => {
-    const keys = key.split(".");
-    if (keys.length === 1) formData[key] = value;
-    else formData[keys[0]][keys[1]] = value;
+    if(key === "units"){
+     
+      value = [...value.options]
+                    .filter(option => option.selected)
+                    .map(option => option.value);
+                    formData['commercial_unit'] = value.join(",")             
+    }
+    formData[key] = value;
     onChange({ ...formData });
   };
 
@@ -32,9 +42,10 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
       <div className="form-group">
         <label>Applicable commercial units</label>
         <select
-          className="form-control"
-          value={formData.commercial_unit}
-          onChange={(e) => onFormChange("commercial_unit", e.target.value)}
+          multiple
+          className="form-select form-control"
+           value={formData.units}
+          onChange={(e) => onFormChange("units", e.target)}
         >
           <option value="-1">Select</option>
           {units && units.length && 

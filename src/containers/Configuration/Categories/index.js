@@ -28,6 +28,8 @@ function Catergories() {
   const initialState = {
     name: "",
     sub_categories: [],
+    commercial_unit: "",
+    units: []
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -38,6 +40,11 @@ function Catergories() {
   const onLoad = () => {
     getCategories()
       .then((res) => {
+        res.forEach(item=>{
+          item.sub_categories.forEach(sub=>{
+            sub.units = sub.commercial_unit.split(",")
+          })
+        })
         setCategories(res);
       })
       .catch((err) =>
