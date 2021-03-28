@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SubForm from './subform';
 import cloneDeep from 'lodash/cloneDeep';
-const randomstring = require("randomstring");
+import { Context as AppContext } from "../../../../context/AppContext";
 
 function Form({formData, onChange}) {
+  const appContext = useContext(AppContext);
+  // const { commercial_unit } = appContext.state;
+const commercial_unit = ["Channel1", "Channel2","Channel3"]
 
   const initialState = {
     name: "",
     commercial_unit: "",
-    units: []
+    units: commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: false}}): []
   };
   const [subFormData, setSubFormData] = useState({...initialState});
 
@@ -61,10 +64,10 @@ function Form({formData, onChange}) {
         </div>
 
         {formData.sub_categories.map((item, idx) => {
-          return <SubForm key={idx} formData={item} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
+          return <SubForm key={idx} formData={item} formId={idx} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
-      <SubForm formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>
+      <SubForm formId={-1} formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>
       </form>
     </>
   );

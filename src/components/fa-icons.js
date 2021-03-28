@@ -1,10 +1,10 @@
 import React from "react";
 
 
-const FaIcons = ({icon,color, onClick}) => {
+const FaIcons = ({icon,color, onClick, style = {}}) => {
   
   return (
-    <i className={`fas fa-${icon} ${color||'default'}-color`} onClick={onClick}/>
+    <i className={`fas fa-${icon} ${color||'default'}-color`} style={style} onClick={onClick}/>
   );
 }
 

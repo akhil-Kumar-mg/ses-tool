@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
-import { Context as AppContext } from "../../../../context/AppContext";
+import React, { useState } from "react";
+import FaIcons from "../../../../components/fa-icons";
 
-function SubForm({ formData, onSubmit, actionTitle, onChange }) {
+function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
 
-  const appContext = useContext(AppContext);
-  const { units } = appContext.state;
-  // const units = [
-  //   ["channel1", "Channel 1"],
-  //   ["channel2", "Channel 2"],
-  //   ["channel3", "Channel 3"],
-  // ]
+  const [showMultiOptions, setShowMultiOptions] = useState(false)
+
   const onFormChange = (key, value) => {
     if(key === "units"){
-     
-      value = [...value.options]
-                    .filter(option => option.selected)
-                    .map(option => option.value);
-                    formData['commercial_unit'] = value.join(",")             
+     const _units = [...formData[key]];
+     _units[value.id].selected = !_units[value.id].selected;
+     formData["commercial_unit"] = _units.filter(item=>item.selected).map(item=> item.name).join(",");
+     value = _units;
+                
     }
     formData[key] = value;
     onChange({ ...formData });
@@ -27,7 +22,7 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
   }
 
   return (
-    <>
+    <div onClick={()=>{setShowMultiOptions(false)}}>
       <div className="form-group">
         <label>Sub-category name</label>
         <input
@@ -41,27 +36,28 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
 
       <div className="form-group">
         <label>Applicable commercial units</label>
-        <select
-          multiple
-          className="form-select form-control"
-           value={formData.units}
-          onChange={(e) => onFormChange("units", e.target)}
-        >
-          <option value="-1">Select</option>
-          {units && units.length && 
-            units.map(item=>{
-                return  <option key={item[0]} value={item[0]}>{item[1]}</option>
-            })
-          }
-         
-        </select>
+        <div className="ses-multi-select">
+          <div className="form-control label" onClick={(e)=>{e.stopPropagation(); setShowMultiOptions(!showMultiOptions);}}>
+            <label>{formData.commercial_unit} </label><FaIcons icon="sort-down" />
+          </div>
+          { showMultiOptions && <div className="form-control options">
+            {
+              formData.units && formData.units.map((item, idx) => {
+                return <div key={idx} className="form-check">
+                    <input type="checkbox" onClick={(e=> e.stopPropagation())} onChange={(e)=>{ e.stopPropagation(); onFormChange("units",item)}} className="form-check-input" checked={item.selected} id={`chk-unit-${item.name}-${formId}`} />
+                    <label className="form-check-label"  onClick={(e=> e.stopPropagation())}  htmlFor={`chk-unit-${item.name}-${formId}`} >{item.name}</label>
+                </div>
+              })
+            }
+          </div>}
+        </div>
       </div>
       <div className="center">
         <a onClick={onFormSubmit} href="javascript:void();">
           {actionTitle}
         </a>
       </div>
-    </>
+    </div>
   );
 }
 
