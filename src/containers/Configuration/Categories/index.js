@@ -4,7 +4,6 @@ import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 import useNotify from "../../../actions/Toast";
 
-
 import Modal from "./Add";
 import Card from "./card";
 
@@ -29,7 +28,7 @@ function Catergories() {
     name: "",
     sub_categories: [],
     commercial_unit: "",
-    units: []
+    units: [],
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -40,11 +39,11 @@ function Catergories() {
   const onLoad = () => {
     getCategories()
       .then((res) => {
-        res.forEach(item=>{
-          item.sub_categories.forEach(sub=>{
-            sub.units = sub.commercial_unit.split(",")
-          })
-        })
+        res.forEach((item) => {
+          item.sub_categories.forEach((sub) => {
+            sub.units = sub.commercial_unit.split(",");
+          });
+        });
         setCategories(res);
       })
       .catch((err) =>
@@ -76,14 +75,14 @@ function Catergories() {
     editCategory(formData)
       .then((res) => {
         notify(
-          `${formData.name} category has been saved successfully.`,
+          `${formData.name} category has been edited successfully.`,
           "success"
         );
         onFormCancel();
         onLoad();
       })
       .catch((err) =>
-        notify(`Oops! Failed to add save category ${formData.name}.`, "error")
+        notify(`Oops! Failed to edit category ${formData.name}.`, "error")
       );
   };
 

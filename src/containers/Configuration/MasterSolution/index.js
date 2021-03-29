@@ -8,7 +8,7 @@ import Modal from "../../../components/Solution";
 import { getCategories, getSubCategories } from "../Categories/service";
 import { getVendorDetails, getVendors } from "../Vendors/service";
 import schema from "./metadata/schema.json";
-import { getSolutions } from "./service";
+import { editSolution, getSolutions, saveSolution } from "./service";
 import "./style.scss";
 
 
@@ -30,6 +30,7 @@ function MasterSolution() {
     cost_item: "",
     feature: "",
     sub_feature: "",
+    costname:"cost"
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -56,14 +57,16 @@ function MasterSolution() {
         .then((res) => {
           setCategories(res[0]);
           setVendors(res[1]);
-          setSubCategories(res[2].sub_categories)
-          setCostItems(res[3].costitems)
+          if(res.length>2) {
+            setSubCategories(res[2].sub_categories)
+            setCostItems(res[3].costitems)
+          }
           setLoadingChoices(false);
+          setShow(true);
         })
         .catch((err) => {
           setLoadingChoices(false);
         });
-      setShow(true);
     }
   }
 
@@ -83,33 +86,33 @@ function MasterSolution() {
   };
 
   const onSave = () => {
-    // saveCategory(formData)
-    //   .then((res) => {
-    //     notify(
-    //       `${formData.name} category has been added successfully.`,
-    //       "success"
-    //     );
-    //     onFormCancel();
-    //     onLoad();
-    //   })
-    //   .catch((err) =>
-    //     notify(`Oops! Failed to add new category ${formData.name}.`, "error")
-    //   );
+    saveSolution(formData)
+      .then((res) => {
+        notify(
+          `${formData.name} solution has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add new solution.`, "error")
+      );
   };
 
   const onEdit = () => {
-    // editCategory(formData)
-    //   .then((res) => {
-    //     notify(
-    //       `${formData.name} category has been saved successfully.`,
-    //       "success"
-    //     );
-    //     onFormCancel();
-    //     onLoad();
-    //   })
-    //   .catch((err) =>
-    //     notify(`Oops! Failed to add save category ${formData.name}.`, "error")
-    //   );
+    editSolution(formData)
+      .then((res) => {
+        notify(
+          `solution has been edited successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to edit solution.`, "error")
+      );
   };
 
   const onFormCancel = () => {

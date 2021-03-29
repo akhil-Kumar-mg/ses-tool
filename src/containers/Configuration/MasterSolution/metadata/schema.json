@@ -25,7 +25,7 @@
       },
       {
         "name": "COST ITEM",
-        "field": "cost_item"
+        "field": "costname"
       }
     ],
     "actions": [

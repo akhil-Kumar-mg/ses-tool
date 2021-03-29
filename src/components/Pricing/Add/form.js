@@ -1,6 +1,24 @@
-import React, { useState } from "react";
+import cloneDeep from "lodash/cloneDeep";
+import React, { useContext } from "react";
+import { Context as AppContext } from "../../../context/AppContext";
 
-function Form() {
+function Form({ formData, onChange }) {
+  const appContext = useContext(AppContext);
+  const { pricing_model, pay_frequency } = appContext.state;
+
+  const onFormChange = (value, key) => {
+    const _formData = cloneDeep(formData);
+    switch (key) {
+      case "cost_model":
+        _formData.pricing_addon[0][key] = value;
+        break;
+      default:
+        _formData[key] = value;
+    }
+
+    onChange({ ..._formData });
+  };
+
   return (
     <>
       <form>
@@ -33,6 +51,9 @@ function Form() {
               type="text"
               className="form-control"
               aria-label="Text input with dropdown button"
+              placeholder=""
+              value={formData.setup_fee}
+              onChange={(e) => onFormChange(e.target.value, "setup_fee")}
             />
           </div>
         </div>
@@ -71,13 +92,21 @@ function Form() {
 
         <div className="form-group">
           <label>Pay frequency</label>
-          <select className="form-control">
-            <option>Placeholder text</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <select
+            className="form-control"
+            value={formData.pay_frequency}
+            onChange={(e) => onFormChange(e.target.value, "pay_frequency")}
+          >
+            <option>Select</option>
+            {pay_frequency &&
+              pay_frequency.length &&
+              pay_frequency.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
           </select>
         </div>
 
@@ -86,13 +115,21 @@ function Form() {
           <div className="panel-group">
             <div className="form-group">
               <label>Cost Model</label>
-              <select className="form-control">
-                <option>Placeholder text</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select
+                className="form-control"
+                value={formData.pricing_addon[0].cost_model}
+                onChange={(e) => onFormChange(e.target.value, "cost_model")}
+              >
+                <option>Select</option>
+                {pricing_model &&
+                  pricing_model.length &&
+                  pricing_model.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
 
@@ -129,76 +166,6 @@ function Form() {
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col">
-                  <label>Unit 1001 to</label>
-                </div>
-                <div className="col"></div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="2000"
-                  />
-                </div>
-                <div className="col">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">
-                        USD
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <label>Unit 2001 to</label>
-                </div>
-                <div className="col"></div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="type here"
-                  />
-                </div>
-                <div className="col">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">
-                        USD
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>Pay frequency</label>
-              <select className="form-control">
-                <option>Placeholder text</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
             </div>
           </div>
         </div>

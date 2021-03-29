@@ -15,12 +15,11 @@ function ModalContainer({
   costItems,
   onCancel,
 }) {
-
   const [showCostItem, setShowCostItem] = useState(false);
 
   const onPreview = () => {
-    setShowCostItem(true)
-  }
+    setShowCostItem(true);
+  };
   return (
     <>
       <CostItemModal
@@ -31,15 +30,15 @@ function ModalContainer({
       />
       <Modal
         show={show}
-        title={mode === "ADD" ? "New solution item": "Edit solution item"}
+        title={mode === "ADD" ? "New solution item" : "Edit solution item"}
         body={() => (
           <Form
             formData={formData}
             onChange={onChange}
             categories={categories}
-            subCategories = {subCategories}
+            subCategoryList={subCategories}
             vendors={vendors}
-            costItems = {costItems}
+            costItemLIst={costItems}
             onPreview={onPreview}
           />
         )}

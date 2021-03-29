@@ -1,12 +1,15 @@
-import api from '../../../api';
-
-const getSolutionOptionList = () => {
-    return api.httpGet('/solution_list/')
-}
+import api from "../../../api";
 
 const getSolutions = () => {
-    return api.httpGet('/solution/')
-}
+  return api.httpGet("/solution/");
+};
 
-export {getSolutionOptionList, getSolutions}
+const saveSolution = (data) => {
+  return api.httpPost("/solution/", data);
+};
 
+const editSolution = (data) => {
+  return api.httpPut(`/solution/${data.id}`, data);
+};
+
+export { saveSolution, getSolutions, editSolution };
