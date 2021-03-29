@@ -6,6 +6,7 @@ import messages from '../../constants/messages';
 import { Context as AppContext } from "../../context/AppContext";
 import Layout from '../Layout';
 import useNotify from "../../actions/Toast";
+import FaIcons from '../../components/fa-icons';
 
 function App() {
   const { notify } = useNotify();
@@ -28,7 +29,10 @@ function App() {
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      {initLoaded && <Layout setLocale={setLocale} /> }
+      {initLoaded ? <Layout setLocale={setLocale} /> : <div>
+        <br/>
+        <h1> <FaIcons icon={"spinner fa-spin"}/> Loading configuration.... Please wait!!!</h1>
+      </div> }
     </IntlProvider>
   );
 }
