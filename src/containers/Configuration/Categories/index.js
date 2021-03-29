@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import "./style.scss";
 import FaIcons from "../../../components/fa-icons";
 import useNotify from "../../../actions/Toast";
-
+import { Context as AppContext } from "../../../context/AppContext";
 import Modal from "./Add";
 import Card from "./card";
 
@@ -15,6 +15,8 @@ import {
 } from "./service";
 
 function Catergories() {
+  const appContext = useContext(AppContext);
+  const { commercial_unit } = appContext.state;
   const { notify } = useNotify();
   const [categories, setCategories] = useState([]);
   const [show, setShow] = useState(false);
@@ -41,7 +43,8 @@ function Catergories() {
       .then((res) => {
         res.forEach((item) => {
           item.sub_categories.forEach((sub) => {
-            sub.units = sub.commercial_unit.split(",");
+            sub.units = commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: sub.commercial_unit.split(",").includes(item)}}): [];
+
           });
         });
         setCategories(res);
