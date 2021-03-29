@@ -10,6 +10,7 @@ function Form({formData, onChange}) {
 // const commercial_unit = ["Channel1", "Channel2","Channel3"]
 
   const initialState = {
+    uuid: randomstring.generate(),
     name: "",
     commercial_unit: "",
     units: commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: false}}): []
@@ -17,7 +18,6 @@ function Form({formData, onChange}) {
   const [subFormData, setSubFormData] = useState({...initialState});
 
   const onAdd = (data) =>{
-    data.uuid = randomstring.generate();
     const _formData = cloneDeep(formData)
     _formData.sub_categories.push(data)
     onChange({ ..._formData });
