@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import SubForm from './subform';
 import cloneDeep from 'lodash/cloneDeep';
 import { Context as AppContext } from "../../../../context/AppContext";
+const randomstring = require("randomstring");
 
 function Form({formData, onChange}) {
   const appContext = useContext(AppContext);
@@ -16,6 +17,7 @@ function Form({formData, onChange}) {
   const [subFormData, setSubFormData] = useState({...initialState});
 
   const onAdd = (data) =>{
+    data.uuid = randomstring.generate();
     const _formData = cloneDeep(formData)
     _formData.sub_categories.push(data)
     onChange({ ..._formData });
@@ -23,7 +25,7 @@ function Form({formData, onChange}) {
   }
   const onDelete = (data) =>{
     const _formData = cloneDeep(formData)
-    _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id);
+    _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id || item.uuid !== data.uuid);
     onChange({ ..._formData });
   }
 
@@ -40,11 +42,17 @@ function Form({formData, onChange}) {
   const onSubFormEdit = (data) =>{
     const _formData = cloneDeep(formData)
     _formData.sub_categories.forEach(item=> {
-      if(item.id === data.id){
+      if(data.id && item.id === data.id){
+        item = {...data}
+      } else if(!data.id && data.uuid && item.uuid === data.uuid){
         item = {...data}
       }
     });
     onChange({ ..._formData });
+  }
+
+  const onFormSubmit = () =>{
+    onAdd({...subFormData})
   }
 
   return (
@@ -67,7 +75,12 @@ function Form({formData, onChange}) {
           return <SubForm key={idx} formData={item} formId={idx} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
-      <SubForm formId={-1} formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/>
+      {/* <SubForm formId={-1} formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/> */}
+      <div className="center">
+        <a onClick={onFormSubmit} href="javascript:void();">
+        Add another
+        </a>
+      </div>
       </form>
     </>
   );

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import FaIcons from "../../../../components/fa-icons";
 
 function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
-
   const [showMultiOptions, setShowMultiOptions] = useState(false)
 
   const onFormChange = (key, value) => {
@@ -24,7 +23,17 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
   return (
     <div onClick={()=>{setShowMultiOptions(false)}}>
       <div className="form-group">
-        <label>Sub-category name</label>
+      <div className="row">
+          <div className="col">
+          <label>Sub-category name <span className="required">*</span></label>
+          </div>
+          {actionTitle && <div className="col" style={{textAlign: 'right'}} >
+            <a onClick={onFormSubmit} href="javascript:void();">
+              {actionTitle}
+            </a>
+          </div>}
+        </div>
+        
         <input
           type="text"
           className="form-control"
@@ -35,7 +44,7 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
       </div>
 
       <div className="form-group">
-        <label>Applicable commercial units</label>
+        <label>Applicable commercial units <span className="required">*</span></label>
         <div className="ses-multi-select">
           <div className="form-control label" onClick={(e)=>{e.stopPropagation(); setShowMultiOptions(!showMultiOptions);}}>
             <label>{formData.commercial_unit} </label><FaIcons icon="sort-down" />
@@ -52,11 +61,11 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
           </div>}
         </div>
       </div>
-      <div className="center">
+      {/* <div className="center">
         <a onClick={onFormSubmit} href="javascript:void();">
           {actionTitle}
         </a>
-      </div>
+      </div> */}
     </div>
   );
 }

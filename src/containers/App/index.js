@@ -11,7 +11,7 @@ function App() {
   const { notify } = useNotify();
   const [locale, setLocale] = useState('en');
   const appContext = useContext(AppContext);
-  const { error } = appContext.state;
+  const { error, initLoaded } = appContext.state;
   
   useEffect(()=>{
     appContext.fetchConfigs();
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      <Layout setLocale={setLocale} />
+      {initLoaded && <Layout setLocale={setLocale} /> }
     </IntlProvider>
   );
 }

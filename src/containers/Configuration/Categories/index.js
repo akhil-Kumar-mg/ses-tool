@@ -7,12 +7,15 @@ import { Context as AppContext } from "../../../context/AppContext";
 import Modal from "./Add";
 import Card from "./card";
 
+
 import {
   getCategories,
   saveCategory,
   deleteCategory,
   editCategory,
 } from "./service";
+
+const randomstring = require("randomstring");
 
 function Catergories() {
   const appContext = useContext(AppContext);
@@ -28,9 +31,12 @@ function Catergories() {
 
   const initialState = {
     name: "",
-    sub_categories: [],
-    commercial_unit: "",
-    units: [],
+    sub_categories: [{
+      uuid: randomstring.generate(), 
+      name: "",
+      commercial_unit: "",
+      units: commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: false}}): []
+    }]
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -59,7 +65,27 @@ function Catergories() {
     else onEdit();
   };
 
+  const isFormValid = () => {
+    let isValid = true;
+    if(!formData.name){
+      isValid = false;
+      return isValid;
+    }
+    formData.sub_categories.forEach(item=>{
+      if(!item.name || !item.commercial_unit){
+        isValid = false;
+
+      }
+    })
+
+    return isValid;
+  }
+
   const onSave = () => {
+    if(!isFormValid()){
+      notify(`Required fields are mandatory`, "error")
+      return;
+    }
     saveCategory(formData)
       .then((res) => {
         notify(
@@ -75,6 +101,10 @@ function Catergories() {
   };
 
   const onEdit = () => {
+    if(!isFormValid()){
+      notify(`Required fields are mandatory`, "error")
+      return;
+    }
     editCategory(formData)
       .then((res) => {
         notify(
