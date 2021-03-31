@@ -7,14 +7,14 @@ import useNotify from "../../../actions/Toast";
 
 import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
-import { useLocation } from "react-router-dom";
+
 import { getForecasts, saveForecast } from "../service";
 
 import Modal from "./Add";
 
 function Scenarios(props) {
   const history = useHistory();
-  const location = useLocation();
+
   const { notify } = useNotify();
 
   const [show, setShow] = useState(false);
@@ -34,7 +34,7 @@ function Scenarios(props) {
   };
 
   const initialState = {
-    project: location.state != undefined ? location.state.projectId: "",
+    project: props.match.params.projectId,
     name: "",
     expected_start_date: "",
     number_of_months: "",
