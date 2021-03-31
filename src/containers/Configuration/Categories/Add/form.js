@@ -25,13 +25,12 @@ function Form({formData, onChange}) {
   }
   const onDelete = (data) =>{
     const _formData = cloneDeep(formData)
-    // _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id || item.uuid !== data.uuid);
-    _formData.sub_categories.forEach(item => {
-      if((item.id && item.id === data.id) || (item.uuid && item.uuid === data.uuid)){
-        item.isdeleted = true;
-      }
-    });
-    console.log(_formData)
+    _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id || item.uuid !== data.uuid);
+    // _formData.sub_categories.forEach(item => {
+    //   if((item.id && item.id === data.id) || (item.uuid && item.uuid === data.uuid)){
+    //     item.isdeleted = true;
+    //   }
+    // });
     onChange({ ..._formData });
   }
 
