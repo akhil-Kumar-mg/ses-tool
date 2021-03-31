@@ -25,7 +25,13 @@ function Form({formData, onChange}) {
   }
   const onDelete = (data) =>{
     const _formData = cloneDeep(formData)
-    _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id || item.uuid !== data.uuid);
+    // _formData.sub_categories = _formData.sub_categories.filter(item=> item.id !== data.id || item.uuid !== data.uuid);
+    _formData.sub_categories.forEach(item => {
+      if((item.id && item.id === data.id) || (item.uuid && item.uuid === data.uuid)){
+        item.isdeleted = true;
+      }
+    });
+    console.log(_formData)
     onChange({ ..._formData });
   }
 
@@ -72,7 +78,7 @@ function Form({formData, onChange}) {
         </div>
 
         {formData.sub_categories.map((item, idx) => {
-          return <SubForm key={idx} formData={item} formId={idx} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
+          return item.isdeleted ? null : <SubForm key={idx} formData={item} formId={idx} onChange={onSubFormEdit} onSubmit={onDelete} actionTitle="Delete"/>
         })}
 
       {/* <SubForm formId={-1} formData={subFormData} onSubmit={onAdd} onChange={onSubFormChange} actionTitle="Add another"/> */}
