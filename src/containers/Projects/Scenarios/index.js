@@ -20,13 +20,13 @@ function Scenarios(props) {
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("SETUP");
   const [forecast, setForecast] = useState([]);
-
+console.log(props.match)
   useEffect(() => {
     onLoad();
   }, []);
 
   const onLoad = () => {
-    getForecasts()
+    getForecasts(props.match.params.projectId)
       .then((res) => {
         setForecast(res);
       })

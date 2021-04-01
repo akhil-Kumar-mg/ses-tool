@@ -16,8 +16,8 @@ const editProject = (data) => {
   return api.httpPut(`/project/${data.id}/`, data);
 };
 
-const getForecasts = () => {
-  return api.httpGet("/forecast/");
+const getForecasts = (id) => {
+  return api.httpGet(`/forecast/?project=${id}`);
 };
 
 const saveForecast = (data) => {
