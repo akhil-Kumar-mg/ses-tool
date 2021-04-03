@@ -1,9 +1,11 @@
-import api from '../../../api';
-
+import api from "../../../api";
 
 const getPricings = () => {
-    return api.httpGet('/pricing/')
-}
+  return api.httpGet("/pricing/");
+};
 
-export {getPricings}
+const definePricing = (data) => {
+  return api.httpPut(`/pricing/${data.id}/`, data);
+};
 
+export { getPricings, definePricing };

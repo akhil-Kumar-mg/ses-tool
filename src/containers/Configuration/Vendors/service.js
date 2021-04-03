@@ -20,13 +20,17 @@ const getVendorDetails = (id) => {
   return api.httpGet(`/vendor/${id}/`);
 };
 
-const saveCostItem = (data, id) => {
-  return api.httpPut(`/vendor/${id}/`, data);
+const saveCostItem = (data) => {
+  return api.httpPost(`/cost/`, data);
 };
 
-const editCostItem = (data, id) => {
-  return api.httpPut(`/vendor/${id}/`, data);
+const editCostItem = (data) => {
+  return api.httpPut(`/cost/${data.id}/`, data);
 };
+
+const getCostItem = (id) => {
+  return api.httpGet(`/cost/${id}/`);
+}
 
 const deleteCostItem = (id) => {
   return api.httpDelete(`/cost/${id}/`);
@@ -40,5 +44,6 @@ export {
   getVendorDetails,
   saveCostItem,
   editCostItem,
-  deleteCostItem
+  deleteCostItem,
+  getCostItem
 };

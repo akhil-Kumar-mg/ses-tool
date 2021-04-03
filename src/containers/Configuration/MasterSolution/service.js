@@ -12,4 +12,8 @@ const editSolution = (data) => {
   return api.httpPut(`/solution/${data.id}`, data);
 };
 
-export { saveSolution, getSolutions, editSolution };
+const deleteSolution = (id) => {
+  return api.httpDelete(`/solution/${id}/`);
+};
+
+export { saveSolution, getSolutions, editSolution, deleteSolution };

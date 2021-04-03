@@ -2,26 +2,33 @@ import React, { useState, useEffect } from "react";
 import Grid from "../../../components/Grid";
 import PricingModal from "../../../components/Pricing/Add";
 import schema from "./metadata/schema.json";
-import { getPricings } from "./service";
+import { definePricing, getPricings } from "./service";
 import "./style.scss";
 import useNotify from "../../../actions/Toast";
 import cloneDeep from "lodash/cloneDeep";
+import { omit } from "lodash";
 
 function MasterPricing() {
   const { notify } = useNotify();
   const [show, setShow] = useState(false);
   const [pricings, setPricings] = useState([]);
-  const [mode, setMode] = useState("ADD");
+  const [mode, setMode] = useState("EDIT");
 
   const initialState = {
     category: "",
     subcategory: "",
-    pricing_addon: [],
+    pricing_addon: [
+      {
+        cost_model: "volume",
+        pricing_list: [],
+      },
+    ],
     commercial_unit: "",
-    currency:"",
+    currency: "USD",
     setup_fee: "",
     recurring_fee: "",
-    pay_frequency: ""
+    pay_frequency: "",
+    status: "",
   };
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
@@ -46,45 +53,44 @@ function MasterPricing() {
     switch (event) {
       case "onAddPrice":
         setMode("ADD");
-        setFormData(cloneDeep(item));
+        let _cloneItem = cloneDeep(item);
+        _cloneItem.currency = "USD"
+        if (item.pricing_addon.length == 0) {
+          let temp = {
+            cost_model: "volume",
+            pricing_list: [
+              {
+                unit_start: 1,
+                unit_end: undefined,
+                price: undefined,
+              },
+            ],
+          };
+          _cloneItem.pricing_addon.push(temp);
+        }
+        setFormData(_cloneItem);
         handleShow();
         break;
     }
   };
 
   const onFormSubmit = () => {
-    if (mode === "ADD") onSave();
-    else onEdit();
-  };
-
-  const onSave = () => {
-    // saveCategory(formData)
-    //   .then((res) => {
-    //     notify(
-    //       `${formData.name} category has been added successfully.`,
-    //       "success"
-    //     );
-    //     onFormCancel();
-    //     onLoad();
-    //   })
-    //   .catch((err) =>
-    //     notify(`Oops! Failed to add new category ${formData.name}.`, "error")
-    //   );
+    onEdit();
   };
 
   const onEdit = () => {
-    // editCategory(formData)
-    //   .then((res) => {
-    //     notify(
-    //       `${formData.name} category has been edited successfully.`,
-    //       "success"
-    //     );
-    //     onFormCancel();
-    //     onLoad();
-    //   })
-    //   .catch((err) =>
-    //     notify(`Oops! Failed to edit category ${formData.name}.`, "error")
-    //   );
+    definePricing(cloneDeep(omit(formData, ["category", "subcategory", "status"])))
+      .then((res) => {
+        notify(
+          `${formData.name} category has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add new category ${formData.name}.`, "error")
+      );
   };
 
   const onFormCancel = () => {

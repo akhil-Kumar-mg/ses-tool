@@ -135,7 +135,7 @@ function Projects() {
             .filter((item) => {
               if (
                 searchKey.length == 0 ||
-                _includes(item.project_name, searchKey)
+                _includes(item.project_name.toLowerCase(), searchKey.toLowerCase())
               )
                 return true;
               return false;

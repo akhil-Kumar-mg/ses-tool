@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Modal from "../Modal";
 import Form from "./form";
-import CostItemModal from "../CostItem/Edit";
+import PreviewCostItem from "../CostItem/Preview";
+import { cloneDeep } from "lodash";
+import { getCostItem } from "../../containers/Configuration/Vendors/service";
+import useNotify from "../../actions/Toast";
 
 function ModalContainer({
   mode,
@@ -16,18 +19,26 @@ function ModalContainer({
   onCancel,
 }) {
   const [showCostItem, setShowCostItem] = useState(false);
+  const [costItem, setCostItem] = useState(null);
+  const { notify } = useNotify();
+
+  const onPreviewCancel = () => {
+    setShowCostItem(false)
+  }
 
   const onPreview = () => {
-    setShowCostItem(true);
+    getCostItem(formData.cost_item)
+      .then((res) => {
+        setCostItem(cloneDeep(res));
+        setShowCostItem(true);
+      })
+      .catch((err) => {
+        notify("Oops! Failed to fetch cost item.", "error");
+      });
   };
   return (
     <>
-      <CostItemModal
-        show={showCostItem}
-        formData={vendors[0]}
-        // formData={formData}
-        // onChange= {on}
-      />
+      <PreviewCostItem show={showCostItem} formData={costItem} onCancel={onPreviewCancel}/>
       <Modal
         show={show}
         title={mode === "ADD" ? "New solution item" : "Edit solution item"}

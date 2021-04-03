@@ -21,7 +21,7 @@ function Grid({ data, schema, onChange }) {
                 onChange(action.event, item);
               }}
             >
-              {item.addon_id? "Edit Pricing": action.name}
+              {item.status !== "created" ? action.edit: action.add}
             </a>
           </div>
         );

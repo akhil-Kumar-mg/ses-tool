@@ -15,7 +15,8 @@
     ],
     "actions": [
       {
-        "name": "Define pricing",
+        "add": "Define pricing",
+        "edit": "Edit pricing",
         "type": "link",
         "width": "150px",
         "event": "onAddPrice"

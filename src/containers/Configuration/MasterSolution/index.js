@@ -8,7 +8,7 @@ import Modal from "../../../components/Solution";
 import { getCategories, getSubCategories } from "../Categories/service";
 import { getVendorDetails, getVendors } from "../Vendors/service";
 import schema from "./metadata/schema.json";
-import { editSolution, getSolutions, saveSolution } from "./service";
+import { deleteSolution, editSolution, getSolutions, saveSolution } from "./service";
 import "./style.scss";
 
 
@@ -29,8 +29,7 @@ function MasterSolution() {
     vendor: "",
     cost_item: "",
     feature: "",
-    sub_feature: "",
-    costname:"cost"
+    sub_feature: ""
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -136,20 +135,20 @@ function MasterSolution() {
 
   const onDelete = (data) => {
     const r = window.confirm(
-      `Do you wish to remove '${data.type}' subscriber?`
+      `Do you wish to remove this solution?`
     );
     if (r === true) {
-      // deleteSubscribers(data.id)
-      //   .then((res) => {
-      //     notify(
-      //       `'${data.type}' subscriber has been removed successfully.`,
-      //       "success"
-      //     );
-      //     onLoad();
-      //   })
-      //   .catch((err) =>
-      //     notify(`Oops! Failed to remove ${data.type} subscriber.`, "error")
-      //   );
+      deleteSolution(data.id)
+        .then((res) => {
+          notify(
+            `The solution has been removed successfully.`,
+            "success"
+          );
+          onLoad();
+        })
+        .catch((err) =>
+          notify(`Oops! Failed to remove the solution.`, "error")
+        );
     } else {
     }
   };

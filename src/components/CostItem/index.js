@@ -5,6 +5,7 @@ import {
   saveCostItem,
   editCostItem,
   deleteCostItem,
+  getCostItem,
 } from "../../containers/Configuration/Vendors/service";
 import Modal from "../Modal";
 import FormModal from "./Add";
@@ -32,27 +33,25 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
   };
 
   const initialState = {
-    id: vendor.id,
-    vendor_cost: [
+    cost_addon: [
       {
-        item: "",
-        commercial_unit: "",
-        currency: "$",
-        setup_fee: "",
-        recurring_fee: "",
-        frequency: "",
-        cost_addon: [
+        addon_pricing: [
           {
-            cost_model: "",
-            unit_start: "",
-            unit_end: "",
-            currency: "$",
-            price: "",
-            frequency: "",
-          },
+            unit_start: "1",
+            unit_end: "0",
+            price: "0",
+          }
         ],
+        cost_model: "volume",
       },
     ],
+    item: "",
+    commercial_unit: "",
+    currency: "USD",
+    setup_fee: "",
+    recurring_fee: "",
+    frequency: "",
+    vendor: vendor.id,
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -62,34 +61,39 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
   };
 
   const handleDeleteCostItem = (item) => {
-    const r = window.confirm(`Do you wish to remove '${item.cost_addon[0].cost_model}' cost item?`);
+    const r = window.confirm(
+      `Do you wish to remove '${item.item}' cost item?`
+    );
     if (r === true) {
-      deleteCostItem(item.cost_addon[0].id)
-      .then((res) => {
-        notify(
-          `${formData.vendor_cost[0].item} cost item has been deleted successfully.`,
-          "success"
-        );
-        onFormCancel();
-        fetchCostItems();
-      })
-      .catch((err) => {
-        notify(
-          `Oops! Failed to delete cost item ${formData.vendor_cost[0].item}.`,
-          "error"
-        );
-      });
+      deleteCostItem(item.id)
+        .then((res) => {
+          notify(
+            `${formData.item} cost item has been deleted successfully.`,
+            "success"
+          );
+          onFormCancel();
+          fetchCostItems();
+        })
+        .catch((err) => {
+          notify(
+            `Oops! Failed to delete cost item ${formData.item}.`,
+            "error"
+          );
+        });
     } else {
     }
-    
   };
 
   const handleEditCostItem = (data) => {
     setMode("EDIT");
     setShow(true);
-    const _formData = cloneDeep(formData);
-    _formData.vendor_cost[0] = data;
-    setFormData(_formData);
+    getCostItem(data.id)
+    .then((res) => {
+      setFormData(cloneDeep(res))
+    })
+    .catch((err) => {
+      notify("Oops! Failed to fetch cost item.", "error");
+    });
   };
 
   const handleAddCostItem = () => {
@@ -105,10 +109,10 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
   };
 
   const onCostItemSave = () => {
-    saveCostItem(formData, vendor.id)
+    saveCostItem(formData)
       .then((res) => {
         notify(
-          `${formData.vendor_cost[0].item} cost item has been added successfully.`,
+          `cost item has been added successfully.`,
           "success"
         );
         onFormCancel();
@@ -116,17 +120,17 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
       })
       .catch((err) =>
         notify(
-          `Oops! Failed to add new cost item ${formData.vendor_cost[0].item}.`,
+          `Oops! Failed to add new cost item.`,
           "error"
         )
       );
   };
 
   const onCostItemEdit = () => {
-    editCostItem(formData, vendor.id)
+    editCostItem(formData)
       .then((res) => {
         notify(
-          `${formData.vendor_cost[0].item} cost item has been edited successfully.`,
+          `${formData.item} cost item has been edited successfully.`,
           "success"
         );
         onFormCancel();
@@ -134,7 +138,7 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
       })
       .catch((err) =>
         notify(
-          `Oops! Failed to edit cost item ${formData.vendor_cost[0].item}.`,
+          `Oops! Failed to edit cost item ${formData.item}.`,
           "error"
         )
       );

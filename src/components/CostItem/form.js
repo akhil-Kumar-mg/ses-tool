@@ -1,20 +1,39 @@
-import React, { useState, useContext } from "react";
-import cloneDeep from "lodash/cloneDeep";
+import { cloneDeep } from "lodash";
+import React, { useContext } from "react";
 import { Context as AppContext } from "../../context/AppContext";
+import AddonForm from "./addonForm";
 
-function Form({ formData, onChange }) {
+function Form({ formData, disabled, onChange }) {
   const appContext = useContext(AppContext);
-  const { units, frequency, volumes } = appContext.state;
+  const { pricing_model, pay_frequency, commercial_unit } = appContext.state;
 
   const onFormChange = (value, key) => {
     const _formData = cloneDeep(formData);
-    _formData.vendor_cost[0][key] = value;
-    onChange({ ..._formData });
-  };
+    switch (key) {
+      case "cost_model":
+        _formData.cost_addon[0][key] = value;
+        if (value === "unit_price") {
+          _formData.cost_addon[0].addon_pricing = [
+            {
+              unit_start: 0,
+              unit_end: 0,
+              price: undefined,
+            },
+          ];
+        } else if (value === "volume" || value === "tier") {
+          _formData.cost_addon[0].addon_pricing = [
+            {
+              unit_start: 1,
+              unit_end: 0,
+              price: 0,
+            },
+          ];
+        }
+        break;
+      default:
+        _formData[key] = value;
+    }
 
-  const onSubFormChange = (value, key) => {
-    const _formData = cloneDeep(formData);
-    _formData.vendor_cost[0].cost_addon[0][key] = value;
     onChange({ ..._formData });
   };
 
@@ -27,24 +46,26 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control"
             placeholder="Cost Item name"
-            value={formData.vendor_cost[0].item}
+            value={formData.item}
             onChange={(e) => onFormChange(e.target.value, "item")}
+            disabled={disabled}
           />
         </div>
         <div className="form-group">
           <label>Commercial units</label>
           <select
             className="form-control"
-            value={formData.vendor_cost[0].commercial_unit}
+            value={formData.commercial_unit}
+            disabled={disabled}
             onChange={(e) => onFormChange(e.target.value, "commercial_unit")}
           >
             <option>Select</option>
-            {units &&
-              units.length &&
-              units.map((item) => {
+            {commercial_unit &&
+              commercial_unit.length &&
+              commercial_unit.map((item) => {
                 return (
-                  <option key={item[0]} value={item[0]}>
-                    {item[1]}
+                  <option key={item} value={item}>
+                    {item}
                   </option>
                 );
               })}
@@ -79,7 +100,8 @@ function Form({ formData, onChange }) {
               type="text"
               className="form-control"
               aria-label="Text input with dropdown button"
-              value={formData.vendor_cost[0].setup_fee}
+              value={formData.setup_fee}
+              disabled={disabled}
               onChange={(e) => onFormChange(e.target.value, "setup_fee")}
             />
           </div>
@@ -113,8 +135,9 @@ function Form({ formData, onChange }) {
               type="text"
               className="form-control"
               aria-label="Text input with dropdown button"
-              value={formData.vendor_cost[0].recurring_fee}
+              value={formData.recurring_fee}
               onChange={(e) => onFormChange(e.target.value, "recurring_fee")}
+              disabled={disabled}
             />
           </div>
         </div>
@@ -123,16 +146,17 @@ function Form({ formData, onChange }) {
           <label>Pay frequency</label>
           <select
             className="form-control"
-            value={formData.vendor_cost[0].frequency}
+            value={formData.frequency}
+            disabled={disabled}
             onChange={(e) => onFormChange(e.target.value, "frequency")}
           >
             <option>Select</option>
-            {frequency &&
-              frequency.length &&
-              frequency.map((item) => {
+            {pay_frequency &&
+              pay_frequency.length &&
+              pay_frequency.map((item) => {
                 return (
-                  <option key={item[0]} value={item[0]}>
-                    {item[1]}
+                  <option key={item} value={item}>
+                    {item}
                   </option>
                 );
               })}
@@ -146,117 +170,32 @@ function Form({ formData, onChange }) {
               <label>Cost Model</label>
               <select
                 className="form-control"
-                value={formData.vendor_cost[0].cost_addon[0].cost_model}
-                onChange={(e) => onSubFormChange(e.target.value, "cost_model")}
+                value={
+                  formData.cost_addon.length > 0
+                    ? formData.cost_addon[0].cost_model
+                    : ""
+                }
+                disabled={disabled}
+                onChange={(e) => onFormChange(e.target.value, "cost_model")}
               >
                 <option>Select</option>
-                {volumes &&
-                  volumes.length &&
-                  volumes.map((item) => {
+                {pricing_model &&
+                  pricing_model.length &&
+                  pricing_model.map((item) => {
                     return (
-                      <option key={item[0]} value={item[0]}>
-                        {item[1]}
+                      <option key={item} value={item}>
+                        {item}
                       </option>
                     );
                   })}
               </select>
             </div>
-
-            <div className="form-group">
-              <label>Define pricing</label>
-              <div className="row">
-                <div className="col">
-                  <label>Unit 1 to</label>
-                </div>
-                <div className="col">
-                  <label>Price per unit</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="1000"
-                    value={formData.vendor_cost[0].cost_addon[0].unit_start}
-                    onChange={(e) =>
-                      onSubFormChange(e.target.value, "unit_start")
-                    }
-                  />
-                </div>
-                <div className="col">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">
-                        USD
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder=""
-                      value={formData.vendor_cost[0].cost_addon[0].price}
-                      onChange={(e) => onSubFormChange(e.target.value, "price")}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <label>Unit 1001 to</label>
-                </div>
-                <div className="col"></div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="2000"
-                    value={formData.vendor_cost[0].cost_addon[0].unit_end}
-                    onChange={(e) =>
-                      onSubFormChange(e.target.value, "unit_end")
-                    }
-                  />
-                </div>
-                <div className="col">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">
-                        USD
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder=""
-                      value={formData.vendor_cost[0].cost_addon[0].price}
-                      onChange={(e) => onSubFormChange(e.target.value, "price")}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>Pay frequency</label>
-              <select
-                className="form-control"
-                value={formData.vendor_cost[0].cost_addon[0].frequency}
-                onChange={(e) => onSubFormChange(e.target.value, "frequency")}
-              >
-                <option>Select</option>
-                {frequency &&
-                  frequency.length &&
-                  frequency.map((item) => {
-                    return (
-                      <option key={item[0]} value={item[0]}>
-                        {item[1]}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
+            <AddonForm
+              formData={formData}
+              onChange={onChange}
+              actionTitle="Delete"
+              disabled={disabled}
+            />
           </div>
         </div>
       </form>

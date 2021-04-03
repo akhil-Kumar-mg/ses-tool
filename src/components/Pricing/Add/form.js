@@ -1,6 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
 import React, { useContext } from "react";
 import { Context as AppContext } from "../../../context/AppContext";
+import CostAddonForm from "./CostAddonForm";
 
 function Form({ formData, onChange }) {
   const appContext = useContext(AppContext);
@@ -11,6 +12,23 @@ function Form({ formData, onChange }) {
     switch (key) {
       case "cost_model":
         _formData.pricing_addon[0][key] = value;
+        if (value === "unit_price") {
+          _formData.pricing_addon[0].pricing_list = [
+            {
+              unit_start: 0,
+              unit_end: 0,
+              price: undefined,
+            },
+          ];
+        } else if(value === "volume" || value === "tier") {
+          _formData.pricing_addon[0].pricing_list = [
+            {
+              unit_start: 1,
+              unit_end: 0,
+              price: 0,
+            },
+          ];
+        }
         break;
       default:
         _formData[key] = value;
@@ -86,6 +104,8 @@ function Form({ formData, onChange }) {
               type="text"
               className="form-control"
               aria-label="Text input with dropdown button"
+              value={formData.recurring_fee}
+              onChange={(e) => onFormChange(e.target.value, "recurring_fee")}
             />
           </div>
         </div>
@@ -117,7 +137,11 @@ function Form({ formData, onChange }) {
               <label>Cost Model</label>
               <select
                 className="form-control"
-                value={formData.pricing_addon[0].cost_model}
+                value={
+                  formData.pricing_addon.length > 0
+                    ? formData.pricing_addon[0].cost_model
+                    : ""
+                }
                 onChange={(e) => onFormChange(e.target.value, "cost_model")}
               >
                 <option>Select</option>
@@ -132,41 +156,12 @@ function Form({ formData, onChange }) {
                   })}
               </select>
             </div>
-
-            <div className="form-group">
-              <label>Define pricing</label>
-              <div className="row">
-                <div className="col">
-                  <label>Unit 1 to</label>
-                </div>
-                <div className="col">
-                  <label>Price per unit</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="1000"
-                  />
-                </div>
-                <div className="col">
-                  <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon1">
-                        USD
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* <label>Define pricing</label> */}
+            <CostAddonForm
+              formData={formData}
+              onChange={onChange}
+              actionTitle="Delete"
+            />
           </div>
         </div>
       </form>

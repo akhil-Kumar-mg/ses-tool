@@ -15,7 +15,8 @@
     ],
     "actions": [
       {
-        "name": "Setup",
+        "add": "Setup",
+        "edit": "Setup",
         "type": "link",
         "width": "150px",
         "event": "onSetup"

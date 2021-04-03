@@ -2,28 +2,23 @@ import React, { useState } from "react";
 import Modal from "../../Modal";
 import Form from "../form";
 
-function ModalContainer({ mode, show, formData, onChange, onCancel, onSubmit }) {
+function ModalContainer({ show, formData, onCancel }) {
   return (
     <>
       <Modal
         show={show}
-        title="New cost items"
-        body={() => <Form formData={formData} onChange={onChange} disabled={false} />}
+        title="Edit cost item"
+        body={() => <Form formData={formData} disabled={true} />}
         actions={() => {
           return (
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col">
                 <button
                   type="button"
                   className="btn btn-secondary cancel"
                   onClick={onCancel}
                 >
                   CANCEL
-                </button>
-              </div>
-              <div className="col-sm-6">
-                <button type="button" className="btn btn-primary"  onClick={onSubmit}>
-                  {mode}
                 </button>
               </div>
             </div>

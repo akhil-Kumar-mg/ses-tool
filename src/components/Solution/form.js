@@ -138,7 +138,6 @@ function Form({
             value={formData.cost_item}
             onChange={(e) => {
               onFormChange(e.target.value, "cost_item");
-              // getSubCategories();
             }}
           >
             <option value="" selected>

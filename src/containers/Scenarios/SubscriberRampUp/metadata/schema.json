@@ -25,8 +25,8 @@
         "type": "text"
       },
       {
-        "name": "CHRUN",
-        "field": "chrun",
+        "name": "CHURN",
+        "field": "churn",
         "type": "text"
       }
     ],

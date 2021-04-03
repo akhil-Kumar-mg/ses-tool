@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import FaIcons from "../fa-icons";
+import React from "react";
 
 function Form({ item, key, onDelete, onEdit }) {
   return (

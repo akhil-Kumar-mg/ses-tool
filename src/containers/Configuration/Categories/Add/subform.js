@@ -37,7 +37,7 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
         <input
           type="text"
           className="form-control"
-          placeholder="Placeholder text"
+          placeholder=""
           value={formData.name}
           onChange={(e) => onFormChange("name", e.target.value)}
         />
