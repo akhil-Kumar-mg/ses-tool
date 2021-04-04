@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { Context as AppContext } from "../../../../context/AppContext";
 
 function Form({ formData, onChange }) {
+  const appContext = useContext(AppContext);
+  const {
+    channel_quality,
+    source_type,
+    ad_cue_tones,
+    subtitles,
+  } = appContext.state;
+
   const onFormChange = (key, value) => {
     const _formData = cloneDeep(formData);
     _formData[key] = value;
@@ -16,9 +25,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.type}
+            onChange={(e) => onFormChange("type", e.target.value)}
           />
         </div>
 
@@ -27,9 +36,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.catchup_hours}
+            onChange={(e) => onFormChange("catchup_hours", e.target.value)}
           />
         </div>
 
@@ -38,9 +47,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.manager}
-            onChange={(e) => onFormChange("manager", e.target.value)}
+            placeholder=""
+            value={formData.source_mbps}
+            onChange={(e) => onFormChange("source_mbps", e.target.value)}
           />
         </div>
 
@@ -49,9 +58,9 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            placeholder=""
+            value={formData.codec}
+            onChange={(e) => onFormChange("codec", e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -65,16 +74,29 @@ function Form({ formData, onChange }) {
           </div>
           <div className="row">
             <div className="col">
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                value={formData.audio_type}
+                onChange={(e) => onFormChange("audio_type", e.target.value)}
+              />
             </div>
             <div className="col">
-              <select className="form-control">
-                
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select
+                className="form-control"
+                value={formData.source_type}
+                onChange={(e) => onFormChange("source_type", e.target.value)}
+              >
+                <option>Select</option>
+                {source_type &&
+                  source_type.length &&
+                  source_type.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -90,16 +112,31 @@ function Form({ formData, onChange }) {
           </div>
           <div className="row">
             <div className="col">
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                value={formData.subtitle_type}
+                onChange={(e) => onFormChange("subtitle_type", e.target.value)}
+              />
             </div>
             <div className="col">
-              <select className="form-control">
-                
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select
+                className="form-control"
+                value={formData.channel_quality}
+                onChange={(e) =>
+                  onFormChange("channel_quality", e.target.value)
+                }
+              >
+                <option>Select</option>
+                {channel_quality &&
+                  channel_quality.length &&
+                  channel_quality.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -116,16 +153,29 @@ function Form({ formData, onChange }) {
           </div>
           <div className="row">
             <div className="col">
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                value={formData.epg_source}
+                onChange={(e) => onFormChange("epg_source", e.target.value)}
+              />
             </div>
             <div className="col">
-              <select className="form-control">
-                
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select
+                className="form-control"
+                value={formData.cue_tones}
+                onChange={(e) => onFormChange("cue_tones", e.target.value)}
+              >
+                <option>Select</option>
+                {ad_cue_tones &&
+                  ad_cue_tones.length &&
+                  ad_cue_tones.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>
@@ -141,16 +191,28 @@ function Form({ formData, onChange }) {
           </div>
           <div className="row">
             <div className="col">
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                value={formData.audio_track}
+                onChange={(e) => onFormChange("audio_track", e.target.value)}
+              />
             </div>
             <div className="col">
-              <select className="form-control">
-                
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select
+                className="form-control"
+                value={formData.subtitle_of}
+                onChange={(e) => onFormChange("subtitle_of", e.target.value)}
+              >
+                {subtitles &&
+                  subtitles.length &&
+                  subtitles.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </div>

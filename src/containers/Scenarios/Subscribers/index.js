@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
-import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
-import FaIcons from "../../../components/fa-icons";
-import Modal from "./Add";
-
-import Grid from "../../../components/Grid";
-import schema from "./metadata/schema.json";
+import React, { useEffect, useState } from "react";
 import useNotify from "../../../actions/Toast";
+import FaIcons from "../../../components/fa-icons";
+import Grid from "../../../components/Grid";
+import Modal from "./Add";
+import schema from "./metadata/schema.json";
 import { deleteSubscribers, editSubscribers, getSubscribers, saveSubscribers } from "./service";
-import { Context as AppContext } from "../../../context/AppContext";
+import "./style.scss";
 
-function Subscribers() {
+
+function Subscribers(props) {
   const { notify } = useNotify();
-  const appContext = useContext(AppContext);
 
   const initialState = {
     type: "",
@@ -22,7 +20,8 @@ function Subscribers() {
     vod_hours: "",
     linear_hours: "",
     catchup_hours: "",
-    project: appContext.state.selectedProject,
+    project: props.match.params.projectId,
+    forecast: props.match.params.forecastId,
   };
 
   const [show, setShow] = useState(false);
@@ -35,7 +34,7 @@ function Subscribers() {
   }, []);
 
   const onLoad = () => {
-    getSubscribers()
+    getSubscribers(props.match.params.forecastId)
       .then((res) => {
         setSubscribers(res);
       })

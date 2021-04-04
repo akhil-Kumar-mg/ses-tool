@@ -11,17 +11,17 @@
       },
       {
         "name": "INC TYPE",
-        "field": "inctype",
+        "field": "increment_type",
         "type": "dropdown"
       },
       {
         "name": "INC AMOUNT",
-        "field": "incamount",
+        "field": "increment_value",
         "type": "text"
       },
       {
         "name": "MAXSUBS",
-        "field": "maxsubs",
+        "field": "max_subscriber",
         "type": "text"
       },
       {
@@ -30,6 +30,13 @@
         "type": "text"
       }
     ],
-    "actions" : [
+    "actions": [
+      {
+        "name": "pencil-alt",
+        "type": "icon",
+        "color": "blue",
+        "width": "110px",
+        "event": "edit"
+      }
     ]
   }

@@ -11,10 +11,17 @@
       },
       {
         "name": "NO OF CHANNEL AT START",
-        "field": "channel",
+        "field": "channel_count",
         "type": "text"
       }
     ],
     "actions" : [
+      {
+        "name": "pencil-alt",
+        "type": "icon",
+        "color": "blue",
+        "width": "110px",
+        "event": "edit"
+      }
     ]
   }

@@ -2,20 +2,25 @@
     "columns": [
       {
         "name": "PERIOD",
-        "field": "period"
+        "field": "period_name"
       },
       {
         "name": "START MONTH",
-        "field": "start"
+        "field": "start_month"
       },
       {
         "name": "END MONTH",
-        "field": "end"
+        "field": "end_month"
       },
       {
         "name": "TOTAL MONTH",
         "field": "total"
       }
     ],
-    "actions" : []
+    "actions" : [{
+      "name": "pencil-alt",
+      "type": "icon",
+      "color": "blue",
+      "event": "edit"
+    }]
   }

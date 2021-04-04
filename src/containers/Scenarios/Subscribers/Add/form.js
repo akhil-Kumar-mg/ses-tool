@@ -49,7 +49,8 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
+            placeholder=""
+            disabled={true}
             value={formData.customer}
             onChange={(e) => onFormChange("customer", e.target.value)}
           />

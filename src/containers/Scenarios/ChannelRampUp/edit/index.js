@@ -8,7 +8,7 @@ function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) 
     <>
       <Modal
         show={show}
-        title="Set Channel type"
+        title="Edit Channel Ramp Up"
         body={() => <Form formData={formData} onChange={onChange}/>}
         actions={() => {
           return (

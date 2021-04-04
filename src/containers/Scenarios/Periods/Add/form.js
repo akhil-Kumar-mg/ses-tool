@@ -6,8 +6,8 @@ const randomstring = require("randomstring");
 function Form({formData, onChange}) {
 
   const initialState = {
-    start: "",
-    end: "",
+    start_month: "",
+    end_month: "",
   };
   const [subFormData, setSubFormData] = useState({...initialState});
 

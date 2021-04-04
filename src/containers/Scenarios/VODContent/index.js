@@ -1,14 +1,12 @@
-import React, { useState, useContext } from "react";
-import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
+import React, { useState } from "react";
+import useNotify from "../../../actions/Toast";
 import Form from "./form";
 import { saveVod } from "./service";
-import useNotify from "../../../actions/Toast";
-import { Context as AppContext } from "../../../context/AppContext";
+import "./style.scss";
 
-function VODContent() {
+function VODContent(props) {
   const { notify } = useNotify();
-  const appContext = useContext(AppContext);
 
   const initialState = {
     min_library_size: "",
@@ -17,7 +15,8 @@ function VODContent() {
     month_purge_hours: "",
     avg_asset_duration: "",
     archive: "",
-    project: appContext.state.selectedProject,
+    forecast: props.match.params.forecastId,
+    project: props.match.params.projectId,
   };
 
   const [formData, setFormData] = useState(cloneDeep(initialState));

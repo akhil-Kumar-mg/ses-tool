@@ -1,14 +1,12 @@
-import React, { useState, useContext } from "react";
-import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
-import Form from "./form";
+import React, { useState } from "react";
 import useNotify from "../../../actions/Toast";
+import Form from "./form";
 import { saveTechParameters } from "./service";
-import { Context as AppContext } from "../../../context/AppContext";
+import "./style.scss";
 
-function TechParameters() {
+function TechParameters(props) {
   const { notify } = useNotify();
-  const appContext = useContext(AppContext);
 
   const initialState = {
     abr_video: "",
@@ -18,7 +16,8 @@ function TechParameters() {
     vod_hit_rate: "",
     linear_hit_rate: "",
     catchup_hit_rate: "",
-    project: appContext.state.selectedProject
+    forecast: props.match.params.forecastId,
+    project: props.match.params.projectId,
   };
 
   const [formData, setFormData] = useState(cloneDeep(initialState));

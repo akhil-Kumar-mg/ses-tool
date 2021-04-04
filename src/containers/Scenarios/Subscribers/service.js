@@ -1,7 +1,7 @@
 import api from "../../../api";
 
-const getSubscribers = () => {
-  return api.httpGet("/subscriber/");
+const getSubscribers = (id) => {
+  return api.httpGet(`/subscriber/?forecast=${id}`);
 };
 
 const saveSubscribers = (data) => {

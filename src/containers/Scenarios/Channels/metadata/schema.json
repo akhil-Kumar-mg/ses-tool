@@ -5,7 +5,7 @@
     "columns": [
       {
         "name": "TYPE NAME",
-        "field": "name"
+        "field": "type"
       },
       {
         "name": "CODEC",
@@ -13,48 +13,54 @@
       },
       {
         "name": "CATCHUP HOURS",
-        "field": "catchuphours"
+        "field": "catchup_hours"
       },
       {
         "name": "CHANNEL QUALITY",
-        "field": "channelquality"
+        "field": "channel_quality"
       },
       {
         "name": "SOURCE MBPS",
-        "field": "sourcembps"
+        "field": "source_mbps"
       },
       {
         "name": "AUDIO TYPE",
-        "field": "audiotype"
+        "field": "audio_type"
       },
       {
         "name": "SOURCE TYPE",
-        "field": "sourcetype"
+        "field": "source_type"
       },
       {
         "name": "EPG SOURCE",
-        "field": "epgsource"
+        "field": "epg_source"
       },
       {
         "name": "ADD CUE TONES",
-        "field": "cuetones"
+        "field": "cue_tones"
       },
       {
         "name": "# AUDIO TRACKS",
-        "field": "audiotracks"
+        "field": "audio_type"
+      },
+      {
+        "name": "SUBTITLE TYPE",
+        "field": "subtitle_type"
       },
       {
         "name": "# SUBTITLES",
-        "field": "subtitles"
+        "field": "subtitle_of"
       }
     ],
     "actions" : [{
       "name": "pencil-alt",
       "type": "icon",
-      "color": "blue"
+      "color": "blue",
+      "event": "edit"
     }, {
       "name": "trash-alt",
-      "type": "icon"
+      "type": "icon",
+      "event": "delete"
     }
     ]
   }
