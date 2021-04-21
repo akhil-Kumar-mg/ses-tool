@@ -26,7 +26,7 @@ function Form({ formData, onChange }) {
           <input
             type="date"
             className="form-control"
-            placeholder="Placeholder text"
+            placeholder=""
             value={formData.expected_start_date}
             onChange={(e) => onFormChange("expected_start_date", e.target.value)}
           />
@@ -37,7 +37,7 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
+            placeholder=""
             value={formData.number_of_months}
             onChange={(e) => onFormChange("number_of_months", e.target.value)}
           />

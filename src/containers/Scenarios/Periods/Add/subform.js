@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SubForm({ formData, onSubmit, actionTitle, onChange }) {
+function SubForm({ formData, onChange }) {
   const onFormChange = (key, value) => {
     const keys = key.split(".");
     if (keys.length === 1) formData[key] = value;
@@ -8,22 +8,27 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
     onChange({ ...formData });
   };
 
-  const onFormSubmit = () => {
-    onSubmit({ ...formData });
-  };
-
   return (
     <>
       <div className="form-group">
         <div className="row">
           <div className="col">
-            <label>Period 1</label>
+            <label>Period name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder=""
+              value={formData.period_name}
+              onChange={(e) => onFormChange("period_name", e.target.value)}
+            />
           </div>
-          {actionTitle && <div className="col" style={{textAlign: 'right'}} >
-            <a onClick={onFormSubmit} href="javascript:void();">
-              {actionTitle}
-            </a>
-          </div>}
+          {/* {actionTitle && (
+            <div className="col" style={{ textAlign: "right" }}>
+              <a onClick={onFormSubmit} href="javascript:void();">
+                {actionTitle}
+              </a>
+            </div>
+          )} */}
         </div>
 
         <div className="row">
@@ -36,16 +41,25 @@ function SubForm({ formData, onSubmit, actionTitle, onChange }) {
         </div>
         <div className="row">
           <div className="col">
-            <input type="text" className="form-control" />
+            <input
+              type="text"
+              className="form-control"
+              value={formData.start_month}
+              onChange={(e) => onFormChange("start_month", e.target.value)}
+            />
           </div>
           <div className="col">
-            <input type="text" className="form-control" placeholder="" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder=""
+              value={formData.end_month}
+              onChange={(e) => onFormChange("end_month", e.target.value)}
+            />
           </div>
         </div>
       </div>
-      <div className="hr-dashed">
-
-      </div>
+      <div className="hr-dashed"></div>
     </>
   );
 }

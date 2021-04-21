@@ -1,11 +1,11 @@
 import api from "../../../api";
 
-const getPeriods = (id) => {
-  return api.httpGet(`/period/?forecast=${id}`);
+const getPeriods = (forecastId, projectId) => {
+  return api.httpGet(`/period/?forecast=${forecastId}&project=${projectId}`);
 };
 
 const savePeriod = (data) => {
-  return api.httpPost("/period/", data);
+  return api.httpPost("/period/bulk_create/", data);
 };
 
 const deletePeriod = (id) => {
@@ -13,7 +13,7 @@ const deletePeriod = (id) => {
 };
 
 const editPeriod = (data) => {
-  return api.httpPut(`/period/${data.id}/`, data);
+  return api.httpPost(`/period/bulk_update/`, data);
 };
 
 export { getPeriods, savePeriod, deletePeriod, editPeriod };

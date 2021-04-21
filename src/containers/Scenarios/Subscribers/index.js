@@ -5,9 +5,13 @@ import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
 import Modal from "./Add";
 import schema from "./metadata/schema.json";
-import { deleteSubscribers, editSubscribers, getSubscribers, saveSubscribers } from "./service";
+import {
+  deleteSubscribers,
+  editSubscribers,
+  getSubscribers,
+  saveSubscribers,
+} from "./service";
 import "./style.scss";
-
 
 function Subscribers(props) {
   const { notify } = useNotify();
@@ -34,7 +38,7 @@ function Subscribers(props) {
   }, []);
 
   const onLoad = () => {
-    getSubscribers(props.match.params.forecastId)
+    getSubscribers(props.match.params.forecastId, props.match.params.projectId)
       .then((res) => {
         setSubscribers(res);
       })

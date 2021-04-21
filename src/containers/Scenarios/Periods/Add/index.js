@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import Modal from "../../../../components/Modal";
 import Form from "./form";
 
-function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) {
-
+function ModalContainer({
+  mode,
+  show,
+  formData,
+  onChange,
+  onSubmit,
+  onCancel,
+}) {
   return (
     <>
       <Modal
         show={show}
         title="Create all period"
-        body={() => <Form formData={formData} onChange={onChange}/>}
+        body={() => (
+          <Form formData={formData} onChange={onChange} mode={mode} />
+        )}
         actions={() => {
           return (
             <div className="row">
@@ -23,8 +31,12 @@ function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) 
                 </button>
               </div>
               <div className="col-sm-6">
-                <button type="button" className="btn btn-primary" onClick={onSubmit}>
-                  {mode}
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onSubmit}
+                >
+                  SAVE
                 </button>
               </div>
             </div>

@@ -7,7 +7,7 @@ function ModalContainer({ show, formData, onCancel }) {
     <>
       <Modal
         show={show}
-        title="Edit cost item"
+        title="Preview cost item"
         body={() => <Form formData={formData} disabled={true} />}
         actions={() => {
           return (
@@ -18,7 +18,7 @@ function ModalContainer({ show, formData, onCancel }) {
                   className="btn btn-secondary cancel"
                   onClick={onCancel}
                 >
-                  CANCEL
+                  Go Back
                 </button>
               </div>
             </div>

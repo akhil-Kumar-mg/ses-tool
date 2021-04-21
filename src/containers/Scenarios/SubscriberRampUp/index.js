@@ -16,9 +16,9 @@ function SubscriberRampUp(props) {
   const [rampUps, setRampUps] = useState([]);
   const { notify } = useNotify();
   const initialState = {
-    project: "",
+    project: props.match.params.forecastId,
     period: "",
-    forecast: "",
+    forecast: props.match.params.projectId,
     type: "",
     increment_type: "",
     increment_value: "",
@@ -31,7 +31,10 @@ function SubscriberRampUp(props) {
   }, []);
 
   const onLoad = () => {
-    getSubscriberRampUps(props.match.params.forecastId)
+    getSubscriberRampUps(
+      props.match.params.forecastId,
+      props.match.params.projectId
+    )
       .then((res) => {
         setRampUps(res);
       })
@@ -52,10 +55,7 @@ function SubscriberRampUp(props) {
   const onEdit = () => {
     editSubscriberRampUps(formData)
       .then((res) => {
-        notify(
-          `subscriber rampup has been edited successfully.`,
-          "success"
-        );
+        notify(`subscriber rampup has been edited successfully.`, "success");
         onFormCancel();
         onLoad();
       })

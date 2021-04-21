@@ -1,7 +1,7 @@
 import api from "../../../api";
 
-const getChannels = (id) => {
-  return api.httpGet(`/channel/?forecast=${id}`);
+const getChannels = (forecastId, projectId) => {
+  return api.httpGet(`/channel/?forecast=${forecastId}&project=${projectId}`);
 };
 
 const saveChannel = (data) => {
@@ -16,9 +16,4 @@ const editChannel = (data) => {
   return api.httpPut(`/channel/${data.id}/`, data);
 };
 
-export {
-  getChannels,
-  saveChannel,
-  deleteChannel,
-  editChannel,
-};
+export { getChannels, saveChannel, deleteChannel, editChannel };

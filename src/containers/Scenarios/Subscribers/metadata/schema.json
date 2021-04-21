@@ -32,6 +32,10 @@
       {
         "name": "CATCHUP% VH",
         "field": "catchup_hours"
+      },
+      {
+        "name": "MAX CONCURRENCY",
+        "field": "max_concurrency"
       }
     ],
     "actions" : [{

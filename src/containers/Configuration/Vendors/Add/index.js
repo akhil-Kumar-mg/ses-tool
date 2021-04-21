@@ -24,7 +24,7 @@ function ModalContainer({ mode, show, formData, onChange, onSubmit, onCancel }) 
               </div>
               <div className="col-sm-6">
                 <button type="button" className="btn btn-primary" onClick={onSubmit}>
-                  {mode}
+                  SAVE
                 </button>
               </div>
             </div>

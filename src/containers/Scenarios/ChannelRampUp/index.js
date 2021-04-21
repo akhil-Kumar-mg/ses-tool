@@ -20,7 +20,7 @@ function ChannelRampUp(props) {
     forecast: "",
     type: "",
     increment_type: "",
-    channel_count: ""
+    channel_count: "",
   };
 
   useEffect(() => {
@@ -28,7 +28,10 @@ function ChannelRampUp(props) {
   }, []);
 
   const onLoad = () => {
-    getChannelRampUps(props.match.params.forecastId)
+    getChannelRampUps(
+      props.match.params.forecastId,
+      props.match.params.projectId
+    )
       .then((res) => {
         setRampUps(res);
       })
@@ -47,16 +50,11 @@ function ChannelRampUp(props) {
   const onEdit = () => {
     editChannelRampUps(formData)
       .then((res) => {
-        notify(
-          `channel rampup has been edited successfully.`,
-          "success"
-        );
+        notify(`channel rampup has been edited successfully.`, "success");
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to edit channel rampup`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to edit channel rampup`, "error"));
   };
 
   const onSave = () => {
@@ -91,7 +89,7 @@ function ChannelRampUp(props) {
 
   return (
     <>
-       <Modal
+      <Modal
         show={show}
         onCancel={onFormCancel}
         formData={formData}

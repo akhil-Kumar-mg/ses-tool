@@ -1,34 +1,122 @@
-
-import React, { useState } from 'react'
-import './style.scss';
-
+import React, { useState, useEffect } from "react";
 import Grid from "../../components/Grid";
+import PricingModal from "../../components/MasterPricing/Add";
 import schema from "./metadata/schema.json";
-import data from "./metadata/data.json";
-import PricingModal from '../../components/Pricing/Add';
+import { definePricing, getPricings } from "./service";
+import "./style.scss";
+import useNotify from "../../actions/Toast";
+import cloneDeep from "lodash/cloneDeep";
+import { omit } from "lodash";
 
-function Pricing() {
+function Pricing(props) {
+  const { notify } = useNotify();
+  const [show, setShow] = useState(false);
+  const [pricings, setPricings] = useState([]);
+  const [mode, setMode] = useState("EDIT");
 
-  const [showPricing, setShowPricing] = useState(false);
-  const handlePricing = () => setShowPricing(true);
-  const onGridChange = (event, item)=>{
-    switch(event){
-      case 'onSetup':
-        handlePricing()
+  const initialState = {
+    category: "",
+    subcategory: "",
+    project_pricing_addon: [
+      {
+        cost_model: "volume",
+        project_pricing_list: [],
+      },
+    ],
+    commercial_unit: "",
+    currency: "USD",
+    setup_fee: "",
+    recurring_fee: "",
+    pay_frequency: "",
+    status: "",
+    project: props.match.params.projectId,
+  };
+
+  const [formData, setFormData] = useState(cloneDeep(initialState));
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = () => {
+    getPricings(props.match.params.projectId)
+      .then((res) => {
+        setPricings(res);
+      })
+      .catch((err) => notify("Oops! Failed to fetch pricing list.", "error"));
+  };
+
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const onGridChange = (event, item) => {
+    switch (event) {
+      case "onAddPrice":
+        setMode("ADD");
+        let _cloneItem = cloneDeep(item);
+        _cloneItem.currency = "USD";
+        _cloneItem.project = props.match.params.projectId;
+        if (item.project_pricing_addon.length == 0) {
+          let temp = {
+            cost_model: "volume",
+            project_pricing_list: [
+              {
+                unit_start: 1,
+                unit_end: undefined,
+                price: undefined,
+              },
+            ],
+          };
+          _cloneItem.project_pricing_addon.push(temp);
+        }
+        setFormData(_cloneItem);
+        handleShow();
         break;
     }
-  }
+  };
+
+  const onFormSubmit = () => {
+    onEdit();
+  };
+
+  const onEdit = () => {
+    definePricing(
+      cloneDeep(omit(formData, ["category", "subcategory", "status"]))
+    )
+      .then((res) => {
+        notify(
+          `${formData.name} category has been added successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to add new category ${formData.name}.`, "error")
+      );
+  };
+
+  const onFormCancel = () => {
+    setShow(false);
+    setFormData(cloneDeep(initialState));
+  };
+
   return (
     <>
-    <PricingModal show={showPricing} setShow={setShowPricing}/>
+      <PricingModal
+        show={show}
+        onCancel={onFormCancel}
+        formData={formData}
+        onChange={setFormData}
+        onSubmit={onFormSubmit}
+        mode={mode}
+      />
       <div className="header">
-        <h1>Pricing</h1>
-        {/* <button type="button" className="btn btn-primary">
-          ADD PRICING <FaIcons icon="plus" />
-        </button> */}
+        <h1>Master Pricing</h1>
       </div>
       <div className="sub-container">
-        <Grid data={data} schema={schema} onChange={onGridChange}/>
+        <Grid data={pricings} schema={schema} onChange={onGridChange} />
       </div>
     </>
   );

@@ -1,21 +1,25 @@
+import { omit } from "lodash";
 import cloneDeep from "lodash/cloneDeep";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import useNotify from "../../../actions/Toast";
 import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
 import Modal from "./Add";
 import schema from "./metadata/schema.json";
 import { deletePeriod, editPeriod, getPeriods, savePeriod } from "./service";
 import "./style.scss";
-import useNotify from "../../../actions/Toast";
 
 function Periods(props) {
   const { notify } = useNotify();
 
   const initialState = {
-    period_name: "",
-    start_month: "",
-    end_month: "",
-    periods: [],
+    periods: [
+      {
+        period_name: "",
+        start_month: "",
+        end_month: "",
+      },
+    ],
     project: props.match.params.projectId,
     forecast: props.match.params.forecastId,
   };
@@ -30,8 +34,11 @@ function Periods(props) {
   }, []);
 
   const onLoad = () => {
-    getPeriods(props.match.params.forecastId)
+    getPeriods(props.match.params.forecastId, props.match.params.projectId)
       .then((res) => {
+        res.forEach((period) => {
+          period.total = period.end_month - period.start_month + 1;
+        });
         setPeriods(res);
       })
       .catch((err) => notify("Oops! Failed to fetch periods", "error"));
@@ -48,10 +55,13 @@ function Periods(props) {
   };
 
   const onEdit = () => {
-    editPeriod(formData)
+    let _formData = cloneDeep(
+      omit(formData, ["end_month", "id", "period_name", "start_month", "total"])
+    );
+    editPeriod(_formData)
       .then((res) => {
         notify(
-          `${formData.period_name} period has been added successfully.`,
+          `${_formData.period_name} period has been added successfully.`,
           "success"
         );
         onFormCancel();
@@ -59,7 +69,7 @@ function Periods(props) {
       })
       .catch((err) =>
         notify(
-          `Oops! Failed to add save period ${formData.period_name}.`,
+          `Oops! Failed to add save period ${_formData.period_name}.`,
           "error"
         )
       );
@@ -113,7 +123,16 @@ function Periods(props) {
       case "edit":
         setShow(true);
         setMode("EDIT");
-        setFormData(cloneDeep(item));
+        let _formdata = cloneDeep(item);
+        _formdata.periods = [
+          {
+            id: item.id,
+            period_name: item.period_name,
+            start_month: item.start_month,
+            end_month: item.end_month,
+          },
+        ];
+        setFormData(_formdata);
         break;
 
       case "delete":

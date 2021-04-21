@@ -50,9 +50,8 @@ function Form({ formData, onChange }) {
             type="text"
             className="form-control"
             placeholder=""
-            disabled={true}
-            value={formData.customer}
-            onChange={(e) => onFormChange("customer", e.target.value)}
+            value={formData.initial_subscriber_count}
+            onChange={(e) => onFormChange("initial_subscriber_count", e.target.value)}
           />
         </div>
 
@@ -97,6 +96,16 @@ function Form({ formData, onChange }) {
             placeholder=""
             value={formData.catchup_hours}
             onChange={(e) => onFormChange("catchup_hours", e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Max Concurrency</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder=""
+            value={formData.max_concurrency}
+            onChange={(e) => onFormChange("max_concurrency", e.target.value)}
           />
         </div>
       </form>

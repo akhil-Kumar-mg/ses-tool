@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 import cloneDeep from "lodash/cloneDeep";
 import FaIcons from "../../../components/fa-icons";
@@ -7,7 +7,12 @@ import Modal from "./Add";
 import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
 import useNotify from "../../../actions/Toast";
-import { deleteChannel, editChannel, getChannels, saveChannel } from "./service";
+import {
+  deleteChannel,
+  editChannel,
+  getChannels,
+  saveChannel,
+} from "./service";
 
 function Channels(props) {
   const { notify } = useNotify();
@@ -39,7 +44,7 @@ function Channels(props) {
   }, []);
 
   const onLoad = () => {
-    getChannels(props.match.params.forecastId)
+    getChannels(props.match.params.forecastId, props.match.params.projectId)
       .then((res) => {
         setChannels(res);
       })
@@ -59,37 +64,25 @@ function Channels(props) {
   const onEdit = () => {
     editChannel(formData)
       .then((res) => {
-        notify(
-          `Channel has been added successfully.`,
-          "success"
-        );
+        notify(`Channel has been added successfully.`, "success");
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to edit channel.`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to edit channel.`, "error"));
   };
 
   const onSave = () => {
     saveChannel(formData)
       .then((res) => {
-        notify(
-          `Channel has been added successfully.`,
-          "success"
-        );
+        notify(`Channel has been added successfully.`, "success");
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to add new channel`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to add new channel`, "error"));
   };
 
   const onDelete = (data) => {
-    const r = window.confirm(
-      `Do you wish to remove '${data.type}' channel?`
-    );
+    const r = window.confirm(`Do you wish to remove '${data.type}' channel?`);
     if (r === true) {
       deleteChannel(data.id)
         .then((res) => {

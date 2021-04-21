@@ -1,7 +1,9 @@
 import api from "../../../api";
 
-const getSubscribers = (id) => {
-  return api.httpGet(`/subscriber/?forecast=${id}`);
+const getSubscribers = (forecastId, projectId) => {
+  return api.httpGet(
+    `/subscriber/?forecast=${forecastId}&project=${projectId}`
+  );
 };
 
 const saveSubscribers = (data) => {
@@ -16,9 +18,4 @@ const editSubscribers = (data) => {
   return api.httpPut(`/subscriber/${data.id}/`, data);
 };
 
-export {
-  getSubscribers,
-  saveSubscribers,
-  deleteSubscribers,
-  editSubscribers,
-};
+export { getSubscribers, saveSubscribers, deleteSubscribers, editSubscribers };

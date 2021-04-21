@@ -26,7 +26,7 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
+            placeholder=""
             value={formData.customer_name}
             onChange={(e) => onFormChange("customer_name", e.target.value)}
           />
@@ -49,7 +49,7 @@ function Form({ formData, onChange }) {
           <input
             type="text"
             className="form-control"
-            placeholder="Placeholder text"
+            placeholder=""
             value={formData.sales_manager}
             onChange={(e) => onFormChange("sales_manager", e.target.value)}
           />

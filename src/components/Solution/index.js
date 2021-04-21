@@ -71,7 +71,7 @@ function ModalContainer({
                   className="btn btn-primary"
                   onClick={onSubmit}
                 >
-                  {mode}
+                  SAVE
                 </button>
               </div>
             </div>

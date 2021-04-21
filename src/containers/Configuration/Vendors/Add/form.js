@@ -28,7 +28,7 @@ function Form({ formData, onChange, mode }) {
             <input
               type="text"
               className="form-control"
-              placeholder="Placeholder text"
+              placeholder=""
               disabled={true}
               value={formData.id}
               onChange={(e) => onFormChange(e.target.value, "id")}
@@ -42,7 +42,7 @@ function Form({ formData, onChange, mode }) {
             className="form-control"
             id="exampleFormControlTextarea1"
             rows="7"
-            placeholder="Placeholder text"
+            placeholder=""
             value={formData.description}
             onChange={(e) => onFormChange(e.target.value, "description")}
           ></textarea>

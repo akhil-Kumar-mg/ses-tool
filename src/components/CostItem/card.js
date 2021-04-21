@@ -33,7 +33,7 @@ function Form({ item, key, onDelete, onEdit }) {
                   onEdit(item);
                 }}
               >
-                Edit
+                Save
               </a>
             </div>
           </div>

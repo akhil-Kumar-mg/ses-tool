@@ -7,7 +7,7 @@ function ModalContainer({ mode, show, formData, onChange, onCancel, onSubmit }) 
     <>
       <Modal
         show={show}
-        title="New cost items"
+        title={mode == "ADD"? "New cost item": "Edit cost item"}
         body={() => <Form formData={formData} onChange={onChange} disabled={false} />}
         actions={() => {
           return (
@@ -23,7 +23,7 @@ function ModalContainer({ mode, show, formData, onChange, onCancel, onSubmit }) 
               </div>
               <div className="col-sm-6">
                 <button type="button" className="btn btn-primary"  onClick={onSubmit}>
-                  {mode}
+                  SAVE
                 </button>
               </div>
             </div>

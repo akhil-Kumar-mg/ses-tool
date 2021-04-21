@@ -47,13 +47,13 @@ function Grid({ data, schema, onChange }) {
       case "text":
         return (
           <div key={column.field} className="col field">
-            <input className="form-control" style={{width: '100px'}} type="text" value={item[column.field]}/>
+            <input className="form-control" style={{width: '100px'}} type="text" value={item[column.field]} disabled={true}/>
           </div>
         );
       case "dropdown":
         return (
           <div key={column.field} className="col field">
-            <select className="form-control">
+            <select className="form-control" disabled={true}>
                 
                 <option>Percent</option>
               </select>

@@ -10,22 +10,16 @@
       },
       {
         "name": "COMMERCIAL UNIT",
-        "field": "unit"
+        "field": "commercial_unit"
       }
     ],
     "actions": [
       {
-        "name": "pencil-alt",
-        "type": "icon",
-        "color": "blue",
-        "label": "Pricing",
-        "width": "110px",
-        "event": "onSetup"
-      },
-      {
-        "name": "trash-alt",
-        "type": "icon"
+        "add": "Define pricing",
+        "edit": "Edit pricing",
+        "type": "link",
+        "width": "150px",
+        "event": "onAddPrice"
       }
-      
     ]
   }
