@@ -1,18 +1,21 @@
 import cloneDeep from "lodash/cloneDeep";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context as AppContext } from "../../../context/AppContext";
+import { getSubCategories } from "../../../containers/Configuration/Categories/service";
+
 import CostAddonForm from "./CostAddonForm";
 
-function Form({ formData, onChange }) {
+function Form({ formData, onChange, subCategoryList, categories }) {
   const appContext = useContext(AppContext);
-  const { pricing_model, pay_frequency } = appContext.state;
+  const { pricing_model, pay_frequency, commercial_unit } = appContext.state;
+  const [subCategories, setSubCategories] = useState(subCategoryList);
 
   const onFormChange = (value, key) => {
     const _formData = cloneDeep(formData);
     switch (key) {
       case "cost_model":
         _formData.project_pricing_addon[0][key] = value;
-        if (value === "unit_price") {
+        if (value.toLowerCase() === "unit_price") {
           _formData.project_pricing_addon[0].project_pricing_list = [
             {
               unit_start: 0,
@@ -20,7 +23,10 @@ function Form({ formData, onChange }) {
               price: undefined,
             },
           ];
-        } else if(value === "volume" || value === "tier") {
+        } else if (
+          value.toLowerCase() === "volume" ||
+          value.toLowerCase() === "tier"
+        ) {
           _formData.project_pricing_addon[0].project_pricing_list = [
             {
               unit_start: 1,
@@ -29,6 +35,12 @@ function Form({ formData, onChange }) {
             },
           ];
         }
+        break;
+      case "category":
+        if (_formData[key] !== value) {
+          _formData["subcategory"] = "";
+        }
+        _formData[key] = value;
         break;
       default:
         _formData[key] = value;
@@ -124,6 +136,75 @@ function Form({ formData, onChange }) {
                 return (
                   <option key={item} value={item}>
                     {item}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Commercial units</label>
+          <select
+            className="form-control"
+            value={formData.commercial_unit}
+            onChange={(e) => onFormChange(e.target.value, "commercial_unit")}
+          >
+            <option>Select</option>
+            {commercial_unit &&
+              commercial_unit.length &&
+              commercial_unit.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Category</label>
+          <select
+            className="form-control"
+            value={formData.category}
+            onChange={(e) => {
+              onFormChange(e.target.value, "category");
+              getSubCategories(e.target.value).then((res) => {
+                setSubCategories(res.sub_categories);
+              });
+            }}
+          >
+            <option value="" selected>
+              select category
+            </option>
+            {categories &&
+              categories.length &&
+              categories.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Sub-category</label>
+          <select
+            className="form-control"
+            value={formData.subcategory}
+            onChange={(e) => {
+              onFormChange(e.target.value, "subcategory");
+            }}
+          >
+            <option value="" selected>
+              select sub category
+            </option>
+            {subCategories &&
+              subCategories.length &&
+              subCategories.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
                   </option>
                 );
               })}

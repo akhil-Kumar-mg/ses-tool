@@ -38,7 +38,7 @@ function CostAddonForm({ formData, onChange }) {
 
   switch (
     formData.project_pricing_addon.length > 0 &&
-    formData.project_pricing_addon[0].cost_model
+    formData.project_pricing_addon[0].cost_model.toLowerCase()
   ) {
     case "volume":
     case "tier":

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "../../Modal";
 import Form from "./form";
 
@@ -9,13 +9,22 @@ function ModalContainer({
   onChange,
   onSubmit,
   onCancel,
+  categories,
+  subCategories,
 }) {
   return (
     <>
       <Modal
         show={show}
         title="Pricing"
-        body={() => <Form formData={formData} onChange={onChange} />}
+        body={() => (
+          <Form
+            formData={formData}
+            onChange={onChange}
+            categories={categories}
+            subCategoryList={subCategories}
+          />
+        )}
         actions={() => {
           return (
             <div className="row">

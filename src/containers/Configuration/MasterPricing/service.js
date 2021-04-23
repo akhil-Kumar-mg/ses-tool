@@ -8,4 +8,8 @@ const definePricing = (data) => {
   return api.httpPut(`/pricing/${data.id}/`, data);
 };
 
-export { getPricings, definePricing };
+const addPricing = (data) => {
+  return api.httpPost(`/pricing/`, data);
+};
+
+export { getPricings, definePricing, addPricing };

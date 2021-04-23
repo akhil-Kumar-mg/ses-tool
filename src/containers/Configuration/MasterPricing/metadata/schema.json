@@ -15,11 +15,10 @@
     ],
     "actions": [
       {
-        "add": "Define pricing",
-        "edit": "Edit pricing",
-        "type": "link",
-        "width": "150px",
-        "event": "onAddPrice"
-      }
+          "name": "pencil-alt",
+          "type": "icon",
+          "color": "blue",
+          "event": "edit"
+        }
     ]
   }
