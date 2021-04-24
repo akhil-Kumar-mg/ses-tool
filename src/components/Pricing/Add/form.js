@@ -52,6 +52,55 @@ function Form({ formData, onChange, subCategoryList, categories }) {
     <>
       <form>
         <div className="form-group">
+          <label>Category</label>
+          <select
+            className="form-control"
+            value={formData.category}
+            onChange={(e) => {
+              onFormChange(e.target.value, "category");
+              getSubCategories(e.target.value).then((res) => {
+                setSubCategories(res.sub_categories);
+              });
+            }}
+          >
+            <option value="" selected>
+              select category
+            </option>
+            {categories &&
+              categories.length &&
+              categories.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Price Item</label>
+          <select
+            className="form-control"
+            value={formData.subcategory}
+            onChange={(e) => {
+              onFormChange(e.target.value, "subcategory");
+            }}
+          >
+            <option value="" selected>
+              select sub category
+            </option>
+            {subCategories &&
+              subCategories.length &&
+              subCategories.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group">
           <label>Setup fee</label>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
@@ -154,55 +203,6 @@ function Form({ formData, onChange, subCategoryList, categories }) {
                 return (
                   <option key={item} value={item}>
                     {item}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Category</label>
-          <select
-            className="form-control"
-            value={formData.category}
-            onChange={(e) => {
-              onFormChange(e.target.value, "category");
-              getSubCategories(e.target.value).then((res) => {
-                setSubCategories(res.sub_categories);
-              });
-            }}
-          >
-            <option value="" selected>
-              select category
-            </option>
-            {categories &&
-              categories.length &&
-              categories.map((item) => {
-                return (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Sub-category</label>
-          <select
-            className="form-control"
-            value={formData.subcategory}
-            onChange={(e) => {
-              onFormChange(e.target.value, "subcategory");
-            }}
-          >
-            <option value="" selected>
-              select sub category
-            </option>
-            {subCategories &&
-              subCategories.length &&
-              subCategories.map((item) => {
-                return (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
                   </option>
                 );
               })}

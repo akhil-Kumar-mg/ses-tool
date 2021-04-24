@@ -25,7 +25,7 @@ function Pricing(props) {
   const initialState = {
     category: "",
     subcategory: "",
-    project_pricing_addon: [
+    project_pricing_addons: [
       {
         cost_model: "volume",
         project_pricing_list: [
@@ -100,7 +100,7 @@ function Pricing(props) {
   //       let _cloneItem = cloneDeep(item);
   //       _cloneItem.currency = "USD";
   //       _cloneItem.project = props.match.params.projectId;
-  //       if (item.project_pricing_addon.length == 0) {
+  //       if (item.project_pricing_addons.length == 0) {
   //         let temp = {
   //           cost_model: "volume",
   //           project_pricing_list: [
@@ -111,7 +111,7 @@ function Pricing(props) {
   //             },
   //           ],
   //         };
-  //         _cloneItem.project_pricing_addon.push(temp);
+  //         _cloneItem.project_pricing_addons.push(temp);
   //       }
   //       setFormData(_cloneItem);
   //       handleShow();

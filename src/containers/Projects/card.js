@@ -23,7 +23,7 @@ function Card({ onSetup, onView, project }) {
               SETUP
             </div>
 
-            <div className="btn-view" onClick={onView}>
+            <div className="btn-view" onClick={() => onView(project)}>
               VIEW P/L
             </div>
           </div>

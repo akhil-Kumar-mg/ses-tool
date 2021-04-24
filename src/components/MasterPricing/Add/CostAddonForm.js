@@ -10,14 +10,14 @@ function CostAddonForm({ formData, onChange }) {
 
   const onSubFormChange = (key, value, idx) => {
     const _formData = cloneDeep(formData);
-    _formData.project_pricing_addon[0].project_pricing_list[idx][key] = value;
+    _formData.project_pricing_addons[0].project_pricing_list[idx][key] = value;
     onChange({ ..._formData });
   };
 
   const onPriceAdd = () => {
     // data.id = randomstring.generate();
     const _formData = cloneDeep(formData);
-    let pricingList = _formData.project_pricing_addon[0].project_pricing_list;
+    let pricingList = _formData.project_pricing_addons[0].project_pricing_list;
     let nextUnitStart = 1;
     if (pricingList.length) {
       nextUnitStart =
@@ -32,13 +32,13 @@ function CostAddonForm({ formData, onChange }) {
 
   const onPriceDelete = () => {
     const _formData = cloneDeep(formData);
-    _formData.project_pricing_addon[0].project_pricing_list.pop();
+    _formData.project_pricing_addons[0].project_pricing_list.pop();
     onChange({ ..._formData });
   };
 
   switch (
-    formData.project_pricing_addon.length > 0 &&
-    formData.project_pricing_addon[0].cost_model.toLowerCase()
+    formData.project_pricing_addons.length > 0 &&
+    formData.project_pricing_addons[0].cost_model.toLowerCase()
   ) {
     case "volume":
     case "tier":
@@ -66,7 +66,7 @@ function VariablePriceComp({
 }) {
   return (
     <form>
-      {formData.project_pricing_addon[0].project_pricing_list.map((item, idx) => {
+      {formData.project_pricing_addons[0].project_pricing_list.map((item, idx) => {
         return (
           <>
             <div className="form-group">
@@ -121,7 +121,7 @@ function VariablePriceComp({
             Add
           </a>
         </div>
-        {formData.project_pricing_addon[0].project_pricing_list.length && (
+        {formData.project_pricing_addons[0].project_pricing_list.length && (
           <div className="col" style={{ textAlign: "right" }}>
             <a onClick={onPriceDelete} href="javascript:void();">
               Delete
@@ -154,7 +154,7 @@ function UnitPriceComp({ onSubFormChange, formData }) {
                 type="text"
                 className="form-control"
                 placeholder=""
-                value={formData.project_pricing_addon[0].project_pricing_list[0].price}
+                value={formData.project_pricing_addons[0].project_pricing_list[0].price}
                 onChange={(e) => onSubFormChange("price", e.target.value, 0)}
               />
             </div>

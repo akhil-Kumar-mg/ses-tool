@@ -2,11 +2,11 @@
     "columns": [
       {
         "name": "CATEGORY",
-        "field": "category"
+        "field": "category_name"
       },
       {
         "name": "SUB-CATEGORY",
-        "field": "subcategory"
+        "field": "subcategory_name"
       },
       {
         "name": "COMMERCIAL UNIT",

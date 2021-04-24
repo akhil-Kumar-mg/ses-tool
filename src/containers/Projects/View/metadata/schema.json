@@ -3,15 +3,7 @@
     "columns": [
       {
         "name": "P/L PARAMETERS",
-        "field": "parameters"
-      },
-      {
-        "name": "YEAR 1",
-        "field": "year1"
-      },
-      {
-        "name": "YEAR 2",
-        "field": "year2"
+        "field": "item_type"
       }
     ],
     "actions" : []

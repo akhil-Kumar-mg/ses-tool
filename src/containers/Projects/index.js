@@ -55,8 +55,12 @@ function Projects() {
     });
   };
 
-  const onView = () => {
-    history.push("/App/Projects/View");
+  const onView = (project) => {
+    appContext.selectedProject({selectedProject: project.id})
+    history.push({
+      pathname: `/App/Projects/${project.id}/View`,
+      state: { projectId: project.id, projectName : project.project_name },
+    });
   };
 
   const onFormSubmit = () => {

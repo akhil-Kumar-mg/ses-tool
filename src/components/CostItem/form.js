@@ -11,17 +11,17 @@ function Form({ formData, disabled, onChange }) {
     const _formData = cloneDeep(formData);
     switch (key) {
       case "cost_model":
-        _formData.cost_addon[0][key] = value;
-        if (value === "unit_price") {
-          _formData.cost_addon[0].addon_pricing = [
+        _formData.cost_addons[0][key] = value;
+        if (value.toLowerCase() === "unit_price") {
+          _formData.cost_addons[0].addon_pricing = [
             {
               unit_start: 0,
               unit_end: 0,
               price: undefined,
             },
           ];
-        } else if (value === "volume" || value === "tier") {
-          _formData.cost_addon[0].addon_pricing = [
+        } else if (value.toLowerCase() === "volume" || value.toLowerCase() === "tier") {
+          _formData.cost_addons[0].addon_pricing = [
             {
               unit_start: 1,
               unit_end: 0,
@@ -171,8 +171,8 @@ function Form({ formData, disabled, onChange }) {
               <select
                 className="form-control"
                 value={
-                  formData.cost_addon.length > 0
-                    ? formData.cost_addon[0].cost_model
+                  formData.cost_addons.length > 0
+                    ? formData.cost_addons[0].cost_model
                     : ""
                 }
                 disabled={disabled}

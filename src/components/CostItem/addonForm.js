@@ -10,14 +10,14 @@ function AddonForm({ formData, onChange, disabled }) {
 
   const onSubFormChange = (key, value, idx) => {
     const _formData = cloneDeep(formData);
-    _formData.cost_addon[0].addon_pricing[idx][key] = value;
+    _formData.cost_addons[0].addon_pricing[idx][key] = value;
     onChange({ ..._formData });
   };
 
   const onPriceAdd = () => {
     // data.id = randomstring.generate();
     const _formData = cloneDeep(formData);
-    let pricingList = _formData.cost_addon[0].addon_pricing;
+    let pricingList = _formData.cost_addons[0].addon_pricing;
     let nextUnitStart = 1;
     if (pricingList.length) {
       nextUnitStart =
@@ -32,11 +32,11 @@ function AddonForm({ formData, onChange, disabled }) {
 
   const onPriceDelete = () => {
     const _formData = cloneDeep(formData);
-    _formData.cost_addon[0].addon_pricing.pop();
+    _formData.cost_addons[0].addon_pricing.pop();
     onChange({ ..._formData });
   };
 
-  switch (formData.cost_addon.length > 0 && formData.cost_addon[0].cost_model) {
+  switch (formData.cost_addons.length > 0 && formData.cost_addons[0].cost_model.toLowerCase()) {
     case "volume":
     case "tier":
       return (
@@ -69,7 +69,7 @@ function VariablePriceComp({
 }) {
   return (
     <form>
-      {formData.cost_addon[0].addon_pricing.map((item, idx) => {
+      {formData.cost_addons[0].addon_pricing.map((item, idx) => {
         return (
           <>
             <div className="form-group">
@@ -126,7 +126,7 @@ function VariablePriceComp({
             Add
           </a>
         </div>
-        {formData.cost_addon[0].addon_pricing.length && (
+        {formData.cost_addons[0].addon_pricing.length && (
           <div className="col" style={{ textAlign: "right" }}>
             <a onClick={onPriceDelete} href="javascript:void();">
               Delete
@@ -160,8 +160,8 @@ function UnitPriceComp({ onSubFormChange, formData }) {
                 className="form-control"
                 placeholder=""
                 value={
-                  formData.cost_addon[0].addon_pricing.length &&
-                  formData.cost_addon[0].addon_pricing[0].price
+                  formData.cost_addons[0].addon_pricing.length &&
+                  formData.cost_addons[0].addon_pricing[0].price
                 }
                 onChange={(e) => onSubFormChange("price", e.target.value, 0)}
               />

@@ -14,13 +14,10 @@ import Modal from "./Add";
 
 function Scenarios(props) {
   const history = useHistory();
-
   const { notify } = useNotify();
-
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("SETUP");
   const [forecast, setForecast] = useState([]);
-console.log(props.match)
   useEffect(() => {
     onLoad();
   }, []);
@@ -49,7 +46,9 @@ console.log(props.match)
   const onGridChange = (event, forecast) => {
     switch (event) {
       case "onSetup":
-        history.push(`/App/Projects/${props.match.params.projectId}/Setup/Scenarios/${forecast.id}/Periods`);
+        history.push(
+          `/App/Projects/${props.match.params.projectId}/Setup/Scenarios/${forecast.id}/Periods`
+        );
 
         break;
     }

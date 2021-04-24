@@ -43,7 +43,7 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
         />
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Applicable commercial units <span className="required">*</span></label>
         <div className="ses-multi-select">
           <div className="form-control label" onClick={(e)=>{e.stopPropagation(); setShowMultiOptions(!showMultiOptions);}}>
@@ -60,7 +60,7 @@ function SubForm({ formId, formData, onSubmit, actionTitle, onChange }) {
             }
           </div>}
         </div>
-      </div>
+      </div> */}
       {/* <div className="center">
         <a onClick={onFormSubmit} href="javascript:void();">
           {actionTitle}

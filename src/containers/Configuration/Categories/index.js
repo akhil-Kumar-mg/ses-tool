@@ -34,8 +34,8 @@ function Catergories() {
     sub_categories: [{
       uuid: randomstring.generate(), 
       name: "",
-      commercial_unit: "",
-      units: commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: false}}): []
+      // commercial_unit: "",
+      // units: commercial_unit ? commercial_unit.map((item, idx)=>  {return {id: idx, name: item, selected: false}}): []
     }]
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
@@ -71,12 +71,12 @@ function Catergories() {
       isValid = false;
       return isValid;
     }
-    formData.sub_categories.forEach(item=>{
-      if(!item.name || !item.commercial_unit){
-        isValid = false;
+    // formData.sub_categories.forEach(item=>{
+    //   if(!item.name || !item.commercial_unit){
+    //     isValid = false;
 
-      }
-    })
+    //   }
+    // })
 
     return isValid;
   }

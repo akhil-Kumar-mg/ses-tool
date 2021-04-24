@@ -33,7 +33,7 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
   };
 
   const initialState = {
-    cost_addon: [
+    cost_addons: [
       {
         addon_pricing: [
           {
@@ -42,7 +42,7 @@ function ModalContainer({ showCostItems, setShowCostItems, vendor }) {
             price: "0",
           }
         ],
-        cost_model: "volume",
+        cost_model: "VOLUME",
       },
     ],
     item: "",

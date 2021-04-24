@@ -32,7 +32,7 @@ const Main = ({
           <Route path="/App/Configuration" component={Configuration} />
           <Route path="/App/Projects/:projectId/Setup/Scenarios/:forecastId" component={Scenarios} />
           <Route path="/App/Projects/:projectId/Setup" component={ProjectSetup} />
-          <Route path="/App/Projects/View" component={ViewProject} />
+          <Route path="/App/Projects/:projectId/View" component={ViewProject} />
           <Route path="/App/Projects" exact component={Projects} />
           
           <Route path="/App" exact component={Home} />
