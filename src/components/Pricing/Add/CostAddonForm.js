@@ -10,14 +10,14 @@ function CostAddonForm({ formData, onChange }) {
 
   const onSubFormChange = (key, value, idx) => {
     const _formData = cloneDeep(formData);
-    _formData.pricing_addon[0].pricing_list[idx][key] = value;
+    _formData.pricing_addons[0].pricing_list[idx][key] = value;
     onChange({ ..._formData });
   };
 
   const onPriceAdd = () => {
     // data.id = randomstring.generate();
     const _formData = cloneDeep(formData);
-    let pricingList = _formData.pricing_addon[0].pricing_list;
+    let pricingList = _formData.pricing_addons[0].pricing_list;
     let nextUnitStart = 1;
     if (pricingList.length) {
       nextUnitStart =
@@ -32,13 +32,13 @@ function CostAddonForm({ formData, onChange }) {
 
   const onPriceDelete = () => {
     const _formData = cloneDeep(formData);
-    _formData.pricing_addon[0].pricing_list.pop();
+    _formData.pricing_addons[0].pricing_list.pop();
     onChange({ ..._formData });
   };
 
   switch (
-    formData.pricing_addon.length > 0 &&
-    formData.pricing_addon[0].cost_model.toLowerCase()
+    formData.pricing_addons.length > 0 &&
+    formData.pricing_addons[0].cost_model.toLowerCase()
   ) {
     case "volume":
     case "tier":
@@ -66,7 +66,7 @@ function VariablePriceComp({
 }) {
   return (
     <form>
-      {formData.pricing_addon[0].pricing_list.map((item, idx) => {
+      {formData.pricing_addons[0].pricing_list.map((item, idx) => {
         return (
           <>
             <div className="form-group">
@@ -121,7 +121,7 @@ function VariablePriceComp({
             Add
           </a>
         </div>
-        {formData.pricing_addon[0].pricing_list.length && (
+        {formData.pricing_addons[0].pricing_list.length && (
           <div className="col" style={{ textAlign: "right" }}>
             <a onClick={onPriceDelete} href="javascript:void();">
               Delete
@@ -154,7 +154,7 @@ function UnitPriceComp({ onSubFormChange, formData }) {
                 type="text"
                 className="form-control"
                 placeholder=""
-                value={formData.pricing_addon[0].pricing_list[0].price}
+                value={formData.pricing_addons[0].pricing_list[0].price}
                 onChange={(e) => onSubFormChange("price", e.target.value, 0)}
               />
             </div>

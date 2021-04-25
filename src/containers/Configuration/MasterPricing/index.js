@@ -23,7 +23,7 @@ function MasterPricing() {
     category: "",
     subcategory: "",
     commercial_unit: "",
-    pricing_addon: [
+    pricing_addons: [
       {
         cost_model: "volume",
         pricing_list: [

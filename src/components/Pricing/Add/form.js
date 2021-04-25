@@ -13,9 +13,9 @@ function Form({ formData, onChange, subCategoryList, categories }) {
     const _formData = cloneDeep(formData);
     switch (key) {
       case "cost_model":
-        _formData.pricing_addon[0][key] = value;
+        _formData.pricing_addons[0][key] = value;
         if (value.toLowerCase() === "unit_price") {
-          _formData.pricing_addon[0].pricing_list = [
+          _formData.pricing_addons[0].pricing_list = [
             {
               unit_start: 0,
               unit_end: 0,
@@ -26,7 +26,7 @@ function Form({ formData, onChange, subCategoryList, categories }) {
           value.toLowerCase() === "volume" ||
           value.toLowerCase() === "tier"
         ) {
-          _formData.pricing_addon[0].pricing_list = [
+          _formData.pricing_addons[0].pricing_list = [
             {
               unit_start: 1,
               unit_end: 0,
@@ -217,8 +217,8 @@ function Form({ formData, onChange, subCategoryList, categories }) {
               <select
                 className="form-control"
                 value={
-                  formData.pricing_addon.length > 0
-                    ? formData.pricing_addon[0].cost_model
+                  formData.pricing_addons.length > 0
+                    ? formData.pricing_addons[0].cost_model
                     : ""
                 }
                 onChange={(e) => onFormChange(e.target.value, "cost_model")}
