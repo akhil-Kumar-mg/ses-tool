@@ -4,6 +4,12 @@ const saveVod = (data) => {
   return api.httpPost("/vod/", data);
 };
 
+const getVod  = (forecastId, projectId) => {
+  return api.httpGet(`/vod/?forecast=${forecastId}&project=${projectId}`);
+};
+
+
 export {
-  saveVod
+  saveVod,
+  getVod
 };

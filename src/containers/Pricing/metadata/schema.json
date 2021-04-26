@@ -19,6 +19,12 @@
           "type": "icon",
           "color": "blue",
           "event": "edit"
+        },
+        {
+          "name": "trash-alt",
+          "type": "icon",
+          "event": "delete"
+
         }
     ]
   }

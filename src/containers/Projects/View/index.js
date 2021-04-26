@@ -53,18 +53,7 @@ function ProjectsPL(props) {
     getPL(projectId, forecastId)
       .then((res) => {
         handleYearColums(res.year_count);
-        setPL([
-          {
-            item_type: "OPERATING_EXPENSE",
-            yearly_mapping_1: 123.0,
-            yearly_mapping_2: 100,
-          },
-          {
-            item_type: "OPERATING_EXPENSE",
-            yearly_mapping_1: 123.0,
-            yearly_mapping_2: 100,
-          },
-        ]);
+        setPL(res.items);
       })
     .catch((err) => notify("Oops! Failed to fetch P/L's.", "error"));
   };

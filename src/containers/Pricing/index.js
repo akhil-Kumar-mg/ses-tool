@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "../../components/Grid";
 import PricingModal from "../../components/MasterPricing/Add";
 import schema from "./metadata/schema.json";
-import { definePricing, getPricings, addPricing } from "./service";
+import { definePricing, getPricings, addPricing, deletePricing } from "./service";
 import "./style.scss";
 import useNotify from "../../actions/Toast";
 import cloneDeep from "lodash/cloneDeep";
@@ -119,6 +119,26 @@ function Pricing(props) {
   //   }
   // };
 
+
+  const onDelete = (data) => {
+    const r = window.confirm(`Do you wish to remove the project pricing?`);
+    if (r === true) {
+      deletePricing(data.id)
+        .then((res) => {
+          notify(
+            `'${data.name}' vendor has been removed successfully.`,
+            "success"
+          );
+          onLoad();
+        })
+        .catch((err) =>
+          notify(`Oops! Failed to remove ${data.name} vendor.`, "error")
+        );
+    } else {
+    }
+  };
+
+
   const onGridChange = (event, item) => {
     switch (event) {
       case "edit":
@@ -130,10 +150,9 @@ function Pricing(props) {
         );
         loadOptions(item.category);
         break;
-
-      // case "delete":
-      //   onDelete(item);
-      //   break;
+      case "delete":
+        onDelete(item);
+        break;
     }
   };
 
@@ -190,7 +209,7 @@ function Pricing(props) {
         mode={mode}
       />
       <div className="header">
-        <h1>Master Pricing</h1>
+        <h1>Project Pricing</h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD PRICING <FaIcons icon="plus" />
         </button>

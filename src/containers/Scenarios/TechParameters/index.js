@@ -1,8 +1,8 @@
 import cloneDeep from "lodash/cloneDeep";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useNotify from "../../../actions/Toast";
 import Form from "./form";
-import { saveTechParameters } from "./service";
+import { saveTechParameters, getTechParameters } from "./service";
 import "./style.scss";
 
 function TechParameters(props) {
@@ -41,7 +41,25 @@ function TechParameters(props) {
 
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  const onLoad = () => {
+    getTechParameters(props.match.params.forecastId, props.match.params.projectId)
+      .then((res) => {
+        if(res && res.length > 0) {
+          setFormData(cloneDeep(res[0]));
+        }
+      })
+      .catch((err) => notify("Oops! Failed to fetch tech parameter", "error"));
+  };
+
   const onSave = () => {
+    let _formData = cloneDeep(formData);
+    _formData.forecast = props.match.params.forecastId;
+    _formData.project = props.match.params.projectId;
+    
     saveTechParameters(formData)
       .then((res) => {
         notify(
