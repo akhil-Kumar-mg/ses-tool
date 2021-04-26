@@ -3,7 +3,7 @@
     "columns": [
       {
         "name": "PERIOD",
-        "field": "period"
+        "field": "period_name"
       },
       {
         "name": "TYPE",

@@ -15,7 +15,7 @@
       },
       {
         "name": "SUBSCRIBER START NUMBER",
-        "field": "start"
+        "field": "initial_subscriber_count"
       },
       {
         "name": "AVG. VIEW BITRATE",

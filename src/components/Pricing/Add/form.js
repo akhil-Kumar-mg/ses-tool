@@ -213,7 +213,7 @@ function Form({ formData, onChange, subCategoryList, categories }) {
           <label>Add on</label>
           <div className="panel-group">
             <div className="form-group">
-              <label>Cost Model</label>
+              <label>Price Model</label>
               <select
                 className="form-control"
                 value={
