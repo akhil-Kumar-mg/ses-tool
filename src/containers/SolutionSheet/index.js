@@ -207,7 +207,7 @@ function SolutionSheet(props) {
         onSubmit={onAddConfirm}
       /> */}
       <div className="header">
-        <h1>Master Solution</h1>
+        <h1>Project Solution</h1>
         {/* <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD SOLUTION <FaIcons icon="plus" />
         </button> */}

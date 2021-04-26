@@ -16,7 +16,6 @@ function Form({ formData, onChange }) {
             <div className="form-group">
               <label>ABR Video Profiles(Mbps comma separated)</label>
               <input
-                type="number"
                 className="form-control"
                 placeholder="Content"
                 value={formData.abr_video}
