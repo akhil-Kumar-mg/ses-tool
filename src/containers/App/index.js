@@ -31,17 +31,15 @@ function App() {
       {initLoaded ? (
         <Layout setLocale={setLocale} />
       ) : (
-        <div className="app spinner">
-          <div className="spinner">
-            <FaIcons
-              icon={"spinner fa-spin"}
-              style={{
-                fontSize: 70,
-                marginRight: 30
-              }}
-            />
-            <h1>Loading configuration.... Please wait!!!</h1>
-          </div>
+        <div className="spinner">
+          <FaIcons
+            icon={"spinner fa-spin"}
+            style={{
+              fontSize: 70,
+              marginRight: 30,
+            }}
+          />
+          <h1>Loading ses tool.... Please wait!!!</h1>
         </div>
       )}
     </IntlProvider>

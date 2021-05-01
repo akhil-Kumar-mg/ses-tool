@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { Context as AppContext } from "../../../../context/AppContext";
 
 function Form({ formData, onChange }) {
+  const appContext = useContext(AppContext);
+  const { increment_type } = appContext.state;
+
   const onFormChange = (key, value) => {
     const _formData = cloneDeep(formData);
     _formData[key] = value;
@@ -16,10 +20,18 @@ function Form({ formData, onChange }) {
           <select
             className="form-control"
             value={formData.increment_type}
-            onChange={(e) => onFormChange("increment_type", e.target.value)}
+            onChange={(e) => onFormChange(e.target.value, "increment_type")}
           >
-            <option></option>
-            <option>Percent</option>
+            <option>Select</option>
+            {increment_type &&
+              increment_type.length &&
+              increment_type.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
           </select>
         </div>
         <div className="form-group">

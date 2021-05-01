@@ -55,7 +55,7 @@ function ProjectsPL(props) {
         handleYearColums(res.year_count);
         setPL(res.items);
       })
-    .catch((err) => notify("Oops! Failed to fetch P/L's.", "error"));
+      .catch((err) => notify("Oops! Failed to fetch P/L's.", "error"));
   };
 
   const onScenarioChange = (forecastId) => {
@@ -73,10 +73,18 @@ function ProjectsPL(props) {
               onClick={() => {
                 history.goBack();
               }}
+              style={{ marginRight: 20 }}
             />
             P/L - {props.location.state.projectName}
           </h3>
           <div>
+            {/* <button
+              type="button"
+              className="btn btn-primary"
+              // onClick={handleShow}
+            >
+              VIEW MONTHLY
+            </button> */}
             <div className="form-group">
               <label>P/L Scenarios</label>
               <select
