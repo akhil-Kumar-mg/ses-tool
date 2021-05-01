@@ -11,8 +11,7 @@
       },
       {
         "name": "INC TYPE",
-        "field": "increment_type",
-        "type": "dropdown"
+        "field": "increment_type"
       },
       {
         "name": "INC AMOUNT",

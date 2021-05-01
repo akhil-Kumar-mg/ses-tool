@@ -20,7 +20,7 @@ function Form({ formData, onChange }) {
           <select
             className="form-control"
             value={formData.increment_type}
-            onChange={(e) => onFormChange(e.target.value, "increment_type")}
+            onChange={(e) => onFormChange("increment_type",e.target.value)}
           >
             <option>Select</option>
             {increment_type &&

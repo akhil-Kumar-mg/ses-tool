@@ -3,7 +3,6 @@ import cloneDeep from "lodash/cloneDeep";
 import { Context as AppContext } from "../../../../context/AppContext";
 
 function Form({ formData, onChange }) {
-
   const appContext = useContext(AppContext);
   const { increment_type } = appContext.state;
 
@@ -31,7 +30,7 @@ function Form({ formData, onChange }) {
           <select
             className="form-control"
             value={formData.type}
-            onChange={(e) => onFormChange(e.target.value, "type")}
+            onChange={(e) => onFormChange("type", e.target.value)}
           >
             <option>Select</option>
             {increment_type &&
