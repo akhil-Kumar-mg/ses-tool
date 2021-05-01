@@ -23,6 +23,11 @@ const getForecasts = (id) => {
 const saveForecast = (data) => {
   return api.httpPost("/forecast/", data);
 };
+
+const deleteForecast = (id) => {
+  return api.httpDelete(`/forecast/${id}/`)
+};
+
 export {
   getProjects,
   saveProject,
@@ -30,4 +35,5 @@ export {
   editProject,
   getForecasts,
   saveForecast,
+  deleteForecast
 };

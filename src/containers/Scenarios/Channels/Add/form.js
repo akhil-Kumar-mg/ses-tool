@@ -199,21 +199,12 @@ function Form({ formData, onChange }) {
               />
             </div>
             <div className="col">
-              <select
+              <input
+                type="number"
                 className="form-control"
                 value={formData.subtitle_of}
                 onChange={(e) => onFormChange("subtitle_of", e.target.value)}
-              >
-                {subtitles &&
-                  subtitles.length &&
-                  subtitles.map((item) => {
-                    return (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    );
-                  })}
-              </select>
+              />
             </div>
           </div>
         </div>

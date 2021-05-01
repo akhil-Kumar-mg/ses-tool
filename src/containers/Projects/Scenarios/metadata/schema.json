@@ -14,12 +14,25 @@
       }
     ],
     "actions": [
+ 
+      {
+        "name": "eye",
+        "type": "icon",
+        "color": "blue",
+        "event": "view"
+      },
+      {
+        "name": "trash-alt",
+        "type": "icon",
+        "event": "delete"
+
+      },
       {
         "add": "Setup",
         "edit": "Setup",
         "type": "link",
         "width": "150px",
         "event": "onSetup"
-      }
+      }     
     ]
   }

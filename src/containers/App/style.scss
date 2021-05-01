@@ -34,6 +34,12 @@ color: $white;
     display: none;
   }
 
+  .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .sidebar-btn-wrapper {
     display: flex;
     align-items: center;

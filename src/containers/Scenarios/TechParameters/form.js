@@ -4,7 +4,12 @@ import cloneDeep from "lodash/cloneDeep";
 function Form({ formData, onChange }) {
   const onFormChange = (key, value) => {
     const _formData = cloneDeep(formData);
-    _formData[key] = value;
+    if (key === "abr_audio" && value % 1 != 0) {
+      _formData[key] = Math.round(value)
+      return;
+    } else {
+      _formData[key] = value;
+    }
     onChange({ ..._formData });
   };
 
@@ -157,7 +162,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("geo_blocking", !formData.geo_blocking)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="geo_blocking">
                 Geo Blocking
@@ -171,10 +175,7 @@ function Form({ formData, onChange }) {
                 className="custom-control-input"
                 id="drm"
                 checked={formData.drm}
-                onChange={(e) =>
-                  onFormChange("drm", !formData.drm)
-                }
-                
+                onChange={(e) => onFormChange("drm", !formData.drm)}
               />
               <label className="custom-control-label" htmlFor="drm">
                 DRM
@@ -188,10 +189,7 @@ function Form({ formData, onChange }) {
                 className="custom-control-input"
                 id="ses_cj"
                 checked={formData.ses_cj}
-                onChange={(e) =>
-                  onFormChange("ses_cj",  !formData.ses_cj)
-                }
-                
+                onChange={(e) => onFormChange("ses_cj", !formData.ses_cj)}
               />
               <label className="custom-control-label" htmlFor="ses_cj">
                 SES CJ
@@ -210,7 +208,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("download_to_go", !formData.download_to_go)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="download_to_go">
                 Download to Go
@@ -227,7 +224,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("download_to_on", !formData.download_to_on)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="download_to_on">
                 Dowload to Own
@@ -241,10 +237,7 @@ function Form({ formData, onChange }) {
                 className="custom-control-input"
                 id="tvod"
                 checked={formData.tvod}
-                onChange={(e) =>
-                  onFormChange("tvod", !formData.tvod)
-                }
-                
+                onChange={(e) => onFormChange("tvod", !formData.tvod)}
               />
               <label className="custom-control-label" htmlFor="tvod">
                 TVOD
@@ -260,10 +253,7 @@ function Form({ formData, onChange }) {
                 className="custom-control-input"
                 id="npvr"
                 checked={formData.npvr}
-                onChange={(e) =>
-                  onFormChange("npvr", !formData.npvr)
-                }
-                
+                onChange={(e) => onFormChange("npvr", !formData.npvr)}
               />
               <label className="custom-control-label" htmlFor="npvr">
                 nPVR
@@ -280,7 +270,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("qoe_analytics", !formData.qoe_analytics)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="qoe_analytics">
                 QoE Analytics+
@@ -297,7 +286,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("apps_analytics", !formData.apps_analytics)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="apps_analytics">
                 Apps Analytics+
@@ -314,11 +302,16 @@ function Form({ formData, onChange }) {
                 id="advanced_recommendation_content"
                 checked={formData.advanced_recommendation_content}
                 onChange={(e) =>
-                  onFormChange("advanced_recommendation_content", !formData.advanced_recommendation_content)
+                  onFormChange(
+                    "advanced_recommendation_content",
+                    !formData.advanced_recommendation_content
+                  )
                 }
-                
               />
-              <label className="custom-control-label" htmlFor="advanced_recommendation_content">
+              <label
+                className="custom-control-label"
+                htmlFor="advanced_recommendation_content"
+              >
                 Advanced Recommendation Content wise
               </label>
             </div>
@@ -333,7 +326,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("tv_box_app", !formData.tv_box_app)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="tv_box_app">
                 TV-Box Apps
@@ -350,7 +342,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("operator_app", !formData.operator_app)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="operator_app">
                 Operator Apps
@@ -369,7 +360,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("managed_stb", !formData.managed_stb)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="managed_stb">
                 Managed STBs
@@ -386,7 +376,6 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("smart_tv_app", !formData.smart_tv_app)
                 }
-                
               />
               <label className="custom-control-label" htmlFor="smart_tv_app">
                 Smart TV Apps
@@ -403,9 +392,11 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("super_aggregator", !formData.super_aggregator)
                 }
-                
               />
-              <label className="custom-control-label" htmlFor="super_aggregator">
+              <label
+                className="custom-control-label"
+                htmlFor="super_aggregator"
+              >
                 Super Aggregator
               </label>
             </div>
@@ -422,9 +413,11 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("player_analytics", !formData.player_analytics)
                 }
-                
               />
-              <label className="custom-control-label" htmlFor="player_analytics">
+              <label
+                className="custom-control-label"
+                htmlFor="player_analytics"
+              >
                 Player Analytics+
               </label>
             </div>
@@ -439,9 +432,11 @@ function Form({ formData, onChange }) {
                 onChange={(e) =>
                   onFormChange("enhanced_trending", !formData.enhanced_trending)
                 }
-                
               />
-              <label className="custom-control-label" htmlFor="enhanced_trending">
+              <label
+                className="custom-control-label"
+                htmlFor="enhanced_trending"
+              >
                 Enhanced Trending
               </label>
             </div>

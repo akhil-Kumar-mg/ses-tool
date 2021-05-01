@@ -98,18 +98,13 @@ function Form({ formData, onChange }) {
           <div className="col-sm-6">
             <div className="form-group">
               <label>Archive</label>
-              <select
+              <input
+                type="number"
                 className="form-control"
+                placeholder="Content"
                 value={formData.archive}
                 onChange={(e) => onFormChange("archive", e.target.value)}
-              >
-                <option>Content</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+              />
             </div>
           </div>
         </div>
