@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Link } from "react-router-dom";
 import logo from '../../assets/img/ses-logo.png';
@@ -7,6 +7,13 @@ import logo from '../../assets/img/ses-logo.png';
 
 function Sidebar({title,sublink, links = []}) {
 const [active, SetActive] = useState(-1)
+
+useEffect(()=>{
+  console.log(links)
+  if(links && links.length>0){
+    SetActive(links[0])
+  }
+}, [])
 
   return (
     <>

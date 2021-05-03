@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./style.scss";
 
@@ -26,7 +26,10 @@ function ConfigurationContainer() {
           <Route exact path="/App/Configuration/Vendors" component={Vendors} />
           <Route exact path="/App/Configuration/MasterPricing" component={MasterPricing} />
           <Route exact path="/App/Configuration/MasterSolution" component={MasterSolution} />
-          <Route exact path="/App/Configuration" component={Configuration} />
+          {/* <Route exact path="/App/Configuration" component={Configuration} /> */}
+          <Route exact path="/App/Configuration" >
+              <Redirect to="/App/Configuration/Categories" />
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </div>
