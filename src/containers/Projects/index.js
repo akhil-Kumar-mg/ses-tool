@@ -48,7 +48,7 @@ function Projects() {
   };
 
   const onSetup = (project) => {
-    appContext.selectedProject({selectedProject: project.id})
+    appContext.selectedProject({ selectedProject: project.id });
     history.push({
       pathname: `/App/Projects/${project.id}/Setup/Scenarios`,
       state: { projectId: project.id },
@@ -56,10 +56,10 @@ function Projects() {
   };
 
   const onView = (project) => {
-    appContext.selectedProject({selectedProject: project.id})
+    appContext.selectedProject({ selectedProject: project.id });
     history.push({
       pathname: `/App/Projects/${project.id}/View`,
-      state: { projectId: project.id, projectName : project.project_name },
+      state: { projectId: project.id, projectName: project.project_name },
     });
   };
 
@@ -93,12 +93,15 @@ function Projects() {
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(
-          `Oops! Failed to add new project ${formData.project_name}.`,
-          "error"
-        )
-      );
+      .catch((err) => {
+        if(err.response.data) {
+          notify(
+            Object.keys(err.response.data).join(" , ") + " cannot be empty",
+            "error"
+          );
+        }
+       
+      });
   };
   const onFormCancel = () => {
     setShow(false);
@@ -139,7 +142,10 @@ function Projects() {
             .filter((item) => {
               if (
                 searchKey.length == 0 ||
-                _includes(item.project_name.toLowerCase(), searchKey.toLowerCase())
+                _includes(
+                  item.project_name.toLowerCase(),
+                  searchKey.toLowerCase()
+                )
               )
                 return true;
               return false;
