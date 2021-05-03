@@ -47,13 +47,13 @@ function Scenarios(props) {
     setShow(true);
   };
 
-  const handleSchema = () => {
+  const handleSchema = (forecast) => {
     monthlySchema.columns = [];
     monthlySchema.columns.push({
       name: "PARAMETERS",
       field: "parameter",
     });
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= forecast.number_of_months; i++) {
       monthlySchema.columns.push({
         name: "MONTH" + " " + i,
         field: i,
@@ -96,7 +96,7 @@ function Scenarios(props) {
         );
       case "view":
         setShowMonthlyDetails(true);
-        handleSchema();
+        handleSchema(forecast);
         handleMonthlyData(forecast);
         break;
       case "delete":
