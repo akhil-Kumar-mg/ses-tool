@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { Context as AppContext } from "../../../context/AppContext";
 
 function Form({ formData, onChange }) {
+  const appContext = useContext(AppContext);
+  const { linear_transcoding } = appContext.state;
+
   const onFormChange = (key, value) => {
     const _formData = cloneDeep(formData);
     if (key === "abr_audio" && value % 1 != 0) {
-      _formData[key] = Math.round(value)
+      _formData[key] = Math.round(value);
       return;
     } else {
       _formData[key] = value;
@@ -40,33 +44,6 @@ function Form({ formData, onChange }) {
                 placeholder="Content"
                 value={formData.abr_audio}
                 onChange={(e) => onFormChange("abr_audio", e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="col-sm-6">
-            <div className="form-group">
-              <label>ABR Total Bitrate</label>
-              <input
-                type="number"
-                placeholder="Content"
-                className="form-control"
-                value={formData.abr_bit_rate}
-                onChange={(e) => onFormChange("abr_bit_rate", e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="form-group">
-              <label>VOD Storage GB/h</label>
-              <input
-                type="number"
-                placeholder="Content"
-                className="form-control"
-                value={formData.vod_storage}
-                onChange={(e) => onFormChange("vod_storage", e.target.value)}
               />
             </div>
           </div>
@@ -121,16 +98,24 @@ function Form({ formData, onChange }) {
           <div className="col-sm-2">
             <div className="form-group">
               <label> Linear Transcoding</label>
-              <input
-                type="text"
-                maxLength={1}
+              <select
                 className="form-control"
-                placeholder="Content"
                 value={formData.linear_transcoding}
                 onChange={(e) =>
                   onFormChange("linear_transcoding", e.target.value)
                 }
-              />
+              >
+                <option>Select</option>
+                {linear_transcoding &&
+                  linear_transcoding.length &&
+                  linear_transcoding.map((item) => {
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    );
+                  })}
+              </select>
             </div>
           </div>
           <div className="col-sm-2">

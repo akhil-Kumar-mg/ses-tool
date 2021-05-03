@@ -11,8 +11,6 @@ function TechParameters(props) {
   const initialState = {
     abr_video: "",
     abr_audio: "",
-    abr_bit_rate: "",
-    vod_storage: "",
     vod_hit_rate: "",
     linear_hit_rate: "",
     catchup_hit_rate: "",
