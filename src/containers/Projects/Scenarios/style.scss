@@ -1,0 +1,22 @@
+.scenarios-monthly-grid-container{
+    .row {
+      flex-wrap: nowrap;
+      display: -webkit-box;
+      width: inherit;
+      .col {
+      
+        &:not(:nth-child(1)){
+          width: 150px!important;
+          flex-basis: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &:nth-child(2) {
+        
+          flex-basis: 350px;
+        }
+      }
+  }
+
+  }

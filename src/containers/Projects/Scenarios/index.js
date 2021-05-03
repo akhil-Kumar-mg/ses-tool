@@ -164,7 +164,7 @@ function Scenarios(props) {
             Monthly Details
           </h3>
         </div>
-        <div className="sub-container">
+        <div className="sub-container scenarios-monthly-grid-container">
           <Grid
             data={monthlyData}
             schema={monthlySchema}
