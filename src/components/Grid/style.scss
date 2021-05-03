@@ -14,16 +14,21 @@
   }
 
   .even {
-    background-color: $grid-row-odd;
+    .col{
+
+      background-color: $grid-row-odd;
+    }
+  
     
   }
   .odd {
+    .col{
     background-color: $grid-row-even;
-
+  }
   }
 
   .colsm {
-    background-color: $grid-bg-color;
+    background-color: $grid-bg-color!important;
     flex: none;
   }
 

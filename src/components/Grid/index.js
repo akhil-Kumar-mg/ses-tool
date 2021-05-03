@@ -67,6 +67,7 @@ function Grid({ data, schema, onChange }) {
         );
     }
   };
+
   return (
     <div
       className="grid-container"
@@ -81,7 +82,7 @@ function Grid({ data, schema, onChange }) {
             </div>
           );
         })}
-        {schema.actions.map((action, idx) => {
+        {schema.actions && schema.actions.length ? schema.actions.map((action, idx) => {
           return (
             <div
               key={idx}
@@ -89,7 +90,7 @@ function Grid({ data, schema, onChange }) {
               style={{ width: `${action.width || defaultColWidth}` }}
             ></div>
           );
-        })}
+        }): null}
       </div>
 
       {data.map((item, idx) => {

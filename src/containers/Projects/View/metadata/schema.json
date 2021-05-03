@@ -1,10 +1,5 @@
 {
   "width": "100%",
-    "columns": [
-      {
-        "name": "P/L PARAMETERS",
-        "field": "item_type"
-      }
-    ],
-    "actions" : []
-  }
+  "columns": [],
+  "actions": []
+}

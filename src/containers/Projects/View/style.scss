@@ -1,8 +1,29 @@
 @import "../../../variables.scss";
 
 .project-view-container {
+  .monthly-grid-container{
+    .row {
+      flex-wrap: nowrap;
+      display: -webkit-box;
+      width: inherit;
+      .col {
+      
+        &:not(:nth-child(1)){
+          width: 150px!important;
+          flex-basis: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &:nth-child(2) {
+        
+          flex-basis: 350px;
+        }
+      }
+  }
+
+  }
   .form-control {
-    
     border-radius: 0;
     height: 56px;
     color: $text-color;
@@ -16,9 +37,9 @@
   max-width: 100%;
 
   .header {
-    div{
+    div {
       align-self: center;
-      flex: 1
+      flex: 1;
     }
     h1 {
       border-right: 1px solid $lightgray;
@@ -26,7 +47,6 @@
       margin-bottom: 0;
     }
     h3 {
-      
       padding: 55px 30px 30px 50px;
       margin-bottom: 0;
     }

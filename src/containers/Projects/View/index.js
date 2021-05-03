@@ -4,53 +4,138 @@ import useNotify from "../../../actions/Toast";
 import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
 import { getForecasts } from "../service";
-import monthlySchema from "./metadata/schema-monthly-forecast.json";
-import schema from "./metadata/schema.json";
+import schemaJSON from "./metadata/schema.json";
 import { getPL } from "./service";
+import { cloneDeep } from "lodash";
 import "./style.scss";
 
+const VIEW_TYPE = {
+  MONTHLY: "MONTHLY",
+  YEARLY: "YEARLY",
+};
 function ProjectsPL(props) {
   const history = useHistory();
   const { notify } = useNotify();
-  const [forecast, setForecast] = useState([]);
-  const [currentForecast, setCurrentForecast] = useState([]);
-  const [pl, setPL] = useState([]);
-  const [showMonthlyDetails, setShowMonthlyDetails] = useState(false);
-  const [monthlyData, setMonthlyData] = useState([]);
+  const [forecast, setForecast] = useState([]); //monthlyData
+  const [data, setData] = useState([]); //Grid binded data
+  const [monthyData, setMonthlyData] = useState({}); // yearlyData
+  const [yearlyData, setYearlyData] = useState({}); // yearlyData
+  const [schema, setSchema] = useState(cloneDeep(schemaJSON));
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [viewType, setViewType] = useState(VIEW_TYPE.YEARLY);
 
   useEffect(() => {
     onLoad();
   }, []);
 
-  const handleYearColums = (yearCount) => {
-    schema.columns = [];
-    schema.columns.push({
+  useEffect(() => {
+    if (isLoaded) {
+      renderGridInfo(viewType);
+    }
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if (monthyData.id) {
+      loadPL(props.match.params.projectId, monthyData.id);
+      renderGridInfo(viewType);
+    }
+  }, [monthyData]);
+
+  useEffect(() => {
+    renderGridInfo(viewType);
+  }, [yearlyData]);
+
+  useEffect(() => {
+    renderGridInfo(viewType);
+  }, [viewType]);
+
+  const onLoad = () => {
+    getForecasts(props.match.params.projectId)
+      .then((res) => {
+        setForecast(res);
+        setMonthlyData(res[0]);
+      })
+      .catch((err) => notify("Oops! Failed to fetch forecasts.", "error"));
+  };
+
+  const loadPL = (projectId, forecastId) => {
+    getPL(projectId, forecastId)
+      .then((res) => {
+        setYearlyData(res);
+        setIsLoaded(true);
+      })
+      .catch((err) => notify("Oops! Failed to fetch P/L's.", "error"));
+  };
+
+  const onScenarioChange = (id) => {
+    setMonthlyData(
+      cloneDeep(forecast.find((item) => item.id.toString() === id))
+    );
+  };
+
+  const getYearlyColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+
+    _schema.columns.push({
       name: "P/L PARAMETERS",
       field: "item_type",
     });
-    for (let i = 1; i <= yearCount; i++) {
-      schema.columns.push({
-        name: "YEAR" + " " + i,
-        field: "yearly_mapping_" + i,
+    for (let i = 1; i <= yearlyData.year_count; i++) {
+      _schema.columns.push({
+        name: `YEAR ${i}`,
+        field: `yearly_mapping_${i}`,
       });
     }
+
+    return _schema;
   };
 
-  const handleSchema = () => {
-    monthlySchema.columns = [];
-    monthlySchema.columns.push({
+  const getMonthlyColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+    _schema.width = "100vw";
+    _schema.columns.push({
       name: "PARAMETERS",
       field: "parameter",
     });
-    for (let i = 1; i <= 12; i++) {
-      monthlySchema.columns.push({
-        name: "MONTH" + " " + i,
+    for (let i = 1; i <= monthyData.number_of_months; i++) {
+      _schema.columns.push({
+        name: `MONTH ${i}`,
         field: i,
       });
     }
+
+    return _schema;
   };
 
-  const handleMonthlyData = () => {
+  const renderGridInfo = (view) => {
+    getSchema(view);
+    getData(view);
+  };
+
+  const getSchema = (view) => {
+    switch (view) {
+      case VIEW_TYPE.MONTHLY:
+        setSchema(getMonthlyColumns());
+
+        break;
+      case VIEW_TYPE.YEARLY:
+        setSchema(getYearlyColumns());
+        break;
+    }
+  };
+
+  const getData = (view) => {
+    switch (view) {
+      case VIEW_TYPE.MONTHLY:
+        setData(getMonthlyData());
+        break;
+      case VIEW_TYPE.YEARLY:
+        setData(getYearlyData());
+        break;
+    }
+  };
+
+  const getMonthlyData = () => {
     let rows = [];
     let parameters = [
       "monthly_catchup_hours",
@@ -69,49 +154,22 @@ function ProjectsPL(props) {
     for (let j = 0; j < parameters.length; j++) {
       let row = {};
       row["parameter"] = parameters[j];
-      for (let i = 1; i <= currentForecast.number_of_months; i++) {
-        row[i] = currentForecast[parameters[j]][i];
+      for (let i = 1; i <= monthyData.number_of_months; i++) {
+        row[i] = monthyData[parameters[j]][i];
       }
       rows.push(row);
     }
-    setMonthlyData(rows);
+    return rows;
   };
 
-  const onLoad = () => {
-    getForecasts(props.match.params.projectId)
-      .then((res) => {
-        setForecast(res);
-        setCurrentForecast(res[0]);
-        loadPL(props.match.params.projectId, res[0].id);
-      })
-      .catch((err) => notify("Oops! Failed to fetch forecasts.", "error"));
+  const getYearlyData = () => {
+    let rows = [];
+//TO-DO
+    return rows;
   };
 
-  const onGridChange = (event, item) => {
-    switch (event) {
-      case "onSetup":
-        break;
-    }
-  };
-
-  const loadPL = (projectId, forecastId) => {
-    getPL(projectId, forecastId)
-      .then((res) => {
-        handleYearColums(res.year_count);
-        setPL(res.items);
-      })
-      .catch((err) => notify("Oops! Failed to fetch P/L's.", "error"));
-  };
-
-  const onScenarioChange = (index) => {
-    setCurrentForecast(forecast[index]);
-    loadPL(props.match.params.projectId, forecast[index].id);
-  };
-
-  const handleMonthlyDetails = () => {
-    setShowMonthlyDetails(true);
-    handleSchema();
-    handleMonthlyData();
+  const onViewClick = (view) => {
+    setViewType(view);
   };
 
   return (
@@ -130,18 +188,11 @@ function ProjectsPL(props) {
             P/L - {props.location.state.projectName}
           </h3>
           <div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleMonthlyDetails}
-            >
-              VIEW MONTHLY
-            </button>
             <div className="form-group">
               <label>P/L Scenarios</label>
               <select
                 className="form-control"
-                value={forecast.name}
+                value={forecast.id}
                 onChange={(e) => {
                   onScenarioChange(e.target.value);
                 }}
@@ -150,7 +201,7 @@ function ProjectsPL(props) {
                   forecast.length &&
                   forecast.map((item, index) => {
                     return (
-                      <option key={item} value={index}>
+                      <option key={item.id} value={item.id}>
                         {item.name}
                       </option>
                     );
@@ -159,20 +210,32 @@ function ProjectsPL(props) {
             </div>
           </div>
         </div>
-        <div className="sub-container">
-          {showMonthlyDetails ? (
-            <>
-              <Grid
-                data={monthlyData}
-                schema={monthlySchema}
-                onChange={onGridChange}
-              />
-            </>
-          ) : (
-            <>
-              <Grid data={pl} schema={schema} onChange={onGridChange} />{" "}
-            </>
-          )}
+        <div
+          className={`sub-container ${
+            viewType === VIEW_TYPE.MONTHLY ? "monthly-grid-container" : ""
+          }`}
+        >
+          <div className="btn-group" role="group">
+            <button
+              type="button"
+              className={`btn  ${
+                viewType === VIEW_TYPE.MONTHLY ? "btn-primary" : "btn-secondary"
+              }`}
+              onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
+            >
+              MONTHLY
+            </button>
+            <button
+              type="button"
+              className={`btn  ${
+                viewType === VIEW_TYPE.YEARLY ? "btn-primary" : "btn-secondary"
+              }`}
+              onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
+            >
+              YEARLY
+            </button>
+          </div>
+          {isLoaded && <Grid data={data} schema={schema} />}
         </div>
       </div>
     </>
