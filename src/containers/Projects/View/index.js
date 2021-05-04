@@ -83,7 +83,7 @@ function ProjectsPL(props) {
     for (let i = 1; i <= yearlyData.year_count; i++) {
       _schema.columns.push({
         name: `YEAR ${i}`,
-        field: `yearly_mapping_${i}`,
+        field: i,
       });
     }
 
@@ -164,7 +164,16 @@ function ProjectsPL(props) {
 
   const getYearlyData = () => {
     let rows = [];
-//TO-DO
+    if(yearlyData.items) {
+      for (let i = 0; i < yearlyData.items.length; i++) {
+        let row = {};
+        row["item_type"] = yearlyData.items[i].item_type;
+        for (let j = 1; j <= yearlyData.year_count; j++) {
+          row[j] = yearlyData.items[i].yearly_mapping[j];
+        }
+        rows.push(row);
+      }
+    }
     return rows;
   };
 
@@ -223,7 +232,7 @@ function ProjectsPL(props) {
               }`}
               onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
             >
-              COMMERCIAL UNITS
+              PROJECT PARAMETERS
             </button>
             <button
               type="button"
