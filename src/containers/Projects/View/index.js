@@ -223,7 +223,7 @@ function ProjectsPL(props) {
               }`}
               onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
             >
-              MONTHLY
+              COMMERCIAL UNITS
             </button>
             <button
               type="button"
@@ -232,7 +232,7 @@ function ProjectsPL(props) {
               }`}
               onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
             >
-              YEARLY
+              P/L
             </button>
           </div>
           {isLoaded && <Grid data={data} schema={schema} />}
