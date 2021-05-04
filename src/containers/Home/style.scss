@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+
+.center-logo {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #bd8e46;
+}

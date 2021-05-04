@@ -9,7 +9,6 @@ function Sidebar({title,sublink, links = []}) {
 const [active, SetActive] = useState(-1)
 
 useEffect(()=>{
-  console.log(links)
   if(links && links.length>0){
     SetActive(links[0])
   }

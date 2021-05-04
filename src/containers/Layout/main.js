@@ -38,6 +38,7 @@ const Main = ({
           <Route path="/App" exact component={Home} />
           <Route component={NotFound} />
         </Switch>
+        
       </div>
 {/* 
       <footer>

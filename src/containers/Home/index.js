@@ -4,9 +4,9 @@ import "./style.scss";
 function Home() {
   return (
     <>
-      <div className="header">
-        <h1></h1>
-      </div>
+        <div className="center-logo">
+          <h1>Welcome to Ses Master tool </h1>
+        </div>
     </>
   );
 }
