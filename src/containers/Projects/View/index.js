@@ -19,7 +19,7 @@ function ProjectsPL(props) {
   const [forecast, setForecast] = useState([]); //monthlyData
   const [data, setData] = useState([]); //Grid binded data
   const [monthyData, setMonthlyData] = useState({}); // yearlyData
-  const [yearlyData, setYearlyData] = useState({}); // yearlyData
+  const [yearlyData, setYearlyData] = useState({});
   const [schema, setSchema] = useState(cloneDeep(schemaJSON));
   const [isLoaded, setIsLoaded] = useState(false);
   const [viewType, setViewType] = useState(VIEW_TYPE.YEARLY);
