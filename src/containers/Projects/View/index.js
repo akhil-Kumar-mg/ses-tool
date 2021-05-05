@@ -12,7 +12,10 @@ import "./style.scss";
 const VIEW_TYPE = {
   MONTHLY: "MONTHLY",
   YEARLY: "YEARLY",
+  CATEGORY: "CATEGORY P/L",
+  REVENUE: "REVENUE",
 };
+
 function ProjectsPL(props) {
   const history = useHistory();
   const { notify } = useNotify();
@@ -107,6 +110,36 @@ function ProjectsPL(props) {
     return _schema;
   };
 
+  const getCategoryColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+    _schema.columns.push({
+      name: "OP EX CATEGORY",
+      field: "category",
+    });
+    for (let i = 1; i <= yearlyData.year_count; i++) {
+      _schema.columns.push({
+        name: `YEAR ${i}`,
+        field: i,
+      });
+    }
+    return _schema;
+  };
+
+  const getRevenueColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+    _schema.columns.push({
+      name: "REVENUE CATEGORY",
+      field: "category",
+    });
+    for (let i = 1; i <= yearlyData.year_count; i++) {
+      _schema.columns.push({
+        name: `YEAR ${i}`,
+        field: i,
+      });
+    }
+    return _schema;
+  };
+
   const renderGridInfo = (view) => {
     getSchema(view);
     getData(view);
@@ -121,6 +154,12 @@ function ProjectsPL(props) {
       case VIEW_TYPE.YEARLY:
         setSchema(getYearlyColumns());
         break;
+      case VIEW_TYPE.CATEGORY:
+        setSchema(getCategoryColumns());
+        break;
+      case VIEW_TYPE.REVENUE:
+        setSchema(getRevenueColumns());
+        break;
     }
   };
 
@@ -131,6 +170,12 @@ function ProjectsPL(props) {
         break;
       case VIEW_TYPE.YEARLY:
         setData(getYearlyData());
+        break;
+      case VIEW_TYPE.CATEGORY:
+        setData(getCategoryData());
+        break;
+      case VIEW_TYPE.REVENUE:
+        setData(getRevenueData());
         break;
     }
   };
@@ -164,13 +209,45 @@ function ProjectsPL(props) {
 
   const getYearlyData = () => {
     let rows = [];
-    if(yearlyData.items) {
+    if (yearlyData.items) {
       for (let i = 0; i < yearlyData.items.length; i++) {
         let row = {};
         row["item_type"] = yearlyData.items[i].item_type;
         for (let j = 1; j <= yearlyData.year_count; j++) {
           row[j] = yearlyData.items[i].yearly_mapping[j];
         }
+        rows.push(row);
+      }
+    }
+    return rows;
+  };
+
+  const getCategoryData = () => {
+    let rows = [];
+    if (yearlyData.items && yearlyData.items.length > 0) {
+      let categoryMapping = yearlyData.items[0].category_mapping;
+      for (let i = 0; i < categoryMapping.length; i++) {
+        let row = {};
+        row["category"] = categoryMapping[i].category;
+        for(const key in categoryMapping[i].yearly_mapping) {
+          row[key] = categoryMapping[i].yearly_mapping[key];
+        } 
+        rows.push(row);
+      }
+    }
+    return rows;
+  };
+
+  const getRevenueData = () => {
+    let rows = [];
+    if (yearlyData.items && yearlyData.items.length > 0) {
+      let categoryMapping = yearlyData.items[1].category_mapping;
+      for (let i = 0; i < categoryMapping.length; i++) {
+        let row = {};
+        row["category"] = categoryMapping[i].category;
+        for(const key in categoryMapping[i].yearly_mapping) {
+          row[key] = categoryMapping[i].yearly_mapping[key];
+        } 
         rows.push(row);
       }
     }
@@ -242,6 +319,28 @@ function ProjectsPL(props) {
               onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
             >
               P/L
+            </button>
+            <button
+              type="button"
+              className={`btn  ${
+                viewType === VIEW_TYPE.CATEGORY
+                  ? "btn-primary"
+                  : "btn-secondary"
+              }`}
+              onClick={() => onViewClick(VIEW_TYPE.CATEGORY)}
+            >
+              CATEGORY P/L
+            </button>
+            <button
+              type="button"
+              className={`btn  ${
+                viewType === VIEW_TYPE.REVENUE
+                  ? "btn-primary"
+                  : "btn-secondary"
+              }`}
+              onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
+            >
+              REVENUE
             </button>
           </div>
           {isLoaded && <Grid data={data} schema={schema} />}

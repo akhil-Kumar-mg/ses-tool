@@ -20,12 +20,12 @@ function Home() {
           <span className="container grey-text text-lighten-1 ">
             <p className="flow-text">Welcome to</p>
             <h1 className="title grey-text text-lighten-3">
-              ses tool
+              Master Ses tool
             </h1>
-
+{/* 
             <blockquote className="flow-text">
               A project management portal
-            </blockquote>
+            </blockquote> */}
 
             <div className="center-align">
               <button type="button" className="btn btn-danger" onClick={()=>{history.push(`/App/Configuration`);}}> Configuration</button>
