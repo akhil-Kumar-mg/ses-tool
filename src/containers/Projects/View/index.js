@@ -225,14 +225,19 @@ function ProjectsPL(props) {
   const getCategoryData = () => {
     let rows = [];
     if (yearlyData.items && yearlyData.items.length > 0) {
-      let categoryMapping = yearlyData.items[0].category_mapping;
-      for (let i = 0; i < categoryMapping.length; i++) {
-        let row = {};
-        row["category"] = categoryMapping[i].category;
-        for (const key in categoryMapping[i].yearly_mapping) {
-          row[key] = categoryMapping[i].yearly_mapping[key];
+      let categoryMapping = [];
+      for (let index in yearlyData.items) {
+        if(yearlyData.items[index].item_type === "OPERATING_EXPENSE") {
+          categoryMapping = yearlyData.items[index].category_mapping;
+          for (let i = 0; i < categoryMapping.length; i++) {
+            let row = {};
+            row["category"] = categoryMapping[i].category;
+            for (const key in categoryMapping[i].yearly_mapping) {
+              row[key] = categoryMapping[i].yearly_mapping[key];
+            }
+            rows.push(row);
+          }
         }
-        rows.push(row);
       }
     }
     return rows;
@@ -241,16 +246,22 @@ function ProjectsPL(props) {
   const getRevenueData = () => {
     let rows = [];
     if (yearlyData.items && yearlyData.items.length > 0) {
-      let categoryMapping = yearlyData.items[1].category_mapping;
-      for (let i = 0; i < categoryMapping.length; i++) {
-        let row = {};
-        row["category"] = categoryMapping[i].category;
-        for (const key in categoryMapping[i].yearly_mapping) {
-          row[key] = categoryMapping[i].yearly_mapping[key];
+      let categoryMapping = [];
+      for (let index in yearlyData.items) {
+        if(yearlyData.items[index].item_type === "REVENUE") {
+          categoryMapping = yearlyData.items[index].category_mapping;
+          for (let i = 0; i < categoryMapping.length; i++) {
+            let row = {};
+            row["category"] = categoryMapping[i].category;
+            for (const key in categoryMapping[i].yearly_mapping) {
+              row[key] = categoryMapping[i].yearly_mapping[key];
+            }
+            rows.push(row);
+          }
         }
-        rows.push(row);
       }
     }
+
     return rows;
   };
 
