@@ -5,7 +5,7 @@ import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
 import { getForecasts } from "../service";
 import schemaJSON from "./metadata/schema.json";
-import { getPL } from "./service";
+import { generatePL, getPL } from "./service";
 import { cloneDeep } from "lodash";
 import "./style.scss";
 
@@ -229,9 +229,9 @@ function ProjectsPL(props) {
       for (let i = 0; i < categoryMapping.length; i++) {
         let row = {};
         row["category"] = categoryMapping[i].category;
-        for(const key in categoryMapping[i].yearly_mapping) {
+        for (const key in categoryMapping[i].yearly_mapping) {
           row[key] = categoryMapping[i].yearly_mapping[key];
-        } 
+        }
         rows.push(row);
       }
     }
@@ -245,9 +245,9 @@ function ProjectsPL(props) {
       for (let i = 0; i < categoryMapping.length; i++) {
         let row = {};
         row["category"] = categoryMapping[i].category;
-        for(const key in categoryMapping[i].yearly_mapping) {
+        for (const key in categoryMapping[i].yearly_mapping) {
           row[key] = categoryMapping[i].yearly_mapping[key];
-        } 
+        }
         rows.push(row);
       }
     }
@@ -256,6 +256,24 @@ function ProjectsPL(props) {
 
   const onViewClick = (view) => {
     setViewType(view);
+  };
+
+  const onGeneratePL = () => {
+    let allPromises = [];
+    for (let i = 0; i < forecast.length; i++) {
+      let data = {
+        forecast: forecast[i].id,
+      };
+      allPromises.push(generatePL(props.match.params.projectId, data));
+    }
+
+    Promise.all(allPromises)
+      .then((res) => {
+        notify("Successfully generated P/L's.", "success");
+      })
+      .catch((err) => {
+        notify("Oops! Failed to generate P/L's.", "error");
+      });
   };
 
   return (
@@ -273,6 +291,17 @@ function ProjectsPL(props) {
             />
             P/L - {props.location.state.projectName}
           </h3>
+          <div>
+            <div className="form-group">
+              <button
+                type="button"
+                className={`btn-primary`}
+                onClick={() => onGeneratePL()}
+              >
+                GENERATE P/L
+              </button>
+            </div>
+          </div>
           <div>
             <div className="form-group">
               <label>P/L Scenarios</label>
@@ -334,9 +363,7 @@ function ProjectsPL(props) {
             <button
               type="button"
               className={`btn  ${
-                viewType === VIEW_TYPE.REVENUE
-                  ? "btn-primary"
-                  : "btn-secondary"
+                viewType === VIEW_TYPE.REVENUE ? "btn-primary" : "btn-secondary"
               }`}
               onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
             >
