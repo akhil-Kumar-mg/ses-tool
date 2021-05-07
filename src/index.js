@@ -5,6 +5,7 @@ import './index.scss';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import App from './containers/App';
+import Login from './containers/Login';
 import { Provider as AppProvider } from "./context/AppContext";
 import { ToastProvider } from "react-toast-notifications";
 import reportWebVitals from './reportWebVitals';
@@ -22,7 +23,8 @@ ReactDOM.render(
       <BrowserRouter>
             <Switch>
               <Route path="/App" component={App} />
-              <Redirect from="/" to="/App" />
+              <Route path="/Login" component={Login} />
+              <Redirect from="/" to="/Login" />
               <Route component={NotFound} />
             </Switch>
           </BrowserRouter>  
