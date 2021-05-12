@@ -157,6 +157,22 @@ function Form({
             Preview
           </a>
         </div>
+        <div className="form-group" style={{ marginTop: "30px" }}>
+          <div className="custom-control custom-switch">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="is_sga_allotted"
+              checked={formData.is_sga_allotted}
+              onChange={(e) =>
+                onFormChange(!formData.is_sga_allotted, "is_sga_allotted")
+              }
+            />
+            <label className="custom-control-label" htmlFor="is_sga_allotted">
+              SG & A ALLOCATION
+            </label>
+          </div>
+        </div>
       </form>
     </>
   );

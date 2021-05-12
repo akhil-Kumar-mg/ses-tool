@@ -12,6 +12,7 @@ import VODContent from "./VODContent";
 import TechParameters from './TechParameters';
 import ChannelRampUp from './ChannelRampUp';
 import SubscriberRampUp from './SubscriberRampUp';
+import CommercialAddons from "./CommercialAddons";
 
 function Scenarios() {
   return <></>;
@@ -26,6 +27,7 @@ function ScenariosContainer(props) {
     "VOD Content",
     "Subscriber Ramp Up",
     "Channel Ramp Up",
+    "Commercial Add Ons"
   ];
   return (
     <>
@@ -66,6 +68,11 @@ function ScenariosContainer(props) {
             exact
             path="/App/Projects/:projectId/Setup/Scenarios/:forecastId/ChannelRampUp"
             component={ChannelRampUp}
+          />
+           <Route
+            exact
+            path="/App/Projects/:projectId/Setup/Scenarios/:forecastId/CommercialAddOns"
+            component={CommercialAddons}
           />
           <Route exact path="/App/Projects/:projectId/Setup/Scenarios/:forecastId" component={Scenarios} />
           <Route component={NotFound} />

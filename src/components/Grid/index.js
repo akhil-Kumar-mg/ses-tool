@@ -21,7 +21,7 @@ function Grid({ data, schema, onChange }) {
                 onChange(action.event, item);
               }}
             >
-              {item.status !== "created" ? action.edit: action.add}
+              {item.status !== "created" ? action.edit : action.add}
             </a>
           </div>
         );
@@ -47,16 +47,27 @@ function Grid({ data, schema, onChange }) {
       case "text":
         return (
           <div key={column.field} className="col field">
-            <input className="form-control" style={{width: '100px'}} type="text" value={item[column.field]} disabled={true}/>
+            <input
+              className="form-control"
+              style={{ width: "100px" }}
+              type="text"
+              value={item[column.field]}
+              disabled={true}
+            />
           </div>
         );
       case "dropdown":
         return (
           <div key={column.field} className="col field">
             <select className="form-control" disabled={true}>
-                
-                <option>Percent</option>
-              </select>
+              <option>Percent</option>
+            </select>
+          </div>
+        );
+      case "boolean":
+        return (
+          <div key={column.field} className="col field">
+            {item[column.field] ? "Y" : "F"}
           </div>
         );
       default:
@@ -82,15 +93,17 @@ function Grid({ data, schema, onChange }) {
             </div>
           );
         })}
-        {schema.actions && schema.actions.length ? schema.actions.map((action, idx) => {
-          return (
-            <div
-              key={idx}
-              className="col colsm"
-              style={{ width: `${action.width || defaultColWidth}` }}
-            ></div>
-          );
-        }): null}
+        {schema.actions && schema.actions.length
+          ? schema.actions.map((action, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="col colsm"
+                  style={{ width: `${action.width || defaultColWidth}` }}
+                ></div>
+              );
+            })
+          : null}
       </div>
 
       {data.map((item, idx) => {

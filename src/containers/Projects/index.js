@@ -47,6 +47,12 @@ function Projects() {
     setShow(true);
   };
 
+  const handleEdit = (project) => {
+    setFormData(cloneDeep(project))
+    setMode("EDIT");
+    setShow(true);
+  };
+
   const onSetup = (project) => {
     appContext.selectedProject({ selectedProject: project.id });
     history.push({
@@ -72,14 +78,14 @@ function Projects() {
     editProject(formData)
       .then((res) => {
         notify(
-          `${formData.project_name} project has been saved successfully.`,
+          `${formData.project_name} project has been edited successfully.`,
           "success"
         );
         onFormCancel();
         onLoad();
       })
       .catch((err) =>
-        notify(`Oops! Failed to add save project ${formData.name}.`, "error")
+        notify(`Oops! Failed to edit project ${formData.name}.`, "error")
       );
   };
 
@@ -94,13 +100,12 @@ function Projects() {
         onLoad();
       })
       .catch((err) => {
-        if(err.response.data) {
+        if (err.response.data) {
           notify(
             Object.keys(err.response.data).join(" , ") + " cannot be empty",
             "error"
           );
         }
-       
       });
   };
   const onFormCancel = () => {
@@ -151,7 +156,14 @@ function Projects() {
               return false;
             })
             .map((item) => {
-              return <Card onSetup={onSetup} onView={onView} project={item} />;
+              return (
+                <Card
+                  onSetup={onSetup}
+                  onView={onView}
+                  project={item}
+                  onEdit={handleEdit}
+                />
+              );
             })}
         </div>
       </div>

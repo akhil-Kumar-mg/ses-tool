@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import "./style.scss";
 import FaIcons from "../../components/fa-icons";
 
-function Card({ onSetup, onView, project }) {
+function Card({ onSetup, onView, project, onEdit }) {
   return (
     <>
       <div className="col-sm-12 sub-item">
         <div className="card">
+          {/* <div class="card-header"></div> */}
           <div className="card-body">
             <div className="card-title">
               <div className="sub-header">
-                <h5>{project.project_name}</h5>
-                <span>Region: {project.country_name}</span>
+                <h4 style={{ textTransform: "capitalize" }}>
+                  {project.project_name}
+                  <FaIcons
+                    icon="edit"
+                    onClick={() => {
+                      onEdit(project);
+                    }}
+                    style={{ marginLeft: "20px", fontSize: "75%" }}
+                  />
+                </h4>
+                {/* <span>Region: {project.country_name}</span> */}
               </div>
             </div>
             <br />

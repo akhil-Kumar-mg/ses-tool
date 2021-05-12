@@ -369,7 +369,7 @@ function ProjectsPL(props) {
               }`}
               onClick={() => onViewClick(VIEW_TYPE.CATEGORY)}
             >
-              CATEGORY P/L
+              COST CATEGORY
             </button>
             <button
               type="button"
@@ -378,7 +378,7 @@ function ProjectsPL(props) {
               }`}
               onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
             >
-              REVENUE
+              REVENUE CATEGORY
             </button>
           </div>
           {isLoaded && <Grid data={data} schema={schema} />}

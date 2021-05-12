@@ -40,7 +40,7 @@ function Form({ formData, onChange }) {
             onChange={(e) => onFormChange("country_name", e.target.value)}
           >
             <option value="-1">Select</option>
-            <option value="Channel">India</option>
+            <option value="India">India</option>
           </select>
         </div>
 

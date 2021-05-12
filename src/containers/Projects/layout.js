@@ -8,13 +8,14 @@ import SolutionSheet from '../SolutionSheet';
 import Pricing from '../Pricing';
 
 import NotFound from '../NotFound';
+import ProjectConfiguration from "../ProjectConfiguration";
 
 function Projects(){
   return <></>
 }
 
 function ProjectsContainer(props) {
-  const links = ["Scenarios", "Solution Sheet", "Pricing"]
+  const links = ["Scenarios", "Solution Sheet", "Pricing", "Project Configuration"]
   return (
     <>
       <Sidebar title="Projects" sublink={`/${props.match.params.projectId}/Setup`} links={links}/>
@@ -23,6 +24,7 @@ function ProjectsContainer(props) {
           <Route exact path="/App/Projects/:projectId/Setup/Scenarios" component={Scenarios} />
           <Route exact path="/App/Projects/:projectId/Setup/SolutionSheet" component={SolutionSheet} />
           <Route exact path="/App/Projects/:projectId/Setup/Pricing" component={Pricing} />
+          <Route exact path="/App/Projects/:projectId/Setup/ProjectConfiguration" component={ProjectConfiguration} />
           <Route exact path="/App/Projects/:projectId/Setup" component={Projects} />
           <Route component={NotFound} />
         </Switch>

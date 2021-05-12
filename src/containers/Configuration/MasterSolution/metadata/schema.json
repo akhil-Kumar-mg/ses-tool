@@ -26,6 +26,11 @@
       {
         "name": "COST ITEM",
         "field": "costname"
+      },
+      {
+        "name": "SG&A ALLOCATION",
+        "field": "is_sga_allotted",
+        "type": "boolean"
       }
     ],
     "actions": [

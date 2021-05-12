@@ -2,12 +2,11 @@ import { omit } from "lodash";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useEffect, useState } from "react";
 import useNotify from "../../actions/Toast";
-import FaIcons from "../../components/fa-icons";
 import Grid from "../../components/Grid";
 import Modal from "../../components/Solution";
 import {
   getCategories,
-  getSubCategories,
+  getSubCategories
 } from "../Configuration/Categories/service";
 import { getVendorDetails, getVendors } from "../Configuration/Vendors/service";
 import schema from "./metadata/schema.json";
@@ -15,7 +14,7 @@ import {
   deleteSolution,
   editSolution,
   getSolutions,
-  saveSolution,
+  saveSolution
 } from "./service";
 import "./style.scss";
 

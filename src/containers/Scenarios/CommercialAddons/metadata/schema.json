@@ -1,0 +1,24 @@
+{
+  "width": "2500px",
+    "columns": [
+      {
+        "name": "COST NAME",
+        "field": "cost_name"
+      },
+      {
+        "name": "CATEGORY NAME",
+        "field": "category_name"
+      }   
+    ],
+    "actions" : [{
+      "name": "pencil-alt",
+      "type": "icon",
+      "color": "blue",
+      "event": "edit"
+    }, {
+      "name": "trash-alt",
+      "type": "icon",
+      "event": "delete"
+    }
+    ]
+  }
