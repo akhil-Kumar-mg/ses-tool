@@ -1,3 +1,4 @@
+import { omit } from "lodash";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useEffect, useState } from "react";
 import useNotify from "../../../actions/Toast";
@@ -31,7 +32,6 @@ function CommercialAddons(props) {
   const [mode, setMode] = useState("ADD");
   const [commercialAddOns, setCommercialAddons] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [periods, setPeriods] = useState([]);
   const [formData, setFormData] = useState(cloneDeep(initialState));
   const [loadingChoices, setLoadingChoices] = useState(false);
 
@@ -61,7 +61,7 @@ function CommercialAddons(props) {
       Promise.all(allPromises)
         .then((res) => {
           setCategories(res[0]);
-          setPeriods(res[1]);
+          setCapexAndOpexItems(res[1]);
           setLoadingChoices(false);
           setShow(true);
         })
@@ -69,6 +69,20 @@ function CommercialAddons(props) {
           setLoadingChoices(false);
         });
     }
+  };
+
+  const setCapexAndOpexItems = (items) => {
+    let _formData = cloneDeep(formData);
+    let _initObj = items.map((item) => {
+      return {
+        period_name: item.period_name,
+        value: "",
+        period: item.id,
+      };
+    });
+    _formData.capex_items = _initObj;
+    _formData.opex_items = _initObj;
+    setFormData(_formData)
   };
 
   const handleShow = () => {
@@ -94,7 +108,20 @@ function CommercialAddons(props) {
   };
 
   const onSave = () => {
-    saveCommercialAddon(formData)
+    let _formData = cloneDeep(formData);
+    _formData.capex_items = _formData.capex_items.map(capex_item => {
+      return {
+        value: capex_item.value,
+        period: capex_item.period
+      }
+    })
+    _formData.opex_items = _formData.opex_items.map(opex_items => {
+      return {
+        value: opex_items.value,
+        period: opex_items.period
+      }
+    })
+    saveCommercialAddon(_formData)
       .then((res) => {
         notify(`commercial add on has been added successfully.`, "success");
         onFormCancel();
@@ -149,7 +176,6 @@ function CommercialAddons(props) {
         onSubmit={onFormSubmit}
         mode={mode}
         categories={categories}
-        periods={periods}
       />
       <div className="header">
         <h1>Commercial Add Ons </h1>

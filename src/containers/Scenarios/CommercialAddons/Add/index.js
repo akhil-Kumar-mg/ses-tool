@@ -10,7 +10,6 @@ function ModalContainer({
   onSubmit,
   onCancel,
   categories,
-  periods,
 }) {
   return (
     <>
@@ -22,7 +21,6 @@ function ModalContainer({
             formData={formData}
             onChange={onChange}
             categories={categories}
-            periods={periods}
           />
         )}
         actions={() => {

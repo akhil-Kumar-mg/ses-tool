@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import { Divider } from "@material-ui/core";
 
-function Form({ formData, onChange, categories, periods }) {
+function Form({ formData, onChange, categories }) {
   const onFormChange = (key, value) => {
     const _formData = cloneDeep(formData);
     _formData[key] = value;
+    onChange({ ..._formData });
+  };
+
+  const onListFormChange = (key, value, idx) => {
+    const _formData = cloneDeep(formData);
+    if (key === "capex_items") {
+      _formData.capex_items[idx]["value"] = value;
+    } else {
+      _formData.opex_items[idx]["value"] = value;
+    }
     onChange({ ..._formData });
   };
 
@@ -48,24 +59,69 @@ function Form({ formData, onChange, categories, periods }) {
 
         <div className="form-group">
           <label>Capex Items</label>
-          {periods.map((item) => {
+          {formData.capex_items.map((item, idx) => {
             return (
-              <div className="row mt-3">
-                <div className="col">
-                  <div className="col">
-                    <label>{item.period_name}</label>
-                  </div>
+              <div className="row mt-3" key={idx}>
+                <div
+                  className="col"
+                  style={{
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    textTransform: "capitalize",
+                    fontSize: "18px",
+                    color: "ButtonHighlight",
+                  }}
+                >
+                  <label>{item.period_name}</label>
                 </div>
                 <div className="col">
                   <div className="input-group mb-3">
                     <input
+                      key={idx}
                       type="number"
                       className="form-control"
                       placeholder=""
-                      // value={item.price}
-                      // onChange={(e) =>
-                      //   onSubFormChange("price", e.target.value, idx)
-                      // }
+                      value={item.value}
+                      onChange={(e) =>
+                        onListFormChange("capex_items", e.target.value, idx)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="form-group">
+          <label>Opex Items</label>
+          {formData.opex_items.map((item, idx) => {
+            return (
+              <div className="row mt-3" key={idx}>
+                <div
+                  className="col"
+                  style={{
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    textTransform: "capitalize",
+                    fontSize: "18px",
+                    color: "ButtonHighlight",
+                  }}
+                >
+                  <label>{item.period_name}</label>
+                </div>
+                <div className="col">
+                  <div className="input-group mb-3">
+                    <input
+                      key={idx}
+                      type="number"
+                      className="form-control"
+                      placeholder=""
+                      value={item.value}
+                      onChange={(e) =>
+                        onListFormChange("opex_items", e.target.value, idx)
+                      }
                     />
                   </div>
                 </div>
