@@ -73,16 +73,23 @@ function CommercialAddons(props) {
 
   const setCapexAndOpexItems = (items) => {
     let _formData = cloneDeep(formData);
-    let _initObj = items.map((item) => {
+    let capex_items = items.map((item) => {
       return {
         period_name: item.period_name,
         value: "",
         period: item.id,
       };
     });
-    _formData.capex_items = _initObj;
-    _formData.opex_items = _initObj;
-    setFormData(_formData)
+    let opex_items = items.map((item) => {
+      return {
+        period_name: item.period_name,
+        value: "",
+        period: item.id,
+      };
+    });
+    _formData.capex_items = capex_items;
+    _formData.opex_items = opex_items;
+    setFormData(_formData);
   };
 
   const handleShow = () => {
@@ -96,7 +103,20 @@ function CommercialAddons(props) {
   };
 
   const onEdit = () => {
-    editCommercialAddon(formData)
+    let _formData = cloneDeep(formData);
+    _formData.capex_items = _formData.capex_items.map((capex_item) => {
+      return {
+        value: capex_item.value,
+        period: capex_item.period,
+      };
+    });
+    _formData.opex_items = _formData.opex_items.map((opex_items) => {
+      return {
+        value: opex_items.value,
+        period: opex_items.period,
+      };
+    });
+    editCommercialAddon(_formData)
       .then((res) => {
         notify(`commercial add on has been edited successfully.`, "success");
         onFormCancel();
@@ -109,18 +129,18 @@ function CommercialAddons(props) {
 
   const onSave = () => {
     let _formData = cloneDeep(formData);
-    _formData.capex_items = _formData.capex_items.map(capex_item => {
+    _formData.capex_items = _formData.capex_items.map((capex_item) => {
       return {
         value: capex_item.value,
-        period: capex_item.period
-      }
-    })
-    _formData.opex_items = _formData.opex_items.map(opex_items => {
+        period: capex_item.period,
+      };
+    });
+    _formData.opex_items = _formData.opex_items.map((opex_items) => {
       return {
         value: opex_items.value,
-        period: opex_items.period
-      }
-    })
+        period: opex_items.period,
+      };
+    });
     saveCommercialAddon(_formData)
       .then((res) => {
         notify(`commercial add on has been added successfully.`, "success");

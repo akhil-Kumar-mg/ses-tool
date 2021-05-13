@@ -52,7 +52,7 @@ function Form({ formData, onChange, categories }) {
             type="text"
             className="form-control"
             placeholder=""
-            value={formData.viewing_hours}
+            value={formData.cost_name}
             onChange={(e) => onFormChange("cost_name", e.target.value)}
           />
         </div>
