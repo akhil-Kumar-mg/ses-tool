@@ -28,7 +28,7 @@
         "field": "costname"
       },
       {
-        "name": "SG&A ALLOCATION",
+        "name": "SG&A ALLOCATION CAPPED",
         "field": "is_sga_allotted",
         "type": "boolean"
       }

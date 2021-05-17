@@ -134,8 +134,54 @@ function Form({ formData, onChange }) {
               />
             </div>
           </div>
+          <div className="col-sm-4">
+            <div className="form-group">
+              <label>Multi Factor Authentiation SMS Count</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Content"
+                value={formData.mfa_sms_count}
+                onChange={(e) =>
+                  onFormChange("mfa_sms_count", e.target.value)
+                }
+              />
+            </div>
+          </div>
         </div>
 
+        <div className="row top-buffer">
+        <div className="col-sm-2">
+            <div className="form-group">
+              <label>Avg Ads per VOD viewing Hrs</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Content"
+                value={formData.avg_ads_per_vod_hour}
+                onChange={(e) =>
+                  onFormChange("avg_ads_per_vod_hour", e.target.value)
+                }
+              />
+            </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="form-group">
+              <label>Avg Ads per Linear viewing Hrs </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Content"
+                value={formData.avg_ads_per_linear_hour}
+                onChange={(e) =>
+                  onFormChange("avg_ads_per_linear_hour", e.target.value)
+                }
+              />
+            </div>
+          </div>
+      
+        </div>
+        
         <div className="row top-buffer">
           <div className="col-sm-4">
             <div className="custom-control custom-switch">
