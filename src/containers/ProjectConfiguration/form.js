@@ -14,7 +14,7 @@ function Form({ formData, onChange }) {
         <div className="row">
           <div className="col-sm-6">
             <div className="form-group">
-              <label>SG&A Allocation Capped</label>
+              <label>SG&A Allocation Percent</label>
               <input
                 className="form-control"
                 placeholder="Content"

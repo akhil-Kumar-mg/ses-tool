@@ -26,6 +26,7 @@ function ProjectsPL(props) {
   const [schema, setSchema] = useState(cloneDeep(schemaJSON));
   const [isLoaded, setIsLoaded] = useState(false);
   const [viewType, setViewType] = useState(VIEW_TYPE.YEARLY);
+  const [generatingPL, setGeneratingPL] = useState(false);
 
   useEffect(() => {
     onLoad();
@@ -182,20 +183,21 @@ function ProjectsPL(props) {
 
   const getMonthlyData = () => {
     let rows = [];
-    let parameters = [
-      "monthly_catchup_hours",
-      "monthly_channel_count",
-      "monthly_channel_hours",
-      "monthly_content_consumed_catchup_gb",
-      "monthly_content_consumed_gb",
-      "monthly_content_consumed_linear_gb",
-      "monthly_content_consumed_vod_gb",
-      "monthly_content_stored_origin_gb",
-      "monthly_impression",
-      "monthly_origin_hit_gb",
-      "monthly_subscriber_count",
-      "monthly_vod_hours",
-    ];
+    // let parameters = [
+    //   "monthly_catchup_hours",
+    //   "monthly_channel_count",
+    //   "monthly_channel_hours",
+    //   "monthly_content_consumed_catchup_gb",
+    //   "monthly_content_consumed_gb",
+    //   "monthly_content_consumed_linear_gb",
+    //   "monthly_content_consumed_vod_gb",
+    //   "monthly_content_stored_origin_gb",
+    //   "monthly_impression",
+    //   "monthly_origin_hit_gb",
+    //   "monthly_subscriber_count",
+    //   "monthly_vod_hours",
+    // ];
+    let parameters = Object.keys(monthyData).filter(data => data.includes("monthly"));
     for (let j = 0; j < parameters.length; j++) {
       let row = {};
       row["parameter"] = parameters[j];
@@ -227,7 +229,7 @@ function ProjectsPL(props) {
     if (yearlyData.items && yearlyData.items.length > 0) {
       let categoryMapping = [];
       for (let index in yearlyData.items) {
-        if(yearlyData.items[index].item_type === "OPERATING_EXPENSE") {
+        if (yearlyData.items[index].item_type === "OPERATING_EXPENSE") {
           categoryMapping = yearlyData.items[index].category_mapping;
           for (let i = 0; i < categoryMapping.length; i++) {
             let row = {};
@@ -248,7 +250,7 @@ function ProjectsPL(props) {
     if (yearlyData.items && yearlyData.items.length > 0) {
       let categoryMapping = [];
       for (let index in yearlyData.items) {
-        if(yearlyData.items[index].item_type === "REVENUE") {
+        if (yearlyData.items[index].item_type === "REVENUE") {
           categoryMapping = yearlyData.items[index].category_mapping;
           for (let i = 0; i < categoryMapping.length; i++) {
             let row = {};
@@ -270,6 +272,7 @@ function ProjectsPL(props) {
   };
 
   const onGeneratePL = () => {
+    setGeneratingPL(true)
     let allPromises = [];
     for (let i = 0; i < forecast.length; i++) {
       let data = {
@@ -281,8 +284,10 @@ function ProjectsPL(props) {
     Promise.all(allPromises)
       .then((res) => {
         notify("Successfully generated P/L's.", "success");
+        setGeneratingPL(false)
       })
       .catch((err) => {
+        setGeneratingPL(false)
         notify("Oops! Failed to generate P/L's.", "error");
       });
   };
@@ -336,53 +341,72 @@ function ProjectsPL(props) {
             </div>
           </div>
         </div>
-        <div
-          className={`sub-container ${
-            viewType === VIEW_TYPE.MONTHLY ? "monthly-grid-container" : ""
-          }`}
-        >
-          <div className="btn-group" role="group">
-            <button
-              type="button"
-              className={`btn  ${
-                viewType === VIEW_TYPE.MONTHLY ? "btn-primary" : "btn-secondary"
-              }`}
-              onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
-            >
-              PROJECT PARAMETERS
-            </button>
-            <button
-              type="button"
-              className={`btn  ${
-                viewType === VIEW_TYPE.YEARLY ? "btn-primary" : "btn-secondary"
-              }`}
-              onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
-            >
-              P/L
-            </button>
-            <button
-              type="button"
-              className={`btn  ${
-                viewType === VIEW_TYPE.CATEGORY
-                  ? "btn-primary"
-                  : "btn-secondary"
-              }`}
-              onClick={() => onViewClick(VIEW_TYPE.CATEGORY)}
-            >
-              COST CATEGORY
-            </button>
-            <button
-              type="button"
-              className={`btn  ${
-                viewType === VIEW_TYPE.REVENUE ? "btn-primary" : "btn-secondary"
-              }`}
-              onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
-            >
-              REVENUE CATEGORY
-            </button>
+        {!generatingPL ? (
+          <div
+            className={`sub-container ${
+              viewType === VIEW_TYPE.MONTHLY ? "monthly-grid-container" : ""
+            }`}
+          >
+            <div className="btn-group" role="group">
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.MONTHLY
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
+              >
+                PROJECT PARAMETERS
+              </button>
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.YEARLY
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
+              >
+                P/L
+              </button>
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.CATEGORY
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.CATEGORY)}
+              >
+                COST CATEGORY
+              </button>
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.REVENUE
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
+              >
+                REVENUE CATEGORY
+              </button>
+            </div>
+            {isLoaded && <Grid data={data} schema={schema} />}
           </div>
-          {isLoaded && <Grid data={data} schema={schema} />}
-        </div>
+        ) : (
+          <div className="spinner">
+            <FaIcons
+              icon={"spinner fa-spin"}
+              style={{
+                fontSize: 70,
+                marginRight: 30,
+              }}
+            />
+            <h1>Generating P/L !</h1>
+          </div>
+        )}
       </div>
     </>
   );
