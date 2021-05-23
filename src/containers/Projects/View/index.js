@@ -285,6 +285,7 @@ function ProjectsPL(props) {
       .then((res) => {
         notify("Successfully generated P/L's.", "success");
         setGeneratingPL(false)
+        onLoad()
       })
       .catch((err) => {
         setGeneratingPL(false)
