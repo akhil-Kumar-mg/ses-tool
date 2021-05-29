@@ -211,8 +211,8 @@ function SolutionSheet(props) {
           ADD SOLUTION <FaIcons icon="plus" />
         </button> */}
       </div>
-      <div className="sub-container">
-        <Grid data={solutions} schema={schema} onChange={onGridChange} />
+      <div className="sub-container projects-solution-sheet-view">
+        <Grid data={solutions} schema={schema} onChange={onGridChange} rowKey={"is_active"} />
       </div>
     </>
   );

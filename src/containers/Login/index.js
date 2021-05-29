@@ -12,8 +12,7 @@ function Login() {
 
 
 const onLogin = () =>{
-    console.log(username)
-    console.log(password)
+
 if(username === "admin" && password==="password"){
 
     history.push(`/App`);

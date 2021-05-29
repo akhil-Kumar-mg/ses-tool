@@ -5,7 +5,8 @@ import "./style.scss";
 import FaIcons from "../fa-icons";
 const defaultColWidth = "50px";
 
-function Grid({ data, schema, onChange }) {
+function Grid({ data, schema, onChange, rowKey }) {
+
   const renderActions = (action, item) => {
     switch (action.type) {
       case "link":
@@ -46,7 +47,6 @@ function Grid({ data, schema, onChange }) {
     switch (column.type) {
       case "text":
         return (
-          <div key={column.field} className="col field">
             <input
               className="form-control"
               style={{ width: "100px" }}
@@ -54,27 +54,20 @@ function Grid({ data, schema, onChange }) {
               value={item[column.field]}
               disabled={true}
             />
-          </div>
         );
       case "dropdown":
         return (
-          <div key={column.field} className="col field">
             <select className="form-control" disabled={true}>
               <option>Percent</option>
             </select>
-          </div>
         );
       case "boolean":
         return (
-          <div key={column.field} className="col field">
-            {item[column.field] ? "Y" : "F"}
-          </div>
+            item[column.field] ? "Y" : "F"
         );
       default:
         return (
-          <div key={column.field} className="col field">
-            {item[column.field]}
-          </div>
+            item[column.field]
         );
     }
   };
@@ -107,12 +100,23 @@ function Grid({ data, schema, onChange }) {
       </div>
 
       {data.map((item, idx) => {
+        const colProps = {};
+        if(rowKey)
+          colProps[`data-${rowKey}`] = item[rowKey];
         return (
-          <div key={idx} className={`row ${idx % 2 === 0 ? "even" : "odd"}`}>
+          <div key={idx} className={`row ${idx % 2 === 0 ? "even" : "odd"}`}  {...colProps}>
             <div className="col colsm" style={{ width: defaultColWidth }}>
               {idx + 1}
             </div>
-            {schema.columns.map((column) => renderItem(column, item))}
+            {schema.columns.map((column) => {
+                
+
+
+              return  <div key={column.field} className="col field">
+                {renderItem(column, item)}
+              </div>
+              }
+            )}
             {schema.actions.map((action) => renderActions(action, item))}
           </div>
         );
