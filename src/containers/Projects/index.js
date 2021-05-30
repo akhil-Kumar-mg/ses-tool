@@ -9,7 +9,12 @@ import _includes from "lodash/includes";
 
 import Card from "./card";
 import Modal from "./Add";
-import { editProject, getProjects, saveProject } from "./service";
+import {
+  deleteProject,
+  editProject,
+  getProjects,
+  saveProject,
+} from "./service";
 import { Context as AppContext } from "../../context/AppContext";
 
 function Projects() {
@@ -47,10 +52,14 @@ function Projects() {
     setShow(true);
   };
 
-  const handleEdit = (project) => {
-    setFormData(cloneDeep(project))
-    setMode("EDIT");
-    setShow(true);
+  const onChange = (project, mode) => {
+    if (mode === "EDIT") {
+      setFormData(cloneDeep(project));
+      setMode("EDIT");
+      setShow(true);
+    } else if (mode === "DELETE") {
+      onDelete(project);
+    }
   };
 
   const onSetup = (project) => {
@@ -72,6 +81,29 @@ function Projects() {
   const onFormSubmit = () => {
     if (mode === "SETUP") onSave();
     else onEdit();
+  };
+
+  const onDelete = (data) => {
+    const r = window.confirm(
+      `Do you wish to remove '${data.project_name}' project?`
+    );
+    if (r === true) {
+      deleteProject(data.id)
+        .then((res) => {
+          notify(
+            `'${data.name}' project has been removed successfully.`,
+            "success"
+          );
+          onLoad();
+        })
+        .catch((err) =>
+          notify(
+            `Oops! Failed to remove ${data.project_name} project.`,
+            "error"
+          )
+        );
+    } else {
+    }
   };
 
   const onEdit = () => {
@@ -161,7 +193,7 @@ function Projects() {
                   onSetup={onSetup}
                   onView={onView}
                   project={item}
-                  onEdit={handleEdit}
+                  onChange={onChange}
                 />
               );
             })}

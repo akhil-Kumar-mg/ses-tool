@@ -39,7 +39,7 @@ function App() {
               marginRight: 30,
             }}
           />
-          <h1>Loading ses tool.... Please wait!!!</h1>
+          <h1>Loading SES OVP Master Tool...</h1>
         </div>
       )}
     </IntlProvider>

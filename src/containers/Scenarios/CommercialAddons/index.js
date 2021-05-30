@@ -50,18 +50,22 @@ function CommercialAddons(props) {
       .catch((err) => notify("Oops! Failed to fetch subscribers", "error"));
   };
 
-  const loadOptions = () => {
+  const loadOptions = (loadOnlyCat) => {
     if (!loadingChoices) {
       setLoadingChoices(true);
       let allPromises = [];
       allPromises.push(getCategories());
-      allPromises.push(
-        getPeriods(props.match.params.forecastId, props.match.params.projectId)
-      );
+      if(!loadOnlyCat) {
+        allPromises.push(
+          getPeriods(props.match.params.forecastId, props.match.params.projectId)
+        );
+      }     
       Promise.all(allPromises)
         .then((res) => {
           setCategories(res[0]);
-          setCapexAndOpexItems(res[1]);
+          if(res.length >1) {
+            setCapexAndOpexItems(res[1]);
+          }
           setLoadingChoices(false);
           setShow(true);
         })
@@ -94,7 +98,7 @@ function CommercialAddons(props) {
 
   const handleShow = () => {
     setMode("ADD");
-    loadOptions();
+    loadOptions(false);
   };
 
   const onFormSubmit = () => {
@@ -178,6 +182,7 @@ function CommercialAddons(props) {
         setShow(true);
         setMode("EDIT");
         setFormData(cloneDeep(item));
+        loadOptions(true)
         break;
 
       case "delete":

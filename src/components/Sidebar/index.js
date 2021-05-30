@@ -28,7 +28,7 @@ useEffect(()=>{
             </ul>
           </div>
           <div className="logo">
-              <img src={logo} alt="ses master tool" />
+              <img src={logo} alt="ses ovp master tool" />
           </div>
         </div>
     </>

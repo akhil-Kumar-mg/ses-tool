@@ -28,7 +28,7 @@ if(username === "admin" && password==="password"){
             <div className="col-lg-3 col-md-2"></div>
             <div className="col-lg-6 col-md-8 login-box">
                 <div className="col-lg-12 login-key">
-                <img src={logo} alt="ses master tool" />
+                <img src={logo} alt="ses ovp master tool" />
                 </div>
 
                 <div className="col-lg-12 login-form">

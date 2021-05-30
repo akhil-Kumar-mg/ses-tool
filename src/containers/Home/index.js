@@ -20,7 +20,7 @@ function Home() {
           <span className="container grey-text text-lighten-1 ">
             <p className="flow-text">Welcome to</p>
             <h1 className="title grey-text text-lighten-3">
-              Master Ses tool
+              SES OVP Master tool
             </h1>
 {/* 
             <blockquote className="flow-text">

@@ -6,7 +6,6 @@ import FaIcons from "../fa-icons";
 const defaultColWidth = "50px";
 
 function Grid({ data, schema, onChange, rowKey }) {
-
   const renderActions = (action, item) => {
     switch (action.type) {
       case "link":
@@ -27,48 +26,50 @@ function Grid({ data, schema, onChange, rowKey }) {
           </div>
         );
       case "icon":
-        return (
-          <div
-            key={action.name}
-            className="col colsm"
-            style={{ width: `${action.width || defaultColWidth}` }}
-            onClick={() => {
-              onChange(action.event, item);
-            }}
-          >
-            {action.label && <span>{action.label}</span>}{" "}
-            <FaIcons icon={action.name} color={action.color} />
-          </div>
-        );
+        if (showIcon(action, item))
+          return (
+            <div
+              key={action.name}
+              className="col colsm"
+              style={{ width: `${action.width || defaultColWidth}` }}
+              onClick={() => {
+                onChange(action.event, item);
+              }}
+            >
+              {action.label && <span>{action.label}</span>}{" "}
+              <FaIcons icon={action.name} color={action.color} />
+            </div>
+          );
     }
+  };
+
+  const showIcon = (action, item) => {
+    if (action.event === "undo" && item.is_active) return false;
+    return true;
   };
 
   const renderItem = (column, item) => {
     switch (column.type) {
       case "text":
         return (
-            <input
-              className="form-control"
-              style={{ width: "100px" }}
-              type="text"
-              value={item[column.field]}
-              disabled={true}
-            />
+          <input
+            className="form-control"
+            style={{ width: "100px" }}
+            type="text"
+            value={item[column.field]}
+            disabled={true}
+          />
         );
       case "dropdown":
         return (
-            <select className="form-control" disabled={true}>
-              <option>Percent</option>
-            </select>
+          <select className="form-control" disabled={true}>
+            <option>Percent</option>
+          </select>
         );
       case "boolean":
-        return (
-            item[column.field] ? "Y" : "F"
-        );
+        return item[column.field] ? "Y" : "F";
       default:
-        return (
-            item[column.field]
-        );
+        return item[column.field];
     }
   };
 
@@ -101,22 +102,23 @@ function Grid({ data, schema, onChange, rowKey }) {
 
       {data.map((item, idx) => {
         const colProps = {};
-        if(rowKey)
-          colProps[`data-${rowKey}`] = item[rowKey];
+        if (rowKey) colProps[`data-${rowKey}`] = item[rowKey];
         return (
-          <div key={idx} className={`row ${idx % 2 === 0 ? "even" : "odd"}`}  {...colProps}>
+          <div
+            key={idx}
+            className={`row ${idx % 2 === 0 ? "even" : "odd"}`}
+            {...colProps}
+          >
             <div className="col colsm" style={{ width: defaultColWidth }}>
               {idx + 1}
             </div>
             {schema.columns.map((column) => {
-                
-
-
-              return  <div key={column.field} className="col field">
-                {renderItem(column, item)}
-              </div>
-              }
-            )}
+              return (
+                <div key={column.field} className="col field">
+                  {renderItem(column, item)}
+                </div>
+              );
+            })}
             {schema.actions.map((action) => renderActions(action, item))}
           </div>
         );

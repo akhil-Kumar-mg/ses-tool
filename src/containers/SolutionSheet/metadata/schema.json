@@ -45,6 +45,12 @@
             "type": "icon",
             "color": "blue",
             "event": "edit"
+          },
+          {
+            "name": "undo",
+            "type": "icon",
+            "color": "blue",
+            "event": "undo"
           }
       ]
   }

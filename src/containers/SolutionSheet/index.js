@@ -17,6 +17,7 @@ import {
   saveSolution
 } from "./service";
 import "./style.scss";
+import FaIcons from "../../components/fa-icons";
 
 function SolutionSheet(props) {
   const { notify } = useNotify();
@@ -43,6 +44,7 @@ function SolutionSheet(props) {
   const handleShow = () => {
     setMode("ADD");
     loadOptions();
+    setLoadingChoices(false)
   };
 
   useEffect(() => {
@@ -207,9 +209,9 @@ function SolutionSheet(props) {
       /> */}
       <div className="header">
         <h1>Project Solution</h1>
-        {/* <button type="button" className="btn btn-primary" onClick={handleShow}>
+        <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD SOLUTION <FaIcons icon="plus" />
-        </button> */}
+        </button>
       </div>
       <div className="sub-container projects-solution-sheet-view">
         <Grid data={solutions} schema={schema} onChange={onGridChange} rowKey={"is_active"} />
