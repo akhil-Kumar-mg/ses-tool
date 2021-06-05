@@ -10,6 +10,7 @@ import { Provider as AppProvider } from "./context/AppContext";
 import { ToastProvider } from "react-toast-notifications";
 import reportWebVitals from './reportWebVitals';
 import ServiceWorkerWrapper from "./serviceworker.main";
+import AlertModal from "./components/AlertModal/AlertModal";
 
 import NotFound from "./containers/NotFound";
 if(module.hot){
@@ -20,6 +21,7 @@ ReactDOM.render(
     <ServiceWorkerWrapper />
     <ToastProvider placement="top-center">
       <AppProvider>
+        <AlertModal />
       <BrowserRouter>
             <Switch>
               <Route path="/App" component={App} />

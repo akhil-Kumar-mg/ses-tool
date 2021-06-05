@@ -187,9 +187,10 @@ function Projects() {
                 return true;
               return false;
             })
-            .map((item) => {
+            .map((item, index) => {
               return (
                 <Card
+                key={index}
                   onSetup={onSetup}
                   onView={onView}
                   project={item}

@@ -6,7 +6,10 @@ export const initialState = {
   volumes: [],
   error: null,
   selectedProject: "",
-  initLoaded: false
+  initLoaded: false,
+  state: '',
+  message: '',
+  showModal: false
 };
 export const appReducer = (state, action) => {
   switch (action.type) {
@@ -36,6 +39,19 @@ export const appReducer = (state, action) => {
         ...state,
         ...action.payload,
       };
+      case actions.SHOW_CUSTOM_MODAL:
+        return {
+          ...state,
+          ...action.payload,
+          showModal: true
+        }
+        case actions.HIDE_CUSTOM_MODAL:
+          return {
+            ...state,
+            state: '',
+            message: '',
+            showModal: false
+          }
     default:
       return state;
   }

@@ -43,7 +43,6 @@ function Form({ formData, onChange }) {
             value={formData.country_name}
             onChange={(e) => onFormChange("country_name", e.target.value)}
           >
-            {console.log(countryOptions)}
             {countryOptions.map((item, index) => {
               return (
                 <option key={item.label} value={item.label}>
