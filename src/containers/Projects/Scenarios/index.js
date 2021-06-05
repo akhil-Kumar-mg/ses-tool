@@ -9,7 +9,12 @@ import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
 import monthlySchema from "./metadata/schema-monthly-forecast.json";
 
-import { deleteForecast, getForecasts, saveForecast } from "../service";
+import {
+  deleteForecast,
+  getForecasts,
+  saveForecast,
+  editForecast,
+} from "../service";
 
 import Modal from "./Add";
 
@@ -99,6 +104,11 @@ function Scenarios(props) {
         handleSchema(forecast);
         handleMonthlyData(forecast);
         break;
+      case "edit":
+        setFormData(cloneDeep(forecast));
+        setMode("EDIT");
+        setShow(true);
+        break;
       case "delete":
         onDelete(forecast);
         break;
@@ -125,10 +135,24 @@ function Scenarios(props) {
 
   const onFormSubmit = () => {
     if (mode === "SETUP") onSave();
-    else onEdit();
+    else if (mode === "EDIT") onEdit();
   };
 
-  const onEdit = () => {};
+  const onEdit = () => {
+    let _formData = cloneDeep(formData);
+    editForecast(_formData, props.match.params.projectId)
+      .then((res) => {
+        notify(
+          `${_formData.name} forecast has been edited successfully.`,
+          "success"
+        );
+        onFormCancel();
+        onLoad();
+      })
+      .catch((err) => {
+        notify(`Oops! Failed to add edit forecast ${formData.name}.`, "error");
+      });
+  };
 
   const onSave = () => {
     saveForecast(formData)

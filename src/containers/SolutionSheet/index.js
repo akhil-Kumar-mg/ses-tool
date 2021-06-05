@@ -6,7 +6,7 @@ import Grid from "../../components/Grid";
 import Modal from "../../components/Solution";
 import {
   getCategories,
-  getSubCategories
+  getSubCategories,
 } from "../Configuration/Categories/service";
 import { getVendorDetails, getVendors } from "../Configuration/Vendors/service";
 import schema from "./metadata/schema.json";
@@ -14,7 +14,7 @@ import {
   deleteSolution,
   editSolution,
   getSolutions,
-  saveSolution
+  saveSolution,
 } from "./service";
 import "./style.scss";
 import FaIcons from "../../components/fa-icons";
@@ -44,7 +44,7 @@ function SolutionSheet(props) {
   const handleShow = () => {
     setMode("ADD");
     loadOptions();
-    setLoadingChoices(false)
+    setLoadingChoices(false);
   };
 
   useEffect(() => {
@@ -106,9 +106,14 @@ function SolutionSheet(props) {
       .catch((err) => notify(`Oops! Failed to add new solution.`, "error"));
   };
 
-  const onEdit = () => {
-    let _formData = cloneDeep(omit(formData, ["id"]));
-    editSolution(_formData, formData.id)
+  const onEdit = (cloneData) => {
+    let _formData;
+    if (cloneData) {
+      _formData = cloneData;
+    } else {
+      _formData = cloneDeep(omit(formData));
+    }
+    editSolution(_formData, _formData.id)
       .then((res) => {
         notify(`solution has been edited successfully.`, "success");
         onFormCancel();
@@ -135,24 +140,26 @@ function SolutionSheet(props) {
         break;
 
       case "delete":
-        onDelete(item);
+        if (item.is_active) {
+          onDelete(item);
+        } else {
+          let _cloneItem = cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          );
+          _cloneItem.is_active = true;
+          onEdit(_cloneItem);
+        }
         break;
     }
   };
 
   const onDelete = (data) => {
-    const r = window.confirm(`Do you wish to remove this solution?`);
-    if (r === true) {
-      deleteSolution(data.id)
-        .then((res) => {
-          notify(`The solution has been removed successfully.`, "success");
-          onLoad();
-        })
-        .catch((err) =>
-          notify(`Oops! Failed to remove the solution.`, "error")
-        );
-    } else {
-    }
+    deleteSolution(data.id)
+      .then((res) => {
+        notify(`The solution has been removed successfully.`, "success");
+        onLoad();
+      })
+      .catch((err) => notify(`Oops! Failed to remove the solution.`, "error"));
   };
 
   return (
@@ -214,7 +221,12 @@ function SolutionSheet(props) {
         </button>
       </div>
       <div className="sub-container projects-solution-sheet-view">
-        <Grid data={solutions} schema={schema} onChange={onGridChange} rowKey={"is_active"} />
+        <Grid
+          data={solutions}
+          schema={schema}
+          onChange={onGridChange}
+          rowKey={"is_active"}
+        />
       </div>
     </>
   );

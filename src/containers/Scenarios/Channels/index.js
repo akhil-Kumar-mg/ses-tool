@@ -13,6 +13,7 @@ import {
   getChannels,
   saveChannel,
 } from "./service";
+import { Link } from "react-router-dom";
 
 function Channels(props) {
   const { notify } = useNotify();
@@ -129,7 +130,15 @@ function Channels(props) {
         mode={mode}
       />
       <div className="header">
-        <h1>Channels</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Channels
+        </h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
           SET CHANNEL TYPE <FaIcons icon="plus" />
         </button>

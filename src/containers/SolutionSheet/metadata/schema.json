@@ -37,7 +37,9 @@
         {
           "name": "trash-alt",
           "type": "icon",
-          "event": "delete"
+          "event": "delete",
+          "class": "undo-enabled",
+          "alt_name":"undo"
 
         },
         {
@@ -45,12 +47,6 @@
             "type": "icon",
             "color": "blue",
             "event": "edit"
-          },
-          {
-            "name": "undo",
-            "type": "icon",
-            "color": "blue",
-            "event": "undo"
           }
       ]
   }

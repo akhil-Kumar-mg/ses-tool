@@ -20,6 +20,10 @@ const getForecasts = (id) => {
   return api.httpGet(`/forecast/?project=${id}`);
 };
 
+const editForecast = (data, id) => {
+  return api.httpPut(`/forecast/${data.id}/?project=${id}`, data);
+};
+
 const saveForecast = (data) => {
   return api.httpPost("/forecast/", data);
 };
@@ -35,5 +39,6 @@ export {
   editProject,
   getForecasts,
   saveForecast,
-  deleteForecast
+  deleteForecast,
+  editForecast
 };

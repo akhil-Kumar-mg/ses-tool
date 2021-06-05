@@ -1,6 +1,7 @@
 import { omit } from "lodash";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useNotify from "../../../actions/Toast";
 import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
@@ -55,15 +56,18 @@ function CommercialAddons(props) {
       setLoadingChoices(true);
       let allPromises = [];
       allPromises.push(getCategories());
-      if(!loadOnlyCat) {
+      if (!loadOnlyCat) {
         allPromises.push(
-          getPeriods(props.match.params.forecastId, props.match.params.projectId)
+          getPeriods(
+            props.match.params.forecastId,
+            props.match.params.projectId
+          )
         );
-      }     
+      }
       Promise.all(allPromises)
         .then((res) => {
           setCategories(res[0]);
-          if(res.length >1) {
+          if (res.length > 1) {
             setCapexAndOpexItems(res[1]);
           }
           setLoadingChoices(false);
@@ -182,7 +186,7 @@ function CommercialAddons(props) {
         setShow(true);
         setMode("EDIT");
         setFormData(cloneDeep(item));
-        loadOptions(true)
+        loadOptions(true);
         break;
 
       case "delete":
@@ -203,7 +207,15 @@ function CommercialAddons(props) {
         categories={categories}
       />
       <div className="header">
-        <h1>Commercial Add Ons </h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Commercial Add Ons
+        </h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
           ADD COMMERCIAL ADD ON <FaIcons icon="plus" />
         </button>

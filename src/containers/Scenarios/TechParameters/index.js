@@ -1,6 +1,8 @@
 import cloneDeep from "lodash/cloneDeep";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import useNotify from "../../../actions/Toast";
+import FaIcons from "../../../components/fa-icons";
 import Form from "./form";
 import { saveTechParameters, getTechParameters } from "./service";
 import "./style.scss";
@@ -26,8 +28,8 @@ function TechParameters(props) {
     player_analytics: false,
     enhanced_trending: false,
     mfa_sms_count: "",
-    avg_ads_per_linear_hour:"",
-    avg_ads_per_vod_hour:"",
+    avg_ads_per_linear_hour: "",
+    avg_ads_per_vod_hour: "",
     advanced_recommendation_content: false,
     tv_box_app: false,
     operator_app: false,
@@ -47,9 +49,12 @@ function TechParameters(props) {
   }, []);
 
   const onLoad = () => {
-    getTechParameters(props.match.params.forecastId, props.match.params.projectId)
+    getTechParameters(
+      props.match.params.forecastId,
+      props.match.params.projectId
+    )
       .then((res) => {
-        if(res && res.length > 0) {
+        if (res && res.length > 0) {
           setFormData(cloneDeep(res[0]));
         }
       })
@@ -60,7 +65,7 @@ function TechParameters(props) {
     let _formData = cloneDeep(formData);
     _formData.forecast = props.match.params.forecastId;
     _formData.project = props.match.params.projectId;
-    
+
     saveTechParameters(formData)
       .then((res) => {
         notify(
@@ -79,7 +84,15 @@ function TechParameters(props) {
   return (
     <>
       <div className="header">
-        <h1>Tech Parameters</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Tech Parameters
+        </h1>
         <button type="button" className="btn btn-primary" onClick={onSave}>
           SAVE
         </button>

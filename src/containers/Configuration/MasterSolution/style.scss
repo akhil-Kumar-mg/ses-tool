@@ -7,3 +7,11 @@
         right: 0;
     }
 }
+
+.master-solution-sheet-view{
+    div.row[data-is_active="false"]{
+       .field{
+        background-color: #b6c1cc;
+       }
+    }
+}

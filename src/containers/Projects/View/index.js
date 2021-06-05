@@ -27,6 +27,7 @@ function ProjectsPL(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [viewType, setViewType] = useState(VIEW_TYPE.YEARLY);
   const [generatingPL, setGeneratingPL] = useState(false);
+  const [forecastId, setForecastId] = useState(null);
 
   useEffect(() => {
     onLoad();
@@ -39,7 +40,7 @@ function ProjectsPL(props) {
   }, [isLoaded]);
 
   useEffect(() => {
-    if (monthyData.id) {
+    if (monthyData && monthyData.id) {
       loadPL(props.match.params.projectId, monthyData.id);
       renderGridInfo(viewType);
     }
@@ -56,8 +57,15 @@ function ProjectsPL(props) {
   const onLoad = () => {
     getForecasts(props.match.params.projectId)
       .then((res) => {
-        setForecast(res);
-        setMonthlyData(res[0]);
+        if(res.length) {
+          setForecast(res);
+          let index = 0;
+          if(forecastId != null) {
+            index = forecast.findIndex(elem => elem.id == forecastId)
+          }
+          setForecastId(forecastId)
+          setMonthlyData(res[index]);
+        }
       })
       .catch((err) => notify("Oops! Failed to fetch forecasts.", "error"));
   };
@@ -164,6 +172,7 @@ function ProjectsPL(props) {
     }
   };
 
+
   const getData = (view) => {
     switch (view) {
       case VIEW_TYPE.MONTHLY:
@@ -202,7 +211,7 @@ function ProjectsPL(props) {
       let row = {};
       row["parameter"] = parameters[j];
       for (let i = 1; i <= monthyData.number_of_months; i++) {
-        row[i] = monthyData[parameters[j]][i];
+        row[i] = monthyData[parameters[j]][i].toLocaleString();
       }
       rows.push(row);
     }
@@ -216,7 +225,11 @@ function ProjectsPL(props) {
         let row = {};
         row["item_type"] = yearlyData.items[i].item_type;
         for (let j = 1; j <= yearlyData.year_count; j++) {
-          row[j] = yearlyData.items[i].yearly_mapping[j];
+          let suffixString = "";
+          if(row["item_type"].includes("MARGIN")){
+            suffixString = "%"
+          }
+          row[j] = `${yearlyData.items[i].yearly_mapping[j].toLocaleString()} ${suffixString}`;
         }
         rows.push(row);
       }
@@ -235,7 +248,7 @@ function ProjectsPL(props) {
             let row = {};
             row["category"] = categoryMapping[i].category;
             for (const key in categoryMapping[i].yearly_mapping) {
-              row[key] = categoryMapping[i].yearly_mapping[key];
+              row[key] = categoryMapping[i].yearly_mapping[key].toLocaleString();
             }
             rows.push(row);
           }
@@ -256,7 +269,7 @@ function ProjectsPL(props) {
             let row = {};
             row["category"] = categoryMapping[i].category;
             for (const key in categoryMapping[i].yearly_mapping) {
-              row[key] = categoryMapping[i].yearly_mapping[key];
+              row[key] = categoryMapping[i].yearly_mapping[key].toLocaleString();
             }
             rows.push(row);
           }
@@ -324,8 +337,9 @@ function ProjectsPL(props) {
               <label>P/L Scenarios</label>
               <select
                 className="form-control"
-                value={forecast.id}
+                value={forecastId}
                 onChange={(e) => {
+                  setForecastId(e.target.value)
                   onScenarioChange(e.target.value);
                 }}
               >

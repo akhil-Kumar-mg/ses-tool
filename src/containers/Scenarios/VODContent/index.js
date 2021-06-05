@@ -1,6 +1,8 @@
 import cloneDeep from "lodash/cloneDeep";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import useNotify from "../../../actions/Toast";
+import FaIcons from "../../../components/fa-icons";
 import Form from "./form";
 import { getVod, saveVod } from "./service";
 import "./style.scss";
@@ -28,13 +30,12 @@ function VODContent(props) {
   const onLoad = () => {
     getVod(props.match.params.forecastId, props.match.params.projectId)
       .then((res) => {
-        if(res && res.length > 0) {
+        if (res && res.length > 0) {
           setFormData(cloneDeep(res[0]));
         }
       })
       .catch((err) => notify("Oops! Failed to fetch vod", "error"));
   };
-
 
   const onSave = () => {
     let _formData = cloneDeep(formData);
@@ -51,7 +52,15 @@ function VODContent(props) {
   return (
     <>
       <div className="header">
-        <h1>VOD Content</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          VOD Content
+        </h1>
         <button type="button" className="btn btn-primary" onClick={onSave}>
           SAVE
         </button>

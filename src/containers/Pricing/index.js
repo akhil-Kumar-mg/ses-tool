@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import Grid from "../../components/Grid";
 import PricingModal from "../../components/MasterPricing/Add";
 import schema from "./metadata/schema.json";
-import { definePricing, getPricings, addPricing, deletePricing } from "./service";
+import {
+  definePricing,
+  getPricings,
+  addPricing,
+  deletePricing,
+} from "./service";
 import "./style.scss";
 import useNotify from "../../actions/Toast";
 import cloneDeep from "lodash/cloneDeep";
@@ -119,25 +124,19 @@ function Pricing(props) {
   //   }
   // };
 
-
   const onDelete = (data) => {
-    const r = window.confirm(`Do you wish to remove the project pricing?`);
-    if (r === true) {
-      deletePricing(data.id)
-        .then((res) => {
-          notify(
-            `'${data.name}' vendor has been removed successfully.`,
-            "success"
-          );
-          onLoad();
-        })
-        .catch((err) =>
-          notify(`Oops! Failed to remove ${data.name} vendor.`, "error")
+    deletePricing(data.id)
+      .then((res) => {
+        notify(
+          `'${data.name}' vendor has been removed successfully.`,
+          "success"
         );
-    } else {
-    }
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to remove ${data.name} vendor.`, "error")
+      );
   };
-
 
   const onGridChange = (event, item) => {
     switch (event) {
@@ -151,7 +150,15 @@ function Pricing(props) {
         loadOptions(item.category);
         break;
       case "delete":
-        onDelete(item);
+        if (item.is_active) {
+          onDelete(item);
+        } else {
+          let _cloneItem = cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          );
+          _cloneItem.is_active = true;
+          onEdit(_cloneItem);
+        }
         break;
     }
   };
@@ -176,19 +183,20 @@ function Pricing(props) {
       );
   };
 
-  const onEdit = () => {
-    definePricing(cloneDeep(omit(formData, ["status"])))
+  const onEdit = (cloneData) => {
+    let _formData;
+    if (cloneData) {
+      _formData = cloneData;
+    } else {
+      _formData = cloneDeep(omit(_formData));
+    }
+    definePricing(cloneDeep(omit(_formData, ["status"])))
       .then((res) => {
-        notify(
-          `${formData.name} category has been added successfully.`,
-          "success"
-        );
+        notify(`pricing has been edited successfully.`, "success");
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to add new category ${formData.name}.`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to edit pricing.`, "error"));
   };
 
   const onFormCancel = () => {
@@ -214,8 +222,13 @@ function Pricing(props) {
           ADD PRICING <FaIcons icon="plus" />
         </button>
       </div>
-      <div className="sub-container">
-        <Grid data={pricings} schema={schema} onChange={onGridChange} />
+      <div className="sub-container pricing-sheet-view">
+        <Grid
+          data={pricings}
+          schema={schema}
+          onChange={onGridChange}
+          rowKey={"is_active"}
+        />
       </div>
     </>
   );

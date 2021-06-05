@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import cloneDeep from "lodash/cloneDeep";
+import countryList from 'react-select-country-list'
+
 
 function Form({ formData, onChange }) {
   const onFormChange = (key, value) => {
@@ -7,6 +9,8 @@ function Form({ formData, onChange }) {
     _formData[key] = value;
     onChange({ ..._formData });
   };
+
+  const countryOptions = useMemo(() => countryList().getData(), [])
 
   return (
     <>
@@ -39,8 +43,14 @@ function Form({ formData, onChange }) {
             value={formData.country_name}
             onChange={(e) => onFormChange("country_name", e.target.value)}
           >
-            <option value="-1">Select</option>
-            <option value="India">India</option>
+            {console.log(countryOptions)}
+            {countryOptions.map((item, index) => {
+              return (
+                <option key={item.label} value={item.label}>
+                  {item.label}
+                </option>
+              );
+            })}
           </select>
         </div>
 

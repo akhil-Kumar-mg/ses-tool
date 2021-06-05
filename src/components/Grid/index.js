@@ -26,26 +26,26 @@ function Grid({ data, schema, onChange, rowKey }) {
           </div>
         );
       case "icon":
-        if (showIcon(action, item))
-          return (
-            <div
-              key={action.name}
-              className="col colsm"
-              style={{ width: `${action.width || defaultColWidth}` }}
-              onClick={() => {
-                onChange(action.event, item);
-              }}
-            >
-              {action.label && <span>{action.label}</span>}{" "}
-              <FaIcons icon={action.name} color={action.color} />
-            </div>
-          );
+        return (
+          <div
+            key={action.name}
+            className="col colsm"
+            style={{ width: `${action.width || defaultColWidth}` }}
+            onClick={() => {
+              onChange(action.event, item);
+            }}
+          >
+            {action.label && <span>{action.label}</span>}{" "}
+            <FaIcons icon={getIcon(action, item)} color={action.color} />
+          </div>
+        );
     }
   };
 
-  const showIcon = (action, item) => {
-    if (action.event === "undo" && item.is_active) return false;
-    return true;
+  const getIcon = (action, item) => {
+    if (action.class === "undo-enabled" && !item.is_active)
+      return action.alt_name;
+    return action.name;
   };
 
   const renderItem = (column, item) => {

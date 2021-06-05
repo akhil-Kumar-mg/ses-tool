@@ -12,4 +12,8 @@ const addPricing = (data) => {
   return api.httpPost(`/pricing/`, data);
 };
 
-export { getPricings, definePricing, addPricing };
+const deletePricing = (id) => {
+  return api.httpDelete(`/pricing/${id}/`)
+}
+
+export { getPricings, definePricing, addPricing, deletePricing };

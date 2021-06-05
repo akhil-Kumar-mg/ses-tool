@@ -3,6 +3,8 @@ import { useHistory, withRouter } from "react-router-dom";
 import "./style.scss";
 import useNotify from "../../actions/Toast";
 import logo from "../../assets/img/ses-logo.png";
+import { login } from "./service";
+import SessionService from "../../services/SessionService";
 
 function Login() {
   const history = useHistory();
@@ -11,11 +13,18 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const onLogin = () => {
-    if (username === "admin" && password === "password") {
-      history.push(`/App`);
-    } else {
-      notify("Incorrect username/password", "error");
-    }
+    let data = {
+      email: username,
+      password,
+    };
+    login(data)
+      .then((res) => {
+        history.push(`/App`);
+        SessionService.setItem("auth_token", res.token, "session");
+      })
+      .catch((err) => {
+        notify("Incorrect username/password", "error");
+      });
   };
 
   return (
@@ -24,7 +33,7 @@ function Login() {
         <div className="col-lg-3 col-md-2"></div>
         <div className="col-lg-6 col-md-8 login-box">
           <div className="col-lg-12 login-key">
-            <img src={logo} alt="ses ovp master tool" />
+            <img className="login-img" src={logo} alt="ses ovp master tool" />
           </div>
 
           <div className="col-lg-12 login-form">

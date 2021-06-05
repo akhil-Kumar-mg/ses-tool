@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "../../../components/Grid";
 import PricingModal from "../../../components/Pricing/Add";
 import schema from "./metadata/schema.json";
-import { definePricing, getPricings, addPricing } from "./service";
+import { definePricing, getPricings, addPricing, deletePricing } from "./service";
 import "./style.scss";
 import useNotify from "../../../actions/Toast";
 import cloneDeep from "lodash/cloneDeep";
@@ -91,14 +91,26 @@ function MasterPricing() {
   const onGridChange = (event, item) => {
     switch (event) {
       case "edit":
-        setMode("EDIT");        
-        setFormData(cloneDeep(omit(item, ["category_name", "subcategory_name", "vendor_name"])));
+        setMode("EDIT");
+        setFormData(
+          cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          )
+        );
         loadOptions(item.category);
         break;
 
-      // case "delete":
-      //   onDelete(item);
-      //   break;
+      case "delete":
+        if (item.is_active) {
+          onDelete(item);
+        } else {
+          let _cloneItem = cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          );
+          _cloneItem.is_active = true;
+          onEdit(_cloneItem);
+        }
+        break;
     }
   };
 
@@ -106,6 +118,21 @@ function MasterPricing() {
     if (mode === "ADD") onSave();
     else onEdit();
   };
+
+  const onDelete = (data) => {
+    deletePricing(data.id)
+      .then((res) => {
+        notify(
+          `'pricing has been removed successfully.`,
+          "success"
+        );
+        onLoad();
+      })
+      .catch((err) =>
+        notify(`Oops! Failed to remove pricing.`, "error")
+      );
+  };
+
 
   const onSave = () => {
     addPricing(cloneDeep(omit(formData, ["status"])))
@@ -160,8 +187,13 @@ function MasterPricing() {
           ADD PRICING <FaIcons icon="plus" />
         </button>
       </div>
-      <div className="sub-container">
-        <Grid data={pricings} schema={schema} onChange={onGridChange} />
+      <div className="sub-container master-solution-sheet-view">
+        <Grid
+          data={pricings}
+          schema={schema}
+          onChange={onGridChange}
+          rowKey={"is_active"}
+        />
       </div>
     </>
   );

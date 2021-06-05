@@ -34,17 +34,19 @@
       }
     ],
     "actions": [
-        {
-          "name": "trash-alt",
-          "type": "icon",
-          "event": "delete"
+      {
+        "name": "trash-alt",
+        "type": "icon",
+        "event": "delete",
+        "class": "undo-enabled",
+        "alt_name":"undo"
 
-        },
-        {
-            "name": "pencil-alt",
-            "type": "icon",
-            "color": "blue",
-            "event": "edit"
-          }
+      },
+      {
+          "name": "pencil-alt",
+          "type": "icon",
+          "color": "blue",
+          "event": "edit"
+        }
       ]
   }

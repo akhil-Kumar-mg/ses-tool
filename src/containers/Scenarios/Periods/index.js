@@ -1,6 +1,7 @@
 import { omit } from "lodash";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useNotify from "../../../actions/Toast";
 import FaIcons from "../../../components/fa-icons";
 import Grid from "../../../components/Grid";
@@ -152,7 +153,15 @@ function Periods(props) {
         mode={mode}
       />
       <div className="header">
-        <h1>Periods</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Periods
+        </h1>
         <button type="button" className="btn btn-primary" onClick={handleShow}>
           SET PERIODS <FaIcons icon="plus" />
         </button>

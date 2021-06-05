@@ -8,6 +8,8 @@ import Grid from "../../../components/Grid";
 import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 import { editChannelRampUps, getChannelRampUps } from "./service";
+import { Link } from "react-router-dom";
+import FaIcons from "../../../components/fa-icons";
 
 function ChannelRampUp(props) {
   const [show, setShow] = useState(false);
@@ -98,7 +100,15 @@ function ChannelRampUp(props) {
         mode={mode}
       />
       <div className="header">
-        <h1>Channel Ramp up</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Channel Ramp up
+        </h1>
         {/* <button type="button" className="btn btn-primary" >
           SAVE
         </button> */}

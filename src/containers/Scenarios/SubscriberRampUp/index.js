@@ -9,6 +9,7 @@ import schema from "./metadata/schema.json";
 import data from "./metadata/data.json";
 import { getSubscriberRampUps, editSubscriberRampUps } from "./service";
 import useNotify from "../../../actions/Toast";
+import { Link } from "react-router-dom";
 
 function SubscriberRampUp(props) {
   const [show, setShow] = useState(false);
@@ -105,7 +106,15 @@ function SubscriberRampUp(props) {
         mode={mode}
       />
       <div className="header">
-        <h1>Subscriber Ramp up</h1>
+        <h1>
+          <Link
+            to={`/App/Projects/${props.match.params.projectId}/Setup/Scenarios`}
+            className="nav-back"
+          >
+            <FaIcons icon="arrow-left" />
+          </Link>
+          Subscriber Ramp up
+        </h1>
         {/* <button type="button" className="btn btn-primary" >
           SAVE
         </button> */}

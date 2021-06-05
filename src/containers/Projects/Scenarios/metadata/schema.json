@@ -9,7 +9,7 @@
         "field": "number_of_months"
       },
       {
-        "name": "LAST EDITED",
+        "name": "EXPECTED START DATE",
         "field": "expected_start_date"
       }
     ],
@@ -26,6 +26,11 @@
         "type": "icon",
         "event": "delete"
 
+      },
+      {
+        "name": "pencil-alt",
+        "type": "icon",
+        "event": "edit"
       },
       {
         "add": "Setup",

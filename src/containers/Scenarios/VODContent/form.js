@@ -97,7 +97,7 @@ function Form({ formData, onChange }) {
         <div className="row">
           <div className="col-sm-6">
             <div className="form-group">
-              <label>Archive</label>
+              <label>Archive Hours</label>
               <input
                 type="number"
                 className="form-control"

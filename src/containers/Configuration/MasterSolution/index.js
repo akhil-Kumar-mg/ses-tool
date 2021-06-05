@@ -8,9 +8,13 @@ import Modal from "../../../components/Solution";
 import { getCategories, getSubCategories } from "../Categories/service";
 import { getVendorDetails, getVendors } from "../Vendors/service";
 import schema from "./metadata/schema.json";
-import { deleteSolution, editSolution, getSolutions, saveSolution } from "./service";
+import {
+  deleteSolution,
+  editSolution,
+  getSolutions,
+  saveSolution,
+} from "./service";
 import "./style.scss";
-
 
 function MasterSolution() {
   const { notify } = useNotify();
@@ -29,7 +33,7 @@ function MasterSolution() {
     vendor: "",
     cost_item: "",
     feature: "",
-    sub_feature: ""
+    sub_feature: "",
   };
   const [formData, setFormData] = useState(cloneDeep(initialState));
 
@@ -48,17 +52,17 @@ function MasterSolution() {
       let allPromises = [];
       allPromises.push(getCategories());
       allPromises.push(getVendors());
-      if(catId && vendorId) {
-        allPromises.push(getSubCategories(catId))
-        allPromises.push(getVendorDetails(vendorId))
+      if (catId && vendorId) {
+        allPromises.push(getSubCategories(catId));
+        allPromises.push(getVendorDetails(vendorId));
       }
       Promise.all(allPromises)
         .then((res) => {
           setCategories(res[0]);
           setVendors(res[1]);
-          if(res.length>2) {
-            setSubCategories(res[2].sub_categories)
-            setCostItems(res[3].costitems)
+          if (res.length > 2) {
+            setSubCategories(res[2].sub_categories);
+            setCostItems(res[3].costitems);
           }
           setLoadingChoices(false);
           setShow(true);
@@ -67,7 +71,7 @@ function MasterSolution() {
           setLoadingChoices(false);
         });
     }
-  }
+  };
 
   const onLoad = () => {
     getSolutions()
@@ -94,24 +98,23 @@ function MasterSolution() {
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to add new solution.`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to add new solution.`, "error"));
   };
 
-  const onEdit = () => {
-    editSolution(formData)
+  const onEdit = (cloneData) => {
+    let _formData;
+    if (cloneData) {
+      _formData = cloneData;
+    } else {
+      _formData = cloneDeep(omit(formData));
+    }
+    editSolution(_formData)
       .then((res) => {
-        notify(
-          `solution has been edited successfully.`,
-          "success"
-        );
+        notify(`solution has been edited successfully.`, "success");
         onFormCancel();
         onLoad();
       })
-      .catch((err) =>
-        notify(`Oops! Failed to edit solution.`, "error")
-      );
+      .catch((err) => notify(`Oops! Failed to edit solution.`, "error"));
   };
 
   const onFormCancel = () => {
@@ -122,35 +125,36 @@ function MasterSolution() {
   const onGridChange = (event, item) => {
     switch (event) {
       case "edit":
-        setMode("EDIT");        
-        setFormData(cloneDeep(omit(item, ["category_name", "subcategory_name", "vendor_name"])));
+        setMode("EDIT");
+        setFormData(
+          cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          )
+        );
         loadOptions(item.category, item.vendor);
         break;
 
       case "delete":
-        onDelete(item);
+        if (item.is_active) {
+          onDelete(item);
+        } else {
+          let _cloneItem = cloneDeep(
+            omit(item, ["category_name", "subcategory_name", "vendor_name"])
+          );
+          _cloneItem.is_active = true;
+          onEdit(_cloneItem);
+        }
         break;
     }
   };
 
   const onDelete = (data) => {
-    const r = window.confirm(
-      `Do you wish to remove this solution?`
-    );
-    if (r === true) {
-      deleteSolution(data.id)
-        .then((res) => {
-          notify(
-            `The solution has been removed successfully.`,
-            "success"
-          );
-          onLoad();
-        })
-        .catch((err) =>
-          notify(`Oops! Failed to remove the solution.`, "error")
-        );
-    } else {
-    }
+    deleteSolution(data.id)
+      .then((res) => {
+        notify(`The solution has been removed successfully.`, "success");
+        onLoad();
+      })
+      .catch((err) => notify(`Oops! Failed to remove the solution.`, "error"));
   };
 
   return (
@@ -173,8 +177,13 @@ function MasterSolution() {
           ADD SOLUTION <FaIcons icon="plus" />
         </button>
       </div>
-      <div className="sub-container">
-        <Grid data={solutions} schema={schema}  onChange={onGridChange}/>
+      <div className="sub-container master-solution-sheet-view">
+        <Grid
+          data={solutions}
+          schema={schema}
+          onChange={onGridChange}
+          rowKey={"is_active"}
+        />
       </div>
     </>
   );
