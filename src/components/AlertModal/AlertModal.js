@@ -46,10 +46,11 @@ const AlertModal = ({ show, onhide }) => {
           </div>
 
           <h1>Oh no!</h1>
-          <p>
+          {/* <p>
             Oops! Something went wrong,
             <br /> you should try again.
-          </p>
+          </p> */}
+          <p>{message}</p>
           <button
             type="button"
             className="redo btn"
