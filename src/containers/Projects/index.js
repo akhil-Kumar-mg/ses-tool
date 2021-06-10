@@ -132,9 +132,9 @@ function Projects() {
         onLoad();
       })
       .catch((err) => {
-        if (err.response.data) {
+        if (err.response.data && err.response.data.error) {
           notify(
-            Object.keys(err.response.data).join(" , ") + " cannot be empty",
+            err.response.data.error,
             "error"
           );
         }

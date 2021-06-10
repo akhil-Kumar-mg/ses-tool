@@ -14,6 +14,8 @@ const VIEW_TYPE = {
   YEARLY: "YEARLY",
   CATEGORY: "CATEGORY P/L",
   REVENUE: "REVENUE",
+  SOLUTION: "SOLUTION",
+  PRICING: "PRICING",
 };
 
 function ProjectsPL(props) {
@@ -57,13 +59,13 @@ function ProjectsPL(props) {
   const onLoad = () => {
     getForecasts(props.match.params.projectId)
       .then((res) => {
-        if(res.length) {
+        if (res.length) {
           setForecast(res);
           let index = 0;
-          if(forecastId != null) {
-            index = forecast.findIndex(elem => elem.id == forecastId)
+          if (forecastId != null) {
+            index = forecast.findIndex((elem) => elem.id == forecastId);
           }
-          setForecastId(forecastId)
+          setForecastId(forecastId);
           setMonthlyData(res[index]);
         }
       })
@@ -149,6 +151,40 @@ function ProjectsPL(props) {
     return _schema;
   };
 
+  const getPricingColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+    _schema.width = "100vw";
+    _schema.columns.push({
+      name: "NAME",
+      field: "name",
+    });
+    for (let i = 1; i <= monthyData.number_of_months; i++) {
+      _schema.columns.push({
+        name: `MONTH ${i}`,
+        field: i,
+      });
+    }
+
+    return _schema;
+  };
+
+  const getSolutionColumns = () => {
+    const _schema = cloneDeep(schemaJSON);
+    _schema.width = "100vw";
+    _schema.columns.push({
+      name: "NAME",
+      field: "name",
+    });
+    for (let i = 1; i <= monthyData.number_of_months; i++) {
+      _schema.columns.push({
+        name: `MONTH ${i}`,
+        field: i,
+      });
+    }
+
+    return _schema;
+  };
+
   const renderGridInfo = (view) => {
     getSchema(view);
     getData(view);
@@ -158,7 +194,6 @@ function ProjectsPL(props) {
     switch (view) {
       case VIEW_TYPE.MONTHLY:
         setSchema(getMonthlyColumns());
-
         break;
       case VIEW_TYPE.YEARLY:
         setSchema(getYearlyColumns());
@@ -169,9 +204,14 @@ function ProjectsPL(props) {
       case VIEW_TYPE.REVENUE:
         setSchema(getRevenueColumns());
         break;
+      case VIEW_TYPE.PRICING:
+        setSchema(getPricingColumns());
+        break;
+      case VIEW_TYPE.SOLUTION:
+        setSchema(getSolutionColumns());
+        break;
     }
   };
-
 
   const getData = (view) => {
     switch (view) {
@@ -187,31 +227,28 @@ function ProjectsPL(props) {
       case VIEW_TYPE.REVENUE:
         setData(getRevenueData());
         break;
+      case VIEW_TYPE.PRICING:
+        setData(getPricingData());
+        break;
+      case VIEW_TYPE.SOLUTION:
+        setData(getSolutionData());
+        break;
     }
   };
 
   const getMonthlyData = () => {
     let rows = [];
-    // let parameters = [
-    //   "monthly_catchup_hours",
-    //   "monthly_channel_count",
-    //   "monthly_channel_hours",
-    //   "monthly_content_consumed_catchup_gb",
-    //   "monthly_content_consumed_gb",
-    //   "monthly_content_consumed_linear_gb",
-    //   "monthly_content_consumed_vod_gb",
-    //   "monthly_content_stored_origin_gb",
-    //   "monthly_impression",
-    //   "monthly_origin_hit_gb",
-    //   "monthly_subscriber_count",
-    //   "monthly_vod_hours",
-    // ];
-    let parameters = Object.keys(monthyData).filter(data => data.includes("monthly"));
+    let parameters = Object.keys(monthyData).filter((data) =>
+      data.includes("monthly")
+    );
     for (let j = 0; j < parameters.length; j++) {
       let row = {};
       row["parameter"] = parameters[j];
       for (let i = 1; i <= monthyData.number_of_months; i++) {
-        row[i] = monthyData[parameters[j]][i].toLocaleString();
+        row[i] =
+          monthyData[parameters[j]][i] != null
+            ? monthyData[parameters[j]][i].toLocaleString()
+            : null;
       }
       rows.push(row);
     }
@@ -226,10 +263,14 @@ function ProjectsPL(props) {
         row["item_type"] = yearlyData.items[i].item_type;
         for (let j = 1; j <= yearlyData.year_count; j++) {
           let suffixString = "";
-          if(row["item_type"].includes("MARGIN")){
-            suffixString = "%"
+          if (row["item_type"].includes("MARGIN")) {
+            suffixString = "%";
           }
-          row[j] = `${yearlyData.items[i].yearly_mapping[j].toLocaleString()} ${suffixString}`;
+          if (yearlyData.items[i].yearly_mapping[j] != null) {
+            row[j] = `${yearlyData.items[i].yearly_mapping[
+              j
+            ].toLocaleString()} ${suffixString}`;
+          }
         }
         rows.push(row);
       }
@@ -248,7 +289,8 @@ function ProjectsPL(props) {
             let row = {};
             row["category"] = categoryMapping[i].category;
             for (const key in categoryMapping[i].yearly_mapping) {
-              row[key] = categoryMapping[i].yearly_mapping[key].toLocaleString();
+              row[key] =
+                categoryMapping[i].yearly_mapping[key].toLocaleString();
             }
             rows.push(row);
           }
@@ -269,7 +311,8 @@ function ProjectsPL(props) {
             let row = {};
             row["category"] = categoryMapping[i].category;
             for (const key in categoryMapping[i].yearly_mapping) {
-              row[key] = categoryMapping[i].yearly_mapping[key].toLocaleString();
+              row[key] =
+                categoryMapping[i].yearly_mapping[key].toLocaleString();
             }
             rows.push(row);
           }
@@ -280,12 +323,52 @@ function ProjectsPL(props) {
     return rows;
   };
 
+  const getSolutionData = () => {
+    let rows = [];
+    if (yearlyData.solutions && yearlyData.solutions.length > 0) {
+      for (let i = 0; i < yearlyData.solutions.length; i++) {
+        let row = {};
+        row["name"] = yearlyData.solutions[i].name;
+
+        for (let j = 1; j <= monthyData.number_of_months; j++) {
+          if (yearlyData.solutions[i].monthly_mapping[j] != null) {
+            row[j] = `${yearlyData.solutions[i].monthly_mapping[
+              j
+            ].toLocaleString()}`;
+          }
+        }
+        rows.push(row);
+      }
+    }
+    return rows;
+  };
+
+  const getPricingData = () => {
+    let rows = [];
+    if (yearlyData.pricing && yearlyData.pricing.length > 0) {
+      for (let i = 0; i < yearlyData.pricing.length; i++) {
+        let row = {};
+        row["name"] = yearlyData.pricing[i].name;
+
+        for (let j = 1; j <= monthyData.number_of_months; j++) {
+          if (yearlyData.pricing[i].monthly_mapping[j] != null) {
+            row[j] = `${yearlyData.pricing[i].monthly_mapping[
+              j
+            ].toLocaleString()}`;
+          }
+        }
+        rows.push(row);
+      }
+    }
+    return rows;
+  };
+
   const onViewClick = (view) => {
     setViewType(view);
   };
 
   const onGeneratePL = () => {
-    setGeneratingPL(true)
+    setGeneratingPL(true);
     let allPromises = [];
     for (let i = 0; i < forecast.length; i++) {
       let data = {
@@ -297,11 +380,11 @@ function ProjectsPL(props) {
     Promise.all(allPromises)
       .then((res) => {
         notify("Successfully generated P/L's.", "success");
-        setGeneratingPL(false)
-        onLoad()
+        setGeneratingPL(false);
+        onLoad();
       })
       .catch((err) => {
-        setGeneratingPL(false)
+        setGeneratingPL(false);
         notify("Oops! Failed to generate P/L's.", "error");
       });
   };
@@ -339,7 +422,7 @@ function ProjectsPL(props) {
                 className="form-control"
                 value={forecastId}
                 onChange={(e) => {
-                  setForecastId(e.target.value)
+                  setForecastId(e.target.value);
                   onScenarioChange(e.target.value);
                 }}
               >
@@ -406,6 +489,28 @@ function ProjectsPL(props) {
                 onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
               >
                 REVENUE CATEGORY
+              </button>
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.PRICING
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.PRICING)}
+              >
+                PRICING
+              </button>
+              <button
+                type="button"
+                className={`btn  ${
+                  viewType === VIEW_TYPE.SOLUTION
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onViewClick(VIEW_TYPE.SOLUTION)}
+              >
+                SOLUTION
               </button>
             </div>
             {isLoaded && <Grid data={data} schema={schema} />}
