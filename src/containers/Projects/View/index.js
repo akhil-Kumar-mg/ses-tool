@@ -10,10 +10,10 @@ import { cloneDeep } from "lodash";
 import "./style.scss";
 
 const VIEW_TYPE = {
-  MONTHLY: "MONTHLY",
-  YEARLY: "YEARLY",
-  CATEGORY: "CATEGORY P/L",
-  REVENUE: "REVENUE",
+  MONTHLY: "PROJECT PARAMETERS",
+  YEARLY: "P/L",
+  CATEGORY: "COST CATEGORY",
+  REVENUE: "REVENUE CATEGORY",
   SOLUTION: "SOLUTION",
   PRICING: "PRICING",
 };
@@ -389,6 +389,10 @@ function ProjectsPL(props) {
       });
   };
 
+  const enableFullWidth = () =>{
+    return viewType === VIEW_TYPE.MONTHLY || viewType === VIEW_TYPE.SOLUTION || viewType === VIEW_TYPE.PRICING
+  }
+
   return (
     <>
       <div className="project-view-container">
@@ -442,76 +446,24 @@ function ProjectsPL(props) {
         {!generatingPL ? (
           <div
             className={`sub-container ${
-              viewType === VIEW_TYPE.MONTHLY ? "monthly-grid-container" : ""
+              enableFullWidth() ? "monthly-grid-container" : ""
             }`}
           >
             <div className="btn-group" role="group">
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.MONTHLY
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.MONTHLY)}
-              >
-                PROJECT PARAMETERS
-              </button>
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.YEARLY
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.YEARLY)}
-              >
-                P/L
-              </button>
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.CATEGORY
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.CATEGORY)}
-              >
-                COST CATEGORY
-              </button>
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.REVENUE
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.REVENUE)}
-              >
-                REVENUE CATEGORY
-              </button>
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.PRICING
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.PRICING)}
-              >
-                PRICING
-              </button>
-              <button
-                type="button"
-                className={`btn  ${
-                  viewType === VIEW_TYPE.SOLUTION
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
-                onClick={() => onViewClick(VIEW_TYPE.SOLUTION)}
-              >
-                SOLUTION
-              </button>
+              {Object.keys(VIEW_TYPE).map((item, index) => {
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    className={`btn  ${
+                      viewType === VIEW_TYPE[item] ? "btn-primary" : "btn-secondary"
+                    }`}
+                    onClick={() => onViewClick(VIEW_TYPE[item])}
+                  >
+                    {VIEW_TYPE[item]}
+                  </button>
+                );
+              })}
             </div>
             {isLoaded && <Grid data={data} schema={schema} />}
           </div>
