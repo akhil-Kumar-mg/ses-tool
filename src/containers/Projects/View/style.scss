@@ -2,14 +2,31 @@
 
 .project-view-container {
   .monthly-grid-container{
+.grid-container{
+  margin-left: 400px;
+}
+    div.col[data-static="true"]{
+     position: absolute;
+     left: 100px;
+     flex-basis: 350px;
+     z-index: 200;
+     width: 350px!important;
+   }
+   div.colsm[data-static="true"]{
+    position: absolute;
+    left: 50px!important;
+    width: 150px!important;
+    z-index: 100;
+    flex-basis: 150px!important;
+  }
     .row {
       flex-wrap: nowrap;
       display: -webkit-box;
       width: inherit;
       .col {
-      
+        height: 43.3px;
         &:not(:nth-child(1)){
-          width: 150px!important;
+          width: 150px;
           flex-basis: 150px;
           white-space: nowrap;
           overflow: hidden;

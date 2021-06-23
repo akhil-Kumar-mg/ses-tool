@@ -93,6 +93,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "P/L PARAMETERS",
       field: "item_type",
+      static: true
     });
     for (let i = 1; i <= yearlyData.year_count; i++) {
       _schema.columns.push({
@@ -110,6 +111,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "PARAMETERS",
       field: "parameter",
+      static: true
     });
     for (let i = 1; i <= monthyData.number_of_months; i++) {
       _schema.columns.push({
@@ -126,6 +128,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "OP EX CATEGORY",
       field: "category",
+      static: true
     });
     for (let i = 1; i <= yearlyData.year_count; i++) {
       _schema.columns.push({
@@ -141,6 +144,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "REVENUE CATEGORY",
       field: "category",
+      static: true
     });
     for (let i = 1; i <= yearlyData.year_count; i++) {
       _schema.columns.push({
@@ -157,6 +161,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "NAME",
       field: "name",
+      static: true
     });
     for (let i = 1; i <= monthyData.number_of_months; i++) {
       _schema.columns.push({
@@ -174,6 +179,7 @@ function ProjectsPL(props) {
     _schema.columns.push({
       name: "NAME",
       field: "name",
+      static: true
     });
     for (let i = 1; i <= monthyData.number_of_months; i++) {
       _schema.columns.push({

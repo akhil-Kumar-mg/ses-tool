@@ -79,10 +79,10 @@ function Grid({ data, schema, onChange, rowKey }) {
       style={{ width: `${schema.width || "auto"}` }}
     >
       <div className="row grid-header">
-        <div className="col colsm" style={{ width: defaultColWidth }}></div>
+        <div className="col colsm" data-static={true} style={{ width: defaultColWidth }}></div>
         {schema.columns.map((column) => {
           return (
-            <div key={column.name} className="col">
+            <div key={column.name} data-static={column.static || false} className="col">
               {column.name}
             </div>
           );
@@ -109,12 +109,12 @@ function Grid({ data, schema, onChange, rowKey }) {
             className={`row ${idx % 2 === 0 ? "even" : "odd"}`}
             {...colProps}
           >
-            <div className="col colsm" style={{ width: defaultColWidth }}>
+            <div className="col colsm" data-static={true} style={{ width: defaultColWidth }}>
               {idx + 1}
             </div>
             {schema.columns.map((column) => {
               return (
-                <div key={column.field} className="col field">
+                <div key={column.field} data-static={column.static || false} className="col field">
                   {renderItem(column, item)}
                 </div>
               );
